@@ -6,86 +6,114 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:text="Selamat Datang Kembali"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="100dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:text="email"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="166dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_greeting" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_kata_sandi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Kata Sandi"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="286dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tf_email" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress2"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_corner"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="208dp" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kata_sandi">
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_corner"
-        android:ems="10"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="317dp" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_lupa_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Lupa Kata Sandi?"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="374dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tf_password" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="347dp"
-        android:layout_height="48dp"
-        android:background="@drawable/custom_button"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
         android:backgroundTint="@color/blue"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textSize="14sp"
         android:text="Masuk ke Dalam Akun"
         android:textAllCaps="false"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="428dp" />
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_lupa_password" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Belum punya akun? Registrasi"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="487dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="42dp"
-        android:layout_height="27dp"
-        android:backgroundTint="@color/white"
-        app:srcCompat="@drawable/img"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="39dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

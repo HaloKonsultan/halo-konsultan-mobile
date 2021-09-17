@@ -1,6 +1,6 @@
 package com.halokonsultan.mobile.data.remote
 
-import com.halokonsultan.mobile.utils.CHAT_ENGINE_BASE_URL
+import com.halokonsultan.mobile.utils.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,14 +18,14 @@ class RetrofitInstance {
                 .build()
 
             Retrofit.Builder()
-                .baseUrl(CHAT_ENGINE_BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttp)
                 .build()
         }
 
-        val api: ExampleApi by lazy {
-            retrofit.create(ExampleApi::class.java)
-        }
+//        val api: ExampleApi by lazy {
+//            retrofit.create(ExampleApi::class.java)
+//        }
     }
 }
