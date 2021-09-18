@@ -1,13 +1,14 @@
 package com.halokonsultan.mobile.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.chat.ChatFragment
+import com.halokonsultan.mobile.consultation.ConsultationFragment
 import com.halokonsultan.mobile.databinding.ActivityMainBinding
-import com.halokonsultan.mobile.login.LoginActivity
-import com.halokonsultan.mobile.register.RegisterActivity
-import com.halokonsultan.mobile.utils.*
-import com.neovisionaries.ws.client.*
+import com.halokonsultan.mobile.home.HomeFragment
+import com.halokonsultan.mobile.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +21,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        val homeFragment = HomeFragment()
+        val chatFragment = ChatFragment()
+        val consultationFragment = ConsultationFragment()
+        val profileFragment = ProfileFragment()
+
+        setCurrentFragment(homeFragment)
+
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.miHome -> setCurrentFragment(homeFragment)
+                R.id.miChat -> setCurrentFragment(chatFragment)
+                R.id.miConsultation -> setCurrentFragment(consultationFragment)
+                R.id.miProfile -> setCurrentFragment(profileFragment)
+            }
+            true
+        }
     }
+
+    private fun setCurrentFragment(fragment: Fragment) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, fragment)
+            commit()
+        }
 }
