@@ -12,17 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
-        <activity android:name=".chooselocation.ChooseLocationActivity"></activity>
-        <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".login.LoginActivity" />
-        <activity android:name=".landing.LandingActivity" />
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".splash.SplashActivity" android:theme="@style/splashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".chooselocation.ChooseLocationActivity" />
+        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".landing.LandingActivity" />
+        <activity android:name=".main.MainActivity" />
     </application>
 
 </manifest>
