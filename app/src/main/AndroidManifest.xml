@@ -12,13 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
+        <activity android:name=".ui.profile.EditProfileActivity"></activity>
         <activity
-            android:name="com.halokonsultan.mobile.ui.profile.EditProfilActivity"
+            android:name=".ui.profile.EditProfilActivity"
             android:exported="true" />
-        <activity android:name="com.halokonsultan.mobile.ui.booking.BookingActivity"
-            android:exported="true"/>
         <activity
-            android:name="com.halokonsultan.mobile.ui.splash.SplashActivity"
+            android:name=".ui.booking.BookingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.splash.SplashActivity"
             android:theme="@style/splashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.halokonsultan.mobile.ui.chooselocation.ChooseLocationActivity" />
-        <activity android:name="com.halokonsultan.mobile.ui.register.RegisterActivity" />
-        <activity android:name="com.halokonsultan.mobile.ui.login.LoginActivity" />
-        <activity android:name="com.halokonsultan.mobile.ui.landing.LandingActivity" />
-        <activity android:name="com.halokonsultan.mobile.ui.main.MainActivity" />
+        <activity android:name=".ui.chooselocation.ChooseLocationActivity" />
+        <activity android:name=".ui.register.RegisterActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.landing.LandingActivity" />
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>
