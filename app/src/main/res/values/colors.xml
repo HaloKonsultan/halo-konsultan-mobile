@@ -8,4 +8,18 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#2D46B9</color>
+
+    <!--Mobile Styleguide-->
+    <color name="primary_black">#222729</color>
+    <color name="secondary_black">#4B4B4B</color>
+    <color name="primary_white">#FFFFFFFF</color>
+    <color name="secondary_white">#F4F4F4</color>
+    <color name="primary_blue">#3B85FA</color>
+    <color name="border">#CED4DA</color>
+    <color name="label">#62676B</color>
+    <color name="inactive">#B0B0B0</color>
+    <color name="placeholder">#979595</color>
+    <color name="danger">#F63131</color>
+    <color name="warning">#FFD23F</color>
+
 </resources>
