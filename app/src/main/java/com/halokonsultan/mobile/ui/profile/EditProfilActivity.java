@@ -1,8 +1,10 @@
-package com.halokonsultan.mobile.profile;
+package com.halokonsultan.mobile.ui.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.halokonsultan.mobile.R;
 
 public class EditProfilActivity extends AppCompatActivity {
 

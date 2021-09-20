@@ -1,12 +1,12 @@
-package com.halokonsultan.mobile.booking
+package com.halokonsultan.mobile.ui.register
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.halokonsultan.mobile.R
 
-class BookingActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_booking)
+        setContentView(R.layout.activity_register)
     }
 }

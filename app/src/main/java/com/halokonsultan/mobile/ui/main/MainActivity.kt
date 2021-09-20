@@ -1,14 +1,14 @@
-package com.halokonsultan.mobile.main
+package com.halokonsultan.mobile.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.halokonsultan.mobile.R
-import com.halokonsultan.mobile.chat.ChatFragment
-import com.halokonsultan.mobile.consultation.ConsultationFragment
+import com.halokonsultan.mobile.ui.chat.ChatFragment
+import com.halokonsultan.mobile.ui.consultation.ConsultationFragment
 import com.halokonsultan.mobile.databinding.ActivityMainBinding
-import com.halokonsultan.mobile.home.HomeFragment
-import com.halokonsultan.mobile.profile.ProfileFragment
+import com.halokonsultan.mobile.ui.home.HomeFragment
+import com.halokonsultan.mobile.ui.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
