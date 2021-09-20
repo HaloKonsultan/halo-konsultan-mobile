@@ -12,23 +12,33 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Nama Lengkap"
+        android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_goneMarginStart="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_nama_lengkap"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_nama"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:text=" "
+        android:layout_marginEnd="16dp"
+        android:focusable="false"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_nama">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_email"
@@ -37,22 +47,31 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Email"
+        android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_lengkap"
+        app:layout_constraintTop_toBottomOf="@+id/tf_nama"
         app:layout_goneMarginStart="16dp" />
 
-    <TextView
-        android:id="@+id/tv_nama_email"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:text=" "
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_kota"
@@ -61,22 +80,31 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Kota"
+        android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_email"
+        app:layout_constraintTop_toBottomOf="@+id/tf_email"
         app:layout_goneMarginStart="16dp" />
 
-    <TextView
-        android:id="@+id/tv_nama_kota"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_kota"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:text=" "
+        android:layout_marginEnd="16dp"
+        android:focusable="false"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_kota">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_kota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_editProfil"
@@ -91,33 +119,11 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:textSize="14sp"
-        android:text="Edit Profil"
+        android:text="Simpan Perubahan"
         android:textAllCaps="false"
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_kota" />
+        app:layout_constraintTop_toBottomOf="@+id/tf_kota" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_bankDokumen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/white"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        android:text="Bank Dokumen"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
-        android:textSize="14sp"
-        app:cornerRadius="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_editProfil" />
 </androidx.constraintlayout.widget.ConstraintLayout>
