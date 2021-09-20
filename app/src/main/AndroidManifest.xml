@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
-        <activity android:name=".splash.SplashActivity" android:theme="@style/splashScreenStyle">
+        <activity
+            android:name=".profile.EditProfilActivity"
+            android:exported="true" />
+        <activity
+            android:name=".splash.SplashActivity"
+            android:theme="@style/splashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
