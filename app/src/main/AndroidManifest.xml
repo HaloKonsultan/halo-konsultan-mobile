@@ -13,12 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
         <activity
-            android:name=".profile.EditProfilActivity"
+            android:name="com.halokonsultan.mobile.ui.profile.EditProfilActivity"
             android:exported="true" />
-        <activity android:name=".booking.BookingActivity"
+        <activity android:name="com.halokonsultan.mobile.ui.booking.BookingActivity"
             android:exported="true"/>
         <activity
-            android:name=".splash.SplashActivity"
+            android:name="com.halokonsultan.mobile.ui.splash.SplashActivity"
             android:theme="@style/splashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".chooselocation.ChooseLocationActivity" />
-        <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".login.LoginActivity" />
-        <activity android:name=".landing.LandingActivity" />
-        <activity android:name=".main.MainActivity" />
+        <activity android:name="com.halokonsultan.mobile.ui.chooselocation.ChooseLocationActivity" />
+        <activity android:name="com.halokonsultan.mobile.ui.register.RegisterActivity" />
+        <activity android:name="com.halokonsultan.mobile.ui.login.LoginActivity" />
+        <activity android:name="com.halokonsultan.mobile.ui.landing.LandingActivity" />
+        <activity android:name="com.halokonsultan.mobile.ui.main.MainActivity" />
     </application>
 
 </manifest>

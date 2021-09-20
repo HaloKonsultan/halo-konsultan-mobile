@@ -1,9 +1,9 @@
-package com.halokonsultan.mobile.splash
+package com.halokonsultan.mobile.ui.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.halokonsultan.mobile.landing.LandingActivity
+import com.halokonsultan.mobile.ui.landing.LandingActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
