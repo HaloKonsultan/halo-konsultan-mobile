@@ -6,4 +6,15 @@
     <string name="chat">Chat</string>
     <string name="konsultasi">Konsultasi</string>
     <string name="profil">Profil</string>
+
+    <!--Booking Activity-->
+    <string name="booking_konsultasi">Booking Konsultasi</string>
+    <string name="text_command">Silakan isi data-data di bawah untuk melakukan booking konsultasi.</string>
+    <string name="input_title_problem">Judul Masalah</string>
+    <string name="input_desc_problem">Deskripsi Masalah</string>
+    <string name="preferensi_konsultasi">Preferensi Konsultasi</string>
+    <string name="online_konsultasi">Online</string>
+    <string name="offline_konsultasi">Offline</string>
+    <string name="pilih_lokasi">Pilih Lokasi</string>
+    <string name="kirim">Kirim</string>
 </resources>
