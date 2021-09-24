@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.utils
 
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.data.model.Consultant
+import com.halokonsultan.mobile.data.model.Consultation
 import kotlin.collections.ArrayList
 
 
@@ -64,6 +65,120 @@ object DummyData {
                 "nama lengkap",
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140731/nuupzj8zr4ws0j7hiykq.png"))
 
+        return list
+    }
+
+    fun getConsultationList(): List<Consultation> {
+        val list: MutableList<Consultation> = ArrayList()
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "aktif",
+                true,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "aktif",
+                true,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "aktif",
+                true,
+                1632398841000
+            )
+        )
+        return list
+    }
+
+    fun getWaitingConsultationList(): List<Consultation> {
+        val list: MutableList<Consultation> = ArrayList()
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "menunggu",
+                false,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "menunggu",
+                true,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "menunggu",
+                false,
+                1632398841000
+            )
+        )
+        return list
+    }
+
+    fun getDoneConsultationList(): List<Consultation> {
+        val list: MutableList<Consultation> = ArrayList()
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "selesai",
+                true,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "selesai",
+                false,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "selesai",
+                false,
+                1632398841000
+            )
+        )
         return list
     }
 }
