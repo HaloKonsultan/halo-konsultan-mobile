@@ -72,30 +72,112 @@ object DummyData {
         val list: MutableList<Consultation> = ArrayList()
         list.add(
             Consultation(
-            "Coba",
-            123,
-            1,
-            "aktif",
-            "Coba consultation"
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "aktif",
+                true,
+                1632398841000
             )
         )
         list.add(
             Consultation(
-                "Coba",
-                123,
-                2,
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
                 "aktif",
-                "Coba consultation"
+                true,
+                1632398841000
             )
         )
         list.add(
-                Consultation(
-                    "Coba",
-                    123,
-                    3,
-                    "aktif",
-                    "Coba consultation"
-                )
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "aktif",
+                true,
+                1632398841000
+            )
+        )
+        return list
+    }
+
+    fun getWaitingConsultationList(): List<Consultation> {
+        val list: MutableList<Consultation> = ArrayList()
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "menunggu",
+                false,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "menunggu",
+                true,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "menunggu",
+                false,
+                1632398841000
+            )
+        )
+        return list
+    }
+
+    fun getDoneConsultationList(): List<Consultation> {
+        val list: MutableList<Consultation> = ArrayList()
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "selesai",
+                true,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "selesai",
+                false,
+                1632398841000
+            )
+        )
+        list.add(
+            Consultation(
+                1,
+                1,
+                "Konsultanku",
+                "Konsultasi hati",
+                "selesai",
+                false,
+                1632398841000
+            )
         )
         return list
     }

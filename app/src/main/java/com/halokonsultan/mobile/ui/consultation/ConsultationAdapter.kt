@@ -1,20 +1,21 @@
 package com.halokonsultan.mobile.ui.consultation
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.halokonsultan.mobile.data.model.Category
+import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Consultation
-import com.halokonsultan.mobile.databinding.ItemCategoryBinding
 import com.halokonsultan.mobile.databinding.ItemConsultationBinding
+import com.halokonsultan.mobile.utils.TAB_TITLES
+import com.halokonsultan.mobile.utils.Utils.toString
+import java.util.*
 
-class ConsultationAdapter: RecyclerView.Adapter<ConsultationAdapter.ConsultationViewHolder>() {
+class ConsultationAdapter(
+    private val type: Int
+): RecyclerView.Adapter<ConsultationAdapter.ConsultationViewHolder>() {
 
     inner class ConsultationViewHolder(val binding: ItemConsultationBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -39,12 +40,31 @@ class ConsultationAdapter: RecyclerView.Adapter<ConsultationAdapter.Consultation
         with(holder.binding) {
             tvConsultationTitle.text = consultation.title
             tvConsultantName.text = consultation.consultant_name
-            if (consultation.status.equals("aktif")) {
-                tvConsultationTime.text = consultation.date.toString()
-                tvConsultationTime.visibility = View.VISIBLE
-            } else {
-                tvConsultationStatus.text = consultation.status
-                tvConsultationStatus.visibility = View.VISIBLE
+            when (type) {
+                TAB_TITLES[0] -> {
+                    tvConsultationTime.text = Date(consultation.date).toString("dd/MM/yyyy hh:mm")
+                    tvConsultationTime.visibility = View.VISIBLE
+                }
+                TAB_TITLES[1] -> {
+                    if (consultation.is_confirmed) {
+                        tvConsultationStatus.text = "Menunggu Pembayaran"
+                        tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.green))
+                    } else {
+                        tvConsultationStatus.text = "Menunggu Konfirmasi Konsultan"
+                        tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.orange))
+                    }
+                    tvConsultationStatus.visibility = View.VISIBLE
+                }
+                TAB_TITLES[2] -> {
+                    if (consultation.is_confirmed) {
+                        tvConsultationStatus.text = "selesai"
+                        tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.primary_blue))
+                    } else {
+                        tvConsultationStatus.text = "ditolak"
+                        tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.danger))
+                    }
+                    tvConsultationStatus.visibility = View.VISIBLE
+                }
             }
         }
 

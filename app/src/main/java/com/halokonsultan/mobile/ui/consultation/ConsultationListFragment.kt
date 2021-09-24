@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
 import com.halokonsultan.mobile.utils.DummyData
+import com.halokonsultan.mobile.utils.TAB_TITLES
 
 class ConsultationListFragment(private val type: Int) : Fragment() {
 
@@ -28,11 +30,21 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
 
-        consultationAdapter.differ.submitList(DummyData.getConsultationList())
+        when (type) {
+            TAB_TITLES[0] -> {
+                consultationAdapter.differ.submitList(DummyData.getConsultationList())
+            }
+            TAB_TITLES[1] -> {
+                consultationAdapter.differ.submitList(DummyData.getWaitingConsultationList())
+            }
+            TAB_TITLES[2] -> {
+                consultationAdapter.differ.submitList(DummyData.getDoneConsultationList())
+            }
+        }
     }
 
     private fun setupRecyclerView() {
-        consultationAdapter = ConsultationAdapter()
+        consultationAdapter = ConsultationAdapter(type)
         with(binding.rvConsultation) {
             layoutManager = LinearLayoutManager(context)
             adapter = consultationAdapter
