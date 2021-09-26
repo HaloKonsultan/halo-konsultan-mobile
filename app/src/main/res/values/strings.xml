@@ -17,4 +17,8 @@
     <string name="offline_konsultasi">Offline</string>
     <string name="pilih_lokasi">Pilih Lokasi</string>
     <string name="kirim">Kirim</string>
+
+    <string name="tab_text_1">Aktif</string>
+    <string name="tab_text_2">Menunggu</string>
+    <string name="tab_text_3">Selesai</string>
 </resources>

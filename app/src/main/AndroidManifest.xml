@@ -15,10 +15,8 @@
         <activity
             android:name=".ui.search.SearchActivity"
             android:exported="true" />
+        <activity android:name=".ui.consultant.ConsultantActivity"></activity>
         <activity android:name=".ui.profile.EditProfileActivity" />
-        <activity
-            android:name=".ui.profile.EditProfilActivity"
-            android:exported="true" />
         <activity
             android:name=".ui.booking.BookingActivity"
             android:exported="true" />
