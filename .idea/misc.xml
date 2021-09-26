@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/College/Semester-5/WPPL/halo-konsultan-mobile-v5/halo-konsultan-mobile/app/src/main/res/drawable/bg_number_upload_doc.xml" value="0.27447916666666666" />
+        <entry key="..\:/College/Semester-5/WPPL/halo-konsultan-mobile-v5/halo-konsultan-mobile/app/src/main/res/layout/activity_upload_document.xml" value="0.1328125" />
+        <entry key="..\:/College/Semester-5/WPPL/halo-konsultan-mobile-v5/halo-konsultan-mobile/app/src/main/res/layout/item_rv_doc.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1546875" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/custom_button.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_arrow_back.xml" value="0.20052083333333334" />

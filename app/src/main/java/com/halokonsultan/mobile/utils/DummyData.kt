@@ -255,4 +255,24 @@ object DummyData {
         ))
         return list
     }
+
+    fun getUploadDocumentList(): List<Document> {
+        val list: MutableList<Document> = ArrayList()
+        list.add(
+            Document(1,"Foto KTP",
+                "Ini adalah deskripsi dari dokumen foto KTP", "")
+        )
+
+        list.add(
+            Document(2,"Foto NPWP",
+                "Ini adalah deskripsi dari dokumen foto NPWP", "")
+        )
+
+        list.add(
+            Document(3,"Foto NPWP",
+                "Ini adalah deskripsi dari dokumen foto NPWP", "ini adalah link file")
+        )
+
+        return list
+    }
 }
