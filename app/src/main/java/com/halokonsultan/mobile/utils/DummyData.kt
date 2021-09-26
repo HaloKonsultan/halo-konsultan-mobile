@@ -1,8 +1,6 @@
 package com.halokonsultan.mobile.utils
 
-import com.halokonsultan.mobile.data.model.Category
-import com.halokonsultan.mobile.data.model.Consultant
-import com.halokonsultan.mobile.data.model.Consultation
+import com.halokonsultan.mobile.data.model.*
 import kotlin.collections.ArrayList
 
 
@@ -179,6 +177,82 @@ object DummyData {
                 1632398841000
             )
         )
+        return list
+    }
+
+    fun getDocumentList(): List<ConsultantDoc> {
+        val list: MutableList<ConsultantDoc> = ArrayList()
+        list.add(ConsultantDoc(
+                1,
+                1,
+                "https://res.cloudinary.com/anongtf/image/upload/v1632654470/rgv0nn0dbm6ekvwpxaw7.png"
+        ))
+
+        list.add(ConsultantDoc(
+                2,
+                1,
+                "https://res.cloudinary.com/anongtf/image/upload/v1632654507/pxjxngj3brpbylzitjkn.png"
+        ))
+        return list
+    }
+
+    fun getEducationList(): List<ConsultantEducation> {
+        val list: MutableList<ConsultantEducation> = ArrayList()
+        list.add(ConsultantEducation(
+                1,
+                1,
+                "Universitas Atas Bawah",
+                "Sarjana Filsahat Hukum Percintaan",
+                "2016",
+                "2020"
+        ))
+        list.add(ConsultantEducation(
+                2,
+                1,
+                "University of Up and Down",
+                "Magister of Love Law Philosophical",
+                "2020",
+                "2021"
+        ))
+        return list
+    }
+
+    fun getExperienceList(): List<ConsultantExperience> {
+        val list: MutableList<ConsultantExperience> = ArrayList()
+        list.add(ConsultantExperience(
+                1,
+                1,
+                "Konsultan Percintaan",
+                "2020",
+                "Sekarang"
+        ))
+        list.add(ConsultantExperience(
+                2,
+                1,
+                "Freelance Konsultan",
+                "2021",
+                "2021"
+        ))
+        return list
+    }
+
+    fun getSkillList(): List<ConsultantSkill> {
+        val list: MutableList<ConsultantSkill> = ArrayList()
+        list.add(ConsultantSkill(
+                1,
+                1,
+                "Konflik internal percintaan"
+        ))
+        list.add(ConsultantSkill(
+                2,
+                1,
+                "Teknik meningkatkan kepercayaan diri"
+        ))
+        list.add(ConsultantSkill(
+                3,
+                1,
+                "Love Language Detection"
+        ))
         return list
     }
 }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
-        <activity android:name=".ui.profile.EditProfileActivity"></activity>
+        <activity android:name=".ui.consultant.ConsultantActivity"></activity>
+        <activity android:name=".ui.profile.EditProfileActivity" />
         <activity
             android:name=".ui.profile.EditProfilActivity"
             android:exported="true" />

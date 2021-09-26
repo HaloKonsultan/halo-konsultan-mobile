@@ -1,5 +1,6 @@
 package com.halokonsultan.mobile.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
+import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.utils.DummyData
 
 class HomeFragment : Fragment() {
@@ -51,7 +53,8 @@ class HomeFragment : Fragment() {
         }
 
         consultantAdapter.setOnItemClickListener {
-            Log.d("coba", "setupRecyclerView: consultant clicked $it")
+            val intent = Intent(binding.root.context, ConsultantActivity::class.java)
+            startActivity(intent)
         }
     }
 }
