@@ -6,28 +6,45 @@
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1546875" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/custom_button.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_arrow_back.xml" value="0.20052083333333334" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_baseline_east.xml" value="0.225" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_baseline_favorite_border.xml" value="0.2" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.2" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_briefcase.xml" value="0.2" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_chat.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_consultation.xml" value="0.20052083333333334" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_heart.xml" value="0.2" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_home.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20052083333333334" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_perpajakan.xml" value="0.2" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_pin.xml" value="0.2" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_profile.xml" value="0.1546875" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_search.xml" value="0.2" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/rounded_corner.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/rounded_corners.xml" value="0.16927083333333334" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/splash_brand_logo.xml" value="0.20052083333333334" />
-        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_choose_location.xml" value="0.13854166666666667" />
-        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_edit_profil.xml" value="0.2" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_booking.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_choose_location.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_edit_profil.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_landing.xml" value="0.33" />
-        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_login.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_register.xml" value="0.3048780487804878" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/activity_search.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/fragment_chat.xml" value="0.21" />
-        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/fragment_consultation.xml" value="0.10520833333333333" />
-        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/fragment_home.xml" value="0.14329268292682926" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/fragment_consultation.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/item_category.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/item_consultant.xml" value="0.33" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/item_search.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/list.xml" value="0.33" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/layout/list_search.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

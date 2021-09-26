@@ -34,9 +34,9 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
 
         holder.binding.tvCategoryName.text = category.name
         Glide.with(holder.itemView.context)
-                .load(Uri.parse(category.logo))
-                .apply(RequestOptions().override(40))
-                .into(holder.binding.imgCategoryIcon)
+            .load(Uri.parse(category.logo))
+            .apply(RequestOptions().override(40))
+            .into(holder.binding.imgCategoryIcon)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let { it(category) }

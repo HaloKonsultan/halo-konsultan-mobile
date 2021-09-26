@@ -1,14 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.consultation.ConsultationFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Consultation Fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:padding="16dp"
+            android:text="Sedang Menunggu Konfirmasi dari Konsultan ini."
+            android:textAlignment="center"
+            android:textColor="@color/primary_white"
+            android:textSize="12sp">
+
+        </TextView>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_photo_profile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/photo_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nama_consultant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Sayu Ogiwara, S.H"
+            android:textColor="@color/primary_black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_photo_profile" />
+
+        <TextView
+            android:id="@+id/tv_bidang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Konsultan Hukum Perdata"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nama_consultant" />
+
+        <TextView
+            android:id="@+id/tv_consultant_experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="50dp"
+            android:drawablePadding="8dp"
+            android:text="7 Tahun"
+            android:textColor="@color/primary_blue"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_heart"
+            app:layout_constraintEnd_toStartOf="@+id/tv_consultant_loves_stat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidang" />
+
+        <TextView
+            android:id="@+id/tv_experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="64dp"
+            android:text="Pengalaman"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_consultant_experience" />
+
+
+        <TextView
+            android:id="@+id/tv_consultant_loves_stat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="50dp"
+            android:drawablePadding="8dp"
+            android:text="200 Orang"
+            android:textColor="@color/primary_blue"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_heart"
+            app:layout_constraintEnd_toStartOf="@+id/tv_consultant_location"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidang" />
+
+
+        <TextView
+            android:id="@+id/tv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="81dp"
+            android:text="Menyukai"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_location"
+            app:layout_constraintStart_toEndOf="@+id/tv_experience"
+            app:layout_constraintTop_toBottomOf="@id/tv_consultant_loves_stat" />
+
+        <TextView
+            android:id="@+id/tv_consultant_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="45dp"
+            android:drawablePadding="8dp"
+            android:text="Surabaya."
+            android:textColor="@color/primary_blue"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_pin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidang" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="60dp"
+            android:text="Lokasi"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_consultant_location" />
+
+        <TextView
+            android:id="@+id/tv_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="38dp"
+            android:text="TENTANG SAYA"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_experience" />
+
+        <TextView
+            android:id="@+id/tv_isi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Saya adalah Konsultan Hukum Perdata dengan
+            pengalaman lebih dari 6 tahun di bidang ini. Saya telah bekerja sama dengan beberapa perusahaan besar untuk menangani permasalahan mereka.  "
+            android:textColor="@color/primary_black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_about" />
+
+        <TextView
+            android:id="@+id/tv_dokumentasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="DOKUMENTASI PEKERJAAN"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_isi" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_harga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="207dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Diskusi - Rp 25.000"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_isi"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="207dp"
+            android:layout_marginEnd="16dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Booking Konsultasi"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/primary_blue"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_isi" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

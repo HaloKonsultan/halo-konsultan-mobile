@@ -21,5 +21,6 @@
     <color name="placeholder">#979595</color>
     <color name="danger">#F63131</color>
     <color name="warning">#FFD23F</color>
+    <color name="orange">#F2994A</color>
 
 </resources>
