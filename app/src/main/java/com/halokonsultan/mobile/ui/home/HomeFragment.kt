@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.SearchEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
+import com.halokonsultan.mobile.ui.search.SearchActivity
 import com.halokonsultan.mobile.utils.DummyData
 
 class HomeFragment : Fragment() {
@@ -33,6 +35,11 @@ class HomeFragment : Fragment() {
 
         consultantAdapter.differ.submitList(DummyData.getConsultantList())
         categoryAdapter.differ.submitList(DummyData.getCategoryList())
+
+        binding.btnSearch.setOnClickListener {
+            val intent = Intent(context, SearchActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView() {
