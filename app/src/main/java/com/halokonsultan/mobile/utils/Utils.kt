@@ -1,5 +1,7 @@
 package com.halokonsultan.mobile.utils
 
+import android.text.TextUtils
+import android.util.Patterns
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,5 +15,8 @@ object Utils {
     fun getCurrentDateTime(): Date {
         return Calendar.getInstance().time
     }
+
+    fun String.isValidEmail() =
+            !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 }

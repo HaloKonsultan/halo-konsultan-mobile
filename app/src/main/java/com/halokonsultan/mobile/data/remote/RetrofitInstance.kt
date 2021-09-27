@@ -24,8 +24,8 @@ class RetrofitInstance {
                 .build()
         }
 
-//        val api: ExampleApi by lazy {
-//            retrofit.create(ExampleApi::class.java)
-//        }
+        val api: HaloKonsultanApi by lazy {
+            retrofit.create(HaloKonsultanApi::class.java)
+        }
     }
 }
