@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.databinding.ItemCategoryBinding
 
@@ -34,8 +35,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
 
         holder.binding.tvCategoryName.text = category.name
         Glide.with(holder.itemView.context)
-            .load(Uri.parse(category.logo))
-            .apply(RequestOptions().override(40))
+            .load(R.drawable.ic_other_category)
             .into(holder.binding.imgCategoryIcon)
 
         holder.itemView.setOnClickListener {
