@@ -20,12 +20,10 @@ class LandingActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
-            finish()
         }
 
         binding.btnRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
-            finish()
         }
     }
 }

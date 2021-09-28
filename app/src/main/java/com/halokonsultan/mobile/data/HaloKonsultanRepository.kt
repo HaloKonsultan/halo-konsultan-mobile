@@ -12,4 +12,10 @@ class HaloKonsultanRepository @Inject constructor(
             "password" to password
     ))
 
+    suspend fun register(name: String, email: String, password: String) = api.login(hashMapOf(
+            "name" to name,
+            "email" to email,
+            "password" to password
+    ))
+
 }

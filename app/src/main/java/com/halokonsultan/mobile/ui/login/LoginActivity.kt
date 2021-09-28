@@ -3,12 +3,14 @@ package com.halokonsultan.mobile.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivityLoginBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
+import com.halokonsultan.mobile.ui.register.RegisterActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils.isValidEmail
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +26,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = "Login"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         binding.btnLogin.setOnClickListener {
             if (validateLogin()) {
 //                login()
@@ -32,6 +38,10 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Email harus valid dan password wajib diisi", Toast.LENGTH_LONG).show()
             }
+        }
+
+        binding.tvRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
@@ -62,5 +72,15 @@ class LoginActivity : AppCompatActivity() {
             !binding.etEmail.text.isNullOrBlank()
                     && !binding.etPassword.text.isNullOrBlank()
                     && binding.etEmail.text.toString().isValidEmail()
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
