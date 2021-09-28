@@ -13,14 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
         <activity android:name=".ui.uploaddocument.UploadDocument" />
-        <activity
-            android:name=".ui.search.SearchActivity"
-            android:exported="true" />
+        <activity android:name=".ui.search.SearchActivity"/>
         <activity android:name=".ui.consultant.ConsultantActivity" />
         <activity android:name=".ui.profile.EditProfileActivity" />
-        <activity
-            android:name=".ui.booking.BookingActivity"
-            android:exported="true" />
+        <activity android:name=".ui.booking.BookingActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/splashScreenStyle">
