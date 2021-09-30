@@ -1,5 +1,6 @@
 package com.halokonsultan.mobile.ui.consultation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -51,6 +52,8 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
         }
 
         consultationAdapter.setOnItemClickListener {
+            val intent =  Intent(binding.root.context, DetilConsultationActivity::class.java)
+            startActivity(intent)
             Log.d("coba", "setupRecyclerView: category clicked $it")
         }
     }
