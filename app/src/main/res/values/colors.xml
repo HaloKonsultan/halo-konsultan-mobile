@@ -23,5 +23,6 @@
     <color name="warning">#FFD23F</color>
     <color name="orange">#F2994A</color>
     <color name="green">#219653</color>
+    <color name="gray">#E1E1E1</color>
 
 </resources>
