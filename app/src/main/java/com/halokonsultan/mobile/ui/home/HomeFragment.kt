@@ -12,7 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
+import com.halokonsultan.mobile.ui.category.CategoryActivity
+import com.halokonsultan.mobile.ui.category.CategoryAdapter
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
+import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.ui.search.SearchActivity
 import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
@@ -89,7 +92,8 @@ class HomeFragment : Fragment() {
         }
 
         categoryAdapter.setOnItemClickListener {
-            Log.d("coba", "setupRecyclerView: category clicked $it")
+            val intent = Intent(binding.root.context, CategoryActivity::class.java)
+            startActivity(intent)
         }
 
         consultantAdapter = ConsultantAdapter()

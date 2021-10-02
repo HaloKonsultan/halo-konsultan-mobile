@@ -1,4 +1,4 @@
-package com.halokonsultan.mobile.ui.home
+package com.halokonsultan.mobile.ui.consultant
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

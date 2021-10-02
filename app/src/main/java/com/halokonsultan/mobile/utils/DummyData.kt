@@ -9,34 +9,60 @@ object DummyData {
         val list: MutableList<Category> = ArrayList()
         list.add(Category(1,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
-                "Perpajakan",
-                "Keuangan"))
+                "Perpajakan"))
 
         list.add(Category(2,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
-                "Perpajakan",
-                "Keuangan"))
+                "Perpajakan"))
 
         list.add(Category(3,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
-                "Perpajakan",
-                "Keuangan"))
+                "Perpajakan"))
 
         list.add(Category(4,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
-                "Perpajakan",
-                "Keuangan"))
+                "Perpajakan"))
 
         list.add(Category(5,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
-                "Perpajakan",
-                "Keuangan"))
+                "Perpajakan"))
 
         list.add(Category(6,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
-                "Perpajakan",
-                "Keuangan"))
+                "Perpajakan"))
 
+        return list
+    }
+
+    fun getParentCategoryList(): List<ParentCategory> {
+        val list: MutableList<ParentCategory> = ArrayList()
+        list.add(
+            ParentCategory(
+            1,
+            "Agama",
+            getCategoryList())
+        )
+
+        list.add(
+            ParentCategory(
+                2,
+                "Keuangan",
+                getCategoryList())
+        )
+
+        list.add(
+            ParentCategory(
+                3,
+                "Bangunan",
+                getCategoryList())
+        )
+
+        list.add(
+            ParentCategory(
+                4,
+                "Kesehatan",
+                getCategoryList())
+        )
         return list
     }
 

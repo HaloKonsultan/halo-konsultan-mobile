@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
+        <activity android:name=".ui.category.CategoryActivity"></activity>
         <activity
             android:name=".ui.consultation.DetilConsultationActivity"
             android:exported="true" />

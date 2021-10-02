@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.ActivitySearchBinding
-import com.halokonsultan.mobile.ui.home.ConsultantAdapter
+import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.utils.DummyData
 
 
