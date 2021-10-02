@@ -8,6 +8,7 @@ data class DetailConsultant(
         val likes_total: Int,
         val location: String,
         val photo: String,
+        val category: String,
         val consultant_doc: List<ConsultantDoc>,
         val consultant_educations: List<ConsultantEducation>,
         val consultant_experience: List<ConsultantExperience>,
