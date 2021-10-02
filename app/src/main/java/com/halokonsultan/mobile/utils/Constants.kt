@@ -18,3 +18,6 @@ val TAB_TITLES = intArrayOf(
     R.string.tab_text_2,
     R.string.tab_text_3,
 )
+
+// others
+const val SEARCH_USER_TIME_DELAY = 500L

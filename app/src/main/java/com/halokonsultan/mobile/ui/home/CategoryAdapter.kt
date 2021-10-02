@@ -1,4 +1,4 @@
-package com.halokonsultan.mobile.ui.category
+package com.halokonsultan.mobile.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -30,8 +30,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = differ.currentList[position]
-        val categoryName = "Konsultan ${category.name}"
-        holder.binding.tvCategoryName.text = categoryName
+        holder.binding.tvCategoryName.text = category.name
         Glide.with(holder.itemView.context)
             .load(R.drawable.ic_other_category)
             .into(holder.binding.imgCategoryIcon)

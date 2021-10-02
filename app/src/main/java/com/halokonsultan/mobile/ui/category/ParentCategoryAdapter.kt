@@ -25,6 +25,7 @@ class ParentCategoryAdapter : RecyclerView.Adapter<ParentCategoryAdapter.ParentC
     }
 
     val differ = AsyncListDiffer(this, differCallback)
+    private var onItemClickListener: ((Category) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentCategoryViewHolder {
         val itemBinding = ItemParentCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -43,10 +44,14 @@ class ParentCategoryAdapter : RecyclerView.Adapter<ParentCategoryAdapter.ParentC
         }
 
         categoryAdapter.differ.submitList(parentCategory.child)
-        categoryAdapter.setOnItemClickListener {
-            Log.d("tag", "onBindViewHolder: $it")
+        categoryAdapter.setOnItemClickListener { category ->
+            onItemClickListener?.let { it -> it(category) }
         }
     }
 
     override fun getItemCount() = differ.currentList.size
+
+    fun setOnItemClickListener(listener: (Category) -> Unit) {
+        onItemClickListener = listener
+    }
 }

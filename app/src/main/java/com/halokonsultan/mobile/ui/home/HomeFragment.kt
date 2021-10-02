@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
-import com.halokonsultan.mobile.ui.category.CategoryAdapter
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.ui.search.SearchActivity
@@ -43,9 +42,10 @@ class HomeFragment : Fragment() {
 
         viewModel.getRandomCategories()
         viewModel.categories.observe(viewLifecycleOwner, { response ->
-            when(response) {
+            when (response) {
                 is Resource.Success -> {
                     binding.categoryProgressBar.visibility = View.GONE
+                    Log.d("coba", "onViewCreated: ${response.data}")
                     categoryAdapter.differ.submitList(response.data)
                 }
                 is Resource.Error -> {
@@ -91,9 +91,18 @@ class HomeFragment : Fragment() {
             adapter = categoryAdapter
         }
 
-        categoryAdapter.setOnItemClickListener {
-            val intent = Intent(binding.root.context, CategoryActivity::class.java)
-            startActivity(intent)
+        categoryAdapter.setOnItemClickListener { category ->
+            if (category.id == 999) {
+                val intent = Intent(binding.root.context, CategoryActivity::class.java)
+                startActivity(intent)
+            } else {
+                val categoryName = "Konsultan ${category.name}"
+                val intent = Intent(binding.root.context, SearchActivity::class.java)
+                intent.putExtra(SearchActivity.EXTRA_CATEGORY_ID, category.id)
+                intent.putExtra(SearchActivity.EXTRA_CATEGORY_NAME, categoryName)
+                startActivity(intent)
+            }
+
         }
 
         consultantAdapter = ConsultantAdapter()

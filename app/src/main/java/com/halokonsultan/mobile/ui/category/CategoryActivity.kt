@@ -1,10 +1,12 @@
 package com.halokonsultan.mobile.ui.category
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivityCategoryBinding
+import com.halokonsultan.mobile.ui.search.SearchActivity
 import com.halokonsultan.mobile.utils.DummyData
 
 class CategoryActivity : AppCompatActivity() {
@@ -26,6 +28,14 @@ class CategoryActivity : AppCompatActivity() {
         with(binding.rvParentCategory) {
             layoutManager = LinearLayoutManager(context)
             adapter = parentCategoryAdapter
+        }
+
+        parentCategoryAdapter.setOnItemClickListener { category ->
+            val categoryName = "Konsultan ${category.name}"
+            val intent = Intent(binding.root.context, SearchActivity::class.java)
+            intent.putExtra(SearchActivity.EXTRA_CATEGORY_ID, category.id)
+            intent.putExtra(SearchActivity.EXTRA_CATEGORY_NAME, categoryName)
+            startActivity(intent)
         }
     }
 }

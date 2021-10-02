@@ -23,4 +23,8 @@ class HaloKonsultanRepository @Inject constructor(
     suspend fun getNearestConsultants(city: String) = api.getNearestConsultants(city)
 
     suspend fun getConsultantDetail(id: Int) = api.getConsultantDetail(id)
+
+    suspend fun searchConsultantByName(name: String) = api.search(name)
+
+    suspend fun getConsultantByCategory(id: Int) = api.getConsultantByCategory(id)
 }
