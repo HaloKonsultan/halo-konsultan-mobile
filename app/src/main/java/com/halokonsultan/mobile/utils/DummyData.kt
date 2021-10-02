@@ -27,9 +27,13 @@ object DummyData {
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
                 "Perpajakan"))
 
-        list.add(Category(6,
+        list.add(
+            Category(
+                999,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
-                "Perpajakan"))
+                "Lainnya",
+            )
+        )
 
         return list
     }

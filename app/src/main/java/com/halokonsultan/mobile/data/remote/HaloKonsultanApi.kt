@@ -5,10 +5,7 @@ import com.halokonsultan.mobile.data.model.CategoryResponse
 import com.halokonsultan.mobile.data.model.ConsultantResponse
 import com.halokonsultan.mobile.data.model.DetailConsultantResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface HaloKonsultanApi {
 
@@ -34,4 +31,14 @@ interface HaloKonsultanApi {
     suspend fun getConsultantDetail(
         @Path("id") id: Int
     ): Response<DetailConsultantResponse>
+
+    @POST("consultant")
+    suspend fun search(
+        @Query("q") keyword: String
+    ): Response<ConsultantResponse>
+
+    @GET("consultant/category/{category_id}")
+    suspend fun getConsultantByCategory(
+        @Path("category_id") categoryId: Int
+    ): Response<ConsultantResponse>
 }
