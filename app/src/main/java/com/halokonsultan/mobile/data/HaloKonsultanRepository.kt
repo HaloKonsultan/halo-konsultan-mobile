@@ -18,4 +18,8 @@ class HaloKonsultanRepository @Inject constructor(
             "password" to password
     ))
 
+    suspend fun getRandomCategories() = api.getRandomCategories()
+
+    suspend fun getNearestConsultants(city: String) = api.getNearestConsultants(city)
+
 }

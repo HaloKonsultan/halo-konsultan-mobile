@@ -105,6 +105,22 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_konsultan_spesialis" />
 
+            <ProgressBar
+                android:id="@+id/category_progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/rv_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/rv_category"/>
+
             <TextView
                 android:id="@+id/tv_konsultan_terdekat"
                 android:layout_width="wrap_content"
@@ -138,6 +154,21 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_konsultan_terdekat"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <ProgressBar
+                android:id="@+id/consultant_progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/rv_nearest_consultant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/rv_nearest_consultant"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </LinearLayout>

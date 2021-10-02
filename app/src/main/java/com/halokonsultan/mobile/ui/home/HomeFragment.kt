@@ -8,18 +8,24 @@ import android.view.LayoutInflater
 import android.view.SearchEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.search.SearchActivity
 import com.halokonsultan.mobile.utils.DummyData
+import com.halokonsultan.mobile.utils.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var consultantAdapter: ConsultantAdapter
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +38,40 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+
+        viewModel.getRandomCategories()
+        viewModel.categories.observe(viewLifecycleOwner, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    binding.categoryProgressBar.visibility = View.GONE
+                    categoryAdapter.differ.submitList(response.data)
+                }
+                is Resource.Error -> {
+                    binding.categoryProgressBar.visibility = View.GONE
+                    Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
+                }
+                is Resource.Loading -> {
+                    binding.categoryProgressBar.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        viewModel.getNearestConsultants("Surabaya")
+        viewModel.consultants.observe(viewLifecycleOwner, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    binding.consultantProgressBar.visibility = View.GONE
+                    consultantAdapter.differ.submitList(response.data)
+                }
+                is Resource.Error -> {
+                    binding.consultantProgressBar.visibility = View.GONE
+                    Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
+                }
+                is Resource.Loading -> {
+                    binding.consultantProgressBar.visibility = View.VISIBLE
+                }
+            }
+        })
 
         consultantAdapter.differ.submitList(DummyData.getConsultantList())
         categoryAdapter.differ.submitList(DummyData.getCategoryList())
