@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.data.remote
 import com.halokonsultan.mobile.data.model.AuthResponse
 import com.halokonsultan.mobile.data.model.CategoryResponse
 import com.halokonsultan.mobile.data.model.ConsultantResponse
+import com.halokonsultan.mobile.data.model.DetailConsultantResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -28,4 +29,9 @@ interface HaloKonsultanApi {
     suspend fun getNearestConsultants(
         @Path("city") city: String
     ): Response<ConsultantResponse>
+
+    @GET("consultant/{id}")
+    suspend fun getConsultantDetail(
+        @Path("id") id: Int
+    ): Response<DetailConsultantResponse>
 }
