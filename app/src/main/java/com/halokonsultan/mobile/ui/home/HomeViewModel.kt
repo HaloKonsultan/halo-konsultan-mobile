@@ -37,7 +37,6 @@ class HomeViewModel @Inject constructor(
                     999,
                     "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
                     "Lainnya",
-                    "others"
                 )
             )
             _categories.postValue(Resource.Success(tempCategory))

@@ -1,13 +1,11 @@
-package com.halokonsultan.mobile.ui.home
+package com.halokonsultan.mobile.ui.category
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.databinding.ItemCategoryBinding
@@ -32,8 +30,8 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = differ.currentList[position]
-
-        holder.binding.tvCategoryName.text = category.name
+        val categoryName = "Konsultan ${category.name}"
+        holder.binding.tvCategoryName.text = categoryName
         Glide.with(holder.itemView.context)
             .load(R.drawable.ic_other_category)
             .into(holder.binding.imgCategoryIcon)
