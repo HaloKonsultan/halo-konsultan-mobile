@@ -27,4 +27,16 @@ class HaloKonsultanRepository @Inject constructor(
     suspend fun searchConsultantByName(name: String) = api.search(name)
 
     suspend fun getConsultantByCategory(id: Int) = api.getConsultantByCategory(id)
+
+    suspend fun bookingConsultation(title: String, description: String, isOnline: Boolean, isOffline: Boolean, location: String) =
+        api.bookingConsultation(hashMapOf(
+            "title" to title,
+            "description" to description,
+            "is_online" to isOnline,
+            "is_offline" to isOffline,
+            "location" to location
+        ))
+
+    suspend fun getListConsultation(userId: Int, status: String, limit: Int, page: Int) =
+        api.getConsultationList(userId, status, limit, page)
 }

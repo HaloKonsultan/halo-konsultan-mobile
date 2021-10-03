@@ -1,9 +1,6 @@
 package com.halokonsultan.mobile.data.remote
 
-import com.halokonsultan.mobile.data.model.AuthResponse
-import com.halokonsultan.mobile.data.model.CategoryResponse
-import com.halokonsultan.mobile.data.model.ConsultantResponse
-import com.halokonsultan.mobile.data.model.DetailConsultantResponse
+import com.halokonsultan.mobile.data.model.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -41,4 +38,17 @@ interface HaloKonsultanApi {
     suspend fun getConsultantByCategory(
         @Path("category_id") categoryId: Int
     ): Response<ConsultantResponse>
+
+    @POST("consultations")
+    suspend fun bookingConsultation(
+        @Body consultationInfo: HashMap<String, Any>
+    ): Response<DetailConsultationResponse>
+
+    @GET("consultaions/user/{user_id}/{status}")
+    suspend fun getConsultationList(
+        @Path("user_id") userId: Int,
+        @Path("status") status: String,
+        @Query("limit") limit: Int,
+        @Query("page") page: Int
+    ): Response<ConsultationResponse>
 }
