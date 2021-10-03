@@ -14,7 +14,7 @@
         android:theme="@style/Theme.HaloKonsultan">
         <activity android:name=".ui.category.CategoryActivity"></activity>
         <activity
-            android:name=".ui.consultation.DetilConsultationActivity"
+            android:name=".ui.consultation.DetailConsultationActivity"
             android:exported="true" />
         <activity android:name=".ui.uploaddocument.UploadDocument" />
         <activity android:name=".ui.search.SearchActivity" />
