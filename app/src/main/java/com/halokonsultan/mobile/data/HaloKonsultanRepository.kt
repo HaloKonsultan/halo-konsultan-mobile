@@ -39,4 +39,6 @@ class HaloKonsultanRepository @Inject constructor(
 
     suspend fun getListConsultation(userId: Int, status: String, limit: Int, page: Int) =
         api.getConsultationList(userId, status, limit, page)
+
+    suspend fun getDetailConsultation(id: Int) = api.getDetailConsultation(id)
 }

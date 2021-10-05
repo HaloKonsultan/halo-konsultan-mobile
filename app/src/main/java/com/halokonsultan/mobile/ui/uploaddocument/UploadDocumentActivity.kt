@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.ActivityUploadDocumentBinding
 import com.halokonsultan.mobile.utils.DummyData
 
-class UploadDocument : AppCompatActivity() {
+class UploadDocumentActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUploadDocumentBinding
     private lateinit var uploadAdapter: UploadAdapter
