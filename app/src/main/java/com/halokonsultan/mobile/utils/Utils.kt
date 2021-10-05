@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.utils
 
 import android.text.TextUtils
 import android.util.Patterns
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,5 +19,11 @@ object Utils {
 
     fun String.isValidEmail() =
             !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+    fun formatPrice(data: Int): String {
+        val numberFormat = NumberFormat.getCurrencyInstance()
+        numberFormat.maximumFractionDigits = 0
+        return numberFormat.format(data)
+    }
 
 }

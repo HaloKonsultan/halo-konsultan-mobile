@@ -16,7 +16,7 @@
         <activity
             android:name=".ui.consultation.DetailConsultationActivity"
             android:exported="true" />
-        <activity android:name=".ui.uploaddocument.UploadDocument" />
+        <activity android:name=".ui.uploaddocument.UploadDocumentActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.consultant.ConsultantActivity" />
         <activity android:name=".ui.profile.EditProfileActivity" />

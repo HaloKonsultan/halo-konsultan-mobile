@@ -37,7 +37,7 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
 
         viewModel.getConsultationListBasedOnStatus(1, resources.getString(type), 10, 1)
         Log.d("coba", "onViewCreated: ${resources.getString(type)}")
-        viewModel.consultation.observe(viewLifecycleOwner, { response ->
+        viewModel.consultationList.observe(viewLifecycleOwner, { response ->
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
@@ -76,8 +76,8 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
 
         consultationAdapter.setOnItemClickListener {
             val intent =  Intent(binding.root.context, DetailConsultationActivity::class.java)
+            intent.putExtra(DetailConsultationActivity.EXTRA_ID, it.id)
             startActivity(intent)
-            Log.d("coba", "setupRecyclerView: category clicked $it")
         }
     }
 }

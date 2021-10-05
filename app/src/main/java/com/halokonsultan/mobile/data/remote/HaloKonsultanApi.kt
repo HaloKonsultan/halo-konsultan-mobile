@@ -51,4 +51,9 @@ interface HaloKonsultanApi {
         @Query("limit") limit: Int,
         @Query("page") page: Int
     ): Response<ConsultationResponse>
+
+    @GET("consultation/{id}")
+    suspend fun getDetailConsultation(
+        @Path("id") id: Int
+    ): Response<DetailConsultationResponse>
 }
