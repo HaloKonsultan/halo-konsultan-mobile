@@ -106,7 +106,7 @@ object DummyData {
                 "Konsultasi hati",
                 "aktif",
                 true,
-                1632398841000
+                "1632398841000"
             )
         )
         list.add(
@@ -117,7 +117,7 @@ object DummyData {
                 "Konsultasi hati",
                 "aktif",
                 true,
-                1632398841000
+                "1632398841000"
             )
         )
         list.add(
@@ -128,7 +128,7 @@ object DummyData {
                 "Konsultasi hati",
                 "aktif",
                 true,
-                1632398841000
+                "1632398841000"
             )
         )
         return list
@@ -144,7 +144,7 @@ object DummyData {
                 "Konsultasi hati",
                 "menunggu",
                 false,
-                1632398841000
+                "1632398841000"
             )
         )
         list.add(
@@ -155,7 +155,7 @@ object DummyData {
                 "Konsultasi hati",
                 "menunggu",
                 true,
-                1632398841000
+                "1632398841000"
             )
         )
         list.add(
@@ -166,7 +166,7 @@ object DummyData {
                 "Konsultasi hati",
                 "menunggu",
                 false,
-                1632398841000
+                "1632398841000"
             )
         )
         return list
@@ -182,7 +182,7 @@ object DummyData {
                 "Konsultasi hati",
                 "selesai",
                 true,
-                1632398841000
+                "1632398841000"
             )
         )
         list.add(
@@ -193,7 +193,7 @@ object DummyData {
                 "Konsultasi hati",
                 "selesai",
                 false,
-                1632398841000
+                "1632398841000"
             )
         )
         list.add(
@@ -204,7 +204,7 @@ object DummyData {
                 "Konsultasi hati",
                 "selesai",
                 false,
-                1632398841000
+                "1632398841000"
             )
         )
         return list
@@ -301,6 +301,23 @@ object DummyData {
         list.add(
             Document(3,"Foto NPWP",
                 "Ini adalah deskripsi dari dokumen foto NPWP", "ini adalah link file")
+        )
+
+        return list
+    }
+
+    fun getConsultationTime(): List<ConsultationsPrefDate> {
+        val list: MutableList<ConsultationsPrefDate> = ArrayList()
+        list.add(
+            ConsultationsPrefDate("Senin, 21 Juni 2021, 12.00")
+        )
+
+        list.add(
+            ConsultationsPrefDate("Selasa, 22 Juni 2021, 12.00")
+        )
+
+        list.add(
+            ConsultationsPrefDate("Rabu, 23 Juni 2021, 15.00")
         )
 
         return list
