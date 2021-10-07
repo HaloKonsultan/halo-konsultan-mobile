@@ -27,4 +27,8 @@
     <string name="command_unggah_dokumen">Silakan unggah dokumen-dokumen berikut,</string>
     <string name="simpan_dokumen">Simpan Dokumen</string>
     <string name="unggah">Unggah</string>
+
+    <!--Choose Consultation Time-->
+    <string name="pilih_waktu_konsultasi">Pilih Waktu Konsultasi</string>
+    <string name="command_pilih_waktu">Silakan pilih waktu konsultasi yang tersedia</string>
 </resources>

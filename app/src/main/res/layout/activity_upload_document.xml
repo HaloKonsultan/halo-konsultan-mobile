@@ -47,6 +47,25 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCommand" />
+        app:layout_constraintTop_toBottomOf="@+id/textCommand"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="@color/primary_blue"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:text="@string/simpan_dokumen"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_doc" />
 </androidx.constraintlayout.widget.ConstraintLayout>

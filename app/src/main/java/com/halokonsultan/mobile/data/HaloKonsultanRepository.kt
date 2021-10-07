@@ -1,6 +1,8 @@
 package com.halokonsultan.mobile.data
 
+import com.halokonsultan.mobile.data.model.ConsultationsPrefDate
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
+import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTime
 import javax.inject.Inject
 
 class HaloKonsultanRepository @Inject constructor(
@@ -41,4 +43,8 @@ class HaloKonsultanRepository @Inject constructor(
         api.getConsultationList(userId, status, limit, page)
 
     suspend fun getDetailConsultation(id: Int) = api.getDetailConsultation(id)
+
+    suspend fun getPrefDate(id: Int, date: String) = api.getPrefDate(id, hashMapOf(
+        "date" to date
+    ))
 }

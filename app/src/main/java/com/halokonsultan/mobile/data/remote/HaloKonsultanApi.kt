@@ -56,4 +56,10 @@ interface HaloKonsultanApi {
     suspend fun getDetailConsultation(
         @Path("id") id: Int
     ): Response<DetailConsultationResponse>
+
+    @PATCH("consultations/{id}")
+    suspend fun getPrefDate(
+        @Path("id") id: Int,
+        @Body prefDate: HashMap<String, Any>
+    ): Response<DetailConsultationResponse>
 }
