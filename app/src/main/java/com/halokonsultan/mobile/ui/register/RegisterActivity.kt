@@ -3,12 +3,16 @@ package com.halokonsultan.mobile.ui.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.UnderlineSpan
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivityRegisterBinding
+import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationActivity
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils.isValidEmail
@@ -23,14 +27,20 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "Register"
+        supportActionBar?.title = ""
+        supportActionBar?.elevation = 0f
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+
+        val spannable = SpannableStringBuilder("Dengan menekan tombol Registrasi Akun, Anda telah menyetujui syarat dan ketentuan kami.")
+        spannable.setSpan(UnderlineSpan(), 61, 86, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        binding.tvInformation.text = spannable
 
         binding.btnRegistrasi.setOnClickListener {
             if (validateRegister()) {
 //                register()
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, ChooseLocationActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "Email harus valid dan password wajib diisi", Toast.LENGTH_LONG).show()

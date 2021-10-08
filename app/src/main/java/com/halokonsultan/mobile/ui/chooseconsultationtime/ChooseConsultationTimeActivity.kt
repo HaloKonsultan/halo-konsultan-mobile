@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.ui.chooseconsultationtime
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -11,7 +12,7 @@ import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChooseConsultationTime : AppCompatActivity() {
+class ChooseConsultationTimeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChooseConsultationTimeBinding
     private lateinit var button: MaterialButtonToggleGroup
@@ -23,6 +24,11 @@ class ChooseConsultationTime : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChooseConsultationTimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.title = ""
+        supportActionBar?.elevation = 0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         button = binding.toggleButtonGroup
         button.isSingleSelection = true
@@ -42,7 +48,7 @@ class ChooseConsultationTime : AppCompatActivity() {
         }
     }
 
-    fun onCheckedButton() {
+    private fun onCheckedButton() {
         button.addOnButtonCheckedListener { group, checkedId, isChecked ->
             when (checkedId) {
                 binding.btnDateOne.id -> {
@@ -61,7 +67,7 @@ class ChooseConsultationTime : AppCompatActivity() {
         }
     }
 
-    fun sendToApi() {
+    private fun sendToApi() {
         viewModel.getPrefDate(id, checkedBtnData)
         viewModel.date.observe(this, { data ->
             when (data) {
@@ -83,5 +89,15 @@ class ChooseConsultationTime : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

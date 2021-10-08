@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.ui.uploaddocument
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.databinding.ActivityUploadDocumentBinding
 import com.halokonsultan.mobile.utils.DummyData
@@ -17,6 +18,11 @@ class UploadDocumentActivity : AppCompatActivity() {
         binding = ActivityUploadDocumentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = ""
+        supportActionBar?.elevation = 0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         setupRecyclerView()
         uploadAdapter.differ.submitList(DummyData.getUploadDocumentList())
         Log.d("coba", "Ini Log RecyclerView: ${uploadAdapter.itemCount}")
@@ -28,5 +34,15 @@ class UploadDocumentActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = uploadAdapter
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

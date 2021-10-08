@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Nama Lengkap"
+        android:text="@string/nama_lengkap"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_goneMarginStart="16dp"
@@ -21,13 +21,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tf_nama"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:focusable="false"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama">
@@ -36,7 +36,8 @@
             android:id="@+id/et_nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:hint="@string/masukkan_nama_anda"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Email"
+        android:text="@string/email"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,22 +56,24 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tf_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"
-            android:focusableInTouchMode="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:inputType="textEmailAddress"
+            android:hint="@string/masukkan_email_anda"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -79,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Kota"
+        android:text="@string/kota"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,13 +91,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tf_kota"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:focusable="false"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_kota">
@@ -103,7 +106,8 @@
             android:id="@+id/et_kota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:hint="@string/masukkan_kota_anda"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -119,7 +123,7 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:textSize="14sp"
-        android:text="Simpan Perubahan"
+        android:text="@string/simpan_perubahan"
         android:textAllCaps="false"
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"

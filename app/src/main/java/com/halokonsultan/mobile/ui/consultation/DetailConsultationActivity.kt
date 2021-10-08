@@ -6,13 +6,15 @@ import android.content.res.ColorStateList
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBar
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityDetailConsultationBinding
-import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationActivity
+import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTimeActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
@@ -32,6 +34,13 @@ class DetailConsultationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailConsultationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.title_text_view)
+        supportActionBar?.elevation = 0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        Utils.setTitleTextView(this, "Detail Konsultasi")
 
         val bundle = intent.extras
         if (bundle != null) {
@@ -54,6 +63,17 @@ class DetailConsultationActivity : AppCompatActivity() {
                 }
             }
         })
+
+        // dummy
+        binding.btnChooseTime.setOnClickListener {
+            val intent = Intent(this@DetailConsultationActivity, ChooseConsultationTimeActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnChooseDocument.setOnClickListener {
+            val intent = Intent(this@DetailConsultationActivity, UploadDocumentActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun populateData(data: DetailConsultation?) {
@@ -73,7 +93,7 @@ class DetailConsultationActivity : AppCompatActivity() {
             }
 
             btnChooseTime.setOnClickListener {
-                val intent = Intent(this@DetailConsultationActivity, ChooseLocationActivity::class.java)
+                val intent = Intent(this@DetailConsultationActivity, ChooseConsultationTimeActivity::class.java)
                 intent.putParcelableArrayListExtra("pref_date", ArrayList(data?.consultations_pref_date))
                 startActivity(intent)
             }
@@ -84,5 +104,15 @@ class DetailConsultationActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

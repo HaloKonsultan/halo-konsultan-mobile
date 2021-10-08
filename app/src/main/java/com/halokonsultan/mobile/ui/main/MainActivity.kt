@@ -9,6 +9,7 @@ import com.halokonsultan.mobile.ui.consultation.ConsultationFragment
 import com.halokonsultan.mobile.databinding.ActivityMainBinding
 import com.halokonsultan.mobile.ui.home.HomeFragment
 import com.halokonsultan.mobile.ui.profile.ProfileFragment
+import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +42,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
+            setStatusBarColor(fragment)
             replace(R.id.flFragment, fragment)
             commit()
         }
+
+    private fun setStatusBarColor(fragment: Fragment) {
+        if (fragment is HomeFragment) {
+            window.statusBarColor = resources.getColor(R.color.primary_blue)
+            Utils.setStatusBarLightText(window, true)
+        } else {
+            window.statusBarColor = resources.getColor(R.color.white)
+            Utils.setStatusBarLightText(window, false)
+        }
+    }
 }

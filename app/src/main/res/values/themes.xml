@@ -5,12 +5,14 @@
         <item name="colorPrimary">@color/primary_blue</item>
         <item name="colorPrimaryVariant">@color/primary_blue</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Seocndary brand color. -->
+        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue</item>
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="actionBarTheme">@style/Custom.ActionBar</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="Theme.HaloKonsultan.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -22,7 +24,12 @@
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+    <style name="Custom.ActionBar" parent="">
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:gravity">center</item>
     </style>
     <style name="Theme.HaloKonsultan.TabLayout" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>

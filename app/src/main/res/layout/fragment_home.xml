@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:src="@drawable/logo_white"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:contentDescription="@string/halo_konsultan_logo" />
         </LinearLayout>
     </Toolbar>
 
@@ -54,7 +55,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chat dengan Konsultan"
+                        android:text="@string/chat_dengan_konsultan"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:layout_marginBottom="16dp"
@@ -70,7 +71,7 @@
                         android:layout_marginBottom="24dp"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
-                        android:text="Cari Konsultan, Kategori Konsultan"
+                        android:text="@string/cari_konsultan_kategori_konsultan"
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
                         android:textColor="@color/label"
@@ -90,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp"
-                android:text="Konsultan Spesialis"
+                android:text="@string/konsultan_spesialis"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/cv_top"
@@ -127,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp"
-                android:text="Konsultan Terdekat"
+                android:text="@string/konsultan_terdekat"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/rv_category"
@@ -139,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Lihat Lainnya"
+                android:text="@string/lihat_lainnya"
                 android:textSize="12sp"
                 android:textColor="@color/primary_blue"
                 app:layout_constraintTop_toBottomOf="@id/rv_category"

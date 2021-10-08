@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Profil"
+                android:text="@string/profil"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -35,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Nama Lengkap"
+        android:text="@string/nama_lengkap"
         android:textSize="12sp"
         app:layout_goneMarginStart="16dp"
         android:layout_marginTop="24dp"
@@ -50,7 +49,7 @@
         android:layout_marginTop="8dp"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:text=" "
+        android:text="@string/test_nama_lengkap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
 
@@ -60,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Email"
+        android:text="@string/email"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama_lengkap"
@@ -74,7 +73,7 @@
         android:layout_marginTop="8dp"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:text=" "
+        android:text="@string/test_mail_com"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
@@ -84,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Kota"
+        android:text="@string/kota"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama_email"
@@ -98,7 +97,7 @@
         android:layout_marginTop="8dp"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:text=" "
+        android:text="@string/surabaya"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
 
@@ -115,7 +114,7 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:textSize="14sp"
-        android:text="Edit Profil"
+        android:text="@string/edit_profil"
         android:textAllCaps="false"
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,6 +125,7 @@
         android:id="@+id/btn_bankDokumen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -134,11 +134,10 @@
         android:insetBottom="0dp"
         android:paddingTop="13dp"
         android:paddingBottom="13dp"
-        android:text="Bank Dokumen"
+        android:text="@string/bank_dokumen"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
         android:textSize="14sp"
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"

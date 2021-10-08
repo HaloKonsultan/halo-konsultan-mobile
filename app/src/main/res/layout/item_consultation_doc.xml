@@ -6,47 +6,51 @@
     android:layout_marginBottom="24dp">
 
     <TextView
-        android:id="@+id/docNumber"
+        android:id="@+id/tv_doc_number"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:background="@drawable/bg_number_upload_doc"
         android:gravity="center"
         android:lineSpacingExtra="10sp"
-        android:text="1"
+        android:text="@string/_1"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tv_doc_title" />
 
     <TextView
-        android:id="@+id/docTitle"
+        android:id="@+id/tv_doc_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:height="24dp"
         android:layout_marginStart="16dp"
         android:lineSpacingExtra="10sp"
-        android:text="Foto KTP"
-        android:textSize="14sp"
+        android:text="@string/foto_ktp"
+        android:textSize="16sp"
         android:gravity="center"
-        app:layout_constraintStart_toEndOf="@+id/docNumber"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_doc_number"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iconCheck"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/ic_baseline_check_circle_outline_24"
+        android:id="@+id/img_check"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_check_circle"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/docTitle"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentDescription="@string/document_uploaded"
+        app:layout_constraintStart_toEndOf="@+id/tv_doc_title"
+        app:layout_constraintTop_toTopOf="@id/tv_doc_title"
+        app:layout_constraintBottom_toBottomOf="@id/tv_doc_title"
+        app:tint="@color/green" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_unggah"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="32dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/inter_medium"
         android:gravity="center"
@@ -59,15 +63,17 @@
         app:cornerRadius="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:strokeColor="@color/primary_black" />
 
     <TextView
-        android:id="@+id/docDesc"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_doc_desc"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Ini adalah deskripsi dari dokumen foto KTP"
-        app:layout_constraintStart_toStartOf="@+id/docTitle"
-        app:layout_constraintTop_toBottomOf="@+id/iconCheck" />
+        android:gravity="start"
+        android:text="@string/ini_adalah_deskripsi_dari_dokumen_foto_ktp"
+        app:layout_constraintStart_toStartOf="@+id/tv_doc_title"
+        app:layout_constraintEnd_toStartOf="@id/btn_unggah"
+        app:layout_constraintTop_toBottomOf="@+id/tv_doc_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

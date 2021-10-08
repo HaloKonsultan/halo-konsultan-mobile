@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.chooseconsultationtime.ChooseConsultationTime">
+    tools:context=".ui.chooseconsultationtime.ChooseConsultationTimeActivity">
 
     <TextView
         android:id="@+id/page_title"
@@ -54,13 +54,13 @@
             android:id="@+id/btnDateOne"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textAllCaps="false"
             app:cornerRadius="8dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Senin, 21 Juni 2021, 12.00" />
+            android:text="@string/senin_21_juni_2021_12_00" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDateTwo"
@@ -71,7 +71,7 @@
             android:insetBottom="0dp"
             android:textAllCaps="false"
             android:fontFamily="@font/inter_regular"
-            android:text="Selasa, 22 Juni 2021, 12.00" />
+            android:text="@string/selasa_22_juni_2021_12_00" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDateThree"
@@ -83,7 +83,7 @@
             app:cornerRadius="8dp"
             android:textAllCaps="false"
             android:fontFamily="@font/inter_regular"
-            android:text="Rabu, 23 Juni 2021, 14.00" />
+            android:text="@string/rabu_23_juni_2021_14_00" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
