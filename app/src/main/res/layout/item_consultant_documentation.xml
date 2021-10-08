@@ -8,5 +8,6 @@
     <ImageView
         android:id="@+id/img_consultant_documentation"
         android:layout_width="210dp"
-        android:layout_height="160dp"/>
+        android:layout_height="160dp"
+        android:contentDescription="@string/consultant_documentation" />
 </LinearLayout>

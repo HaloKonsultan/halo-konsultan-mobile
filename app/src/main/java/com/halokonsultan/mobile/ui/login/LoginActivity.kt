@@ -3,6 +3,9 @@ package com.halokonsultan.mobile.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.UnderlineSpan
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -26,9 +29,14 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "Login"
+        supportActionBar?.title = ""
+        supportActionBar?.elevation = 0f
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        val spannable = SpannableStringBuilder("Belum punya akun? Registrasi")
+        spannable.setSpan(UnderlineSpan(), 18, 28, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        binding.tvRegister.text = spannable
 
         binding.btnLogin.setOnClickListener {
             if (validateLogin()) {

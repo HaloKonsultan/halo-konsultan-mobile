@@ -12,13 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
-        <activity
-            android:name=".ui.chooseconsultationtime.ChooseConsultationTime"
-            android:exported="true" />
-        <activity android:name=".ui.category.CategoryActivity"></activity>
-        <activity
-            android:name=".ui.consultation.DetailConsultationActivity"
-            android:exported="true" />
+        <activity android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity"/>
+        <activity android:name=".ui.category.CategoryActivity" />
+        <activity android:name=".ui.consultation.DetailConsultationActivity" />
         <activity android:name=".ui.uploaddocument.UploadDocumentActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.consultant.ConsultantActivity" />

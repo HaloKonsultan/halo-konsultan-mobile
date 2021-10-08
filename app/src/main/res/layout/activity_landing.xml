@@ -7,7 +7,7 @@
     tools:context=".ui.landing.LandingActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="118dp"
@@ -17,14 +17,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="@string/halo_konsultan_logo" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_title_message"
         android:layout_width="231dp"
         android:layout_height="22dp"
         android:layout_marginTop="230dp"
-        android:text="Konsultasi Jadi Lebih Mudah."
+        android:text="@string/konsultasi_jadi_lebih_mudah"
         android:textAlignment="center"
         android:layout_marginEnd="56dp"
         android:layout_marginStart="56dp"
@@ -33,13 +34,13 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/img_logo" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_body_message"
         android:layout_width="280dp"
         android:layout_height="55dp"
-        android:text="Dengan HaloKonsultan, konsultasi dengan berbagai macam konsultan jauh lebih mudah daripada sebelumnya."
+        android:text="@string/dengan_halokonsultan_konsultasi_dengan_berbagai_macam_konsultan_jauh_lebih_mudah_daripada_sebelumnya"
         android:textAlignment="center"
         android:textSize="14sp"
         android:layout_marginTop="16sp"
@@ -47,7 +48,7 @@
         android:layout_marginStart="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_message" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"
@@ -61,13 +62,13 @@
         android:insetBottom="0dp"
         android:paddingTop="13dp"
         android:paddingBottom="13dp"
-        android:text="Masuk ke Dalam Akun"
+        android:text="@string/masuk_ke_dalam_akun"
         android:textAllCaps="false"
         android:textSize="14sp"
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_body_message" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
@@ -76,16 +77,16 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        style="?attr/materialButtonOutlinedStyle"
         android:backgroundTint="@color/white"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:paddingTop="13dp"
         android:paddingBottom="13dp"
-        android:text="Registrasi Akun"
+        android:text="@string/registrasi_akun"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
         android:textSize="14sp"
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.ui.booking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -25,8 +26,14 @@ class BookingActivity : AppCompatActivity() {
         binding = ActivityBookingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = ""
+        supportActionBar?.elevation = 0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         binding.cbOffline.setOnCheckedChangeListener { _, isChecked ->
 //            binding.tfChooseLocation.isEnabled = isChecked
+            binding.tvLocationText.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
             binding.tfChooseLocation.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
         }
 
@@ -70,5 +77,15 @@ class BookingActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

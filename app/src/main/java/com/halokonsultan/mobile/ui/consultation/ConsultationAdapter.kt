@@ -42,7 +42,7 @@ class ConsultationAdapter(
             tvConsultantName.text = consultation.consultant_name
             when (type) {
                 TAB_TITLES[0] -> {
-                    tvConsultationTime.text = Date(consultation.date).toString("dd/MM/yyyy hh:mm")
+                    tvConsultationTime.text = consultation.date
                     tvConsultationTime.visibility = View.VISIBLE
                 }
                 TAB_TITLES[1] -> {

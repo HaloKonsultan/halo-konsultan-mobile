@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center"
                 android:layout_marginBottom="8dp"
-                android:text="Parent"
+                android:text="@string/parent"
                 android:textSize="12sp"/>
 
             <androidx.recyclerview.widget.RecyclerView

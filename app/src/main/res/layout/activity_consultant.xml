@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Sayu Ogiwara, S.H"
+                android:text="@string/sayu_ogiwara_s_h"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/img_consultant"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Konsultan Hukum Perdata"
+                android:text="@string/konsultan_hukum_perdata"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_consultant_name"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
                             android:id="@+id/tv_consultant_total_likes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="200 orang"
+                            android:text="@string/_200_orang"
                             android:textSize="12sp"
                             android:textColor="@color/primary_blue"
                             android:layout_gravity="center"
@@ -84,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Menyukai"
+                            android:text="@string/menyukai"
                             android:textSize="12sp"
                             android:layout_gravity="center" />
                     </LinearLayout>
@@ -103,7 +103,7 @@
                             android:id="@+id/tv_consultant_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sidoarjo"
+                            android:text="@string/sidoarjo"
                             android:textSize="12sp"
                             android:textColor="@color/primary_blue"
                             android:layout_gravity="center"
@@ -115,7 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Lokasi"
+                            android:text="@string/lokasi"
                             android:textSize="12sp"
                             android:layout_gravity="center" />
                     </LinearLayout>
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Tentang Saya"
+                android:text="@string/tentang_saya"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/ll_consultant_stat"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Saya adalah Konsultan Hukum Perdata dengan pengalaman lebih dari 6 tahun di bidang ini. Saya telah bekerja sama dengan beberapa perusahaan besar untuk menangani permasalahan mereka."
+                android:text="@string/saya_adalah_konsultan_hukum_perdata_dengan_pengalaman_lebih_dari_6_tahun_di_bidang_ini_saya_telah_bekerja_sama_dengan_beberapa_perusahaan_besar_untuk_menangani_permasalahan_mereka"
                 app:layout_constraintTop_toBottomOf="@id/tv_tentang_saya"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -155,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Pengalaman Pekerjaan"
+                android:text="@string/pengalaman_pekerjaan"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/line1"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -181,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Dokumentasi Pekerjaan"
+                android:text="@string/dokumentasi_pekerjaan"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/line2"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -207,7 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Pendidikan"
+                android:text="@string/pendidikan"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/line3"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -233,7 +233,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Bidang Keahlian"
+                android:text="@string/bidang_keahlian"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/line4"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -260,13 +260,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_marginEnd="8dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Diskusi - Rp 25.000"
+            android:text="@string/diskusi_rp_25_000"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            app:strokeWidth="1dp"
             app:strokeColor="@color/black"
             app:backgroundTint="@color/white"
             app:cornerRadius="8dp"/>
@@ -279,7 +279,7 @@
             android:layout_weight="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Booking Konsultasi"
+            android:text="@string/booking_konsultasi"
             android:textAllCaps="false"
             app:backgroundTint="@color/primary_blue"
             app:cornerRadius="8dp"/>
