@@ -1,6 +1,7 @@
 package com.halokonsultan.mobile.data
 
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class HaloKonsultanRepository @Inject constructor(
@@ -45,4 +46,10 @@ class HaloKonsultanRepository @Inject constructor(
     suspend fun getPrefDate(id: Int, date: String) = api.getPrefDate(id, hashMapOf(
         "date" to date
     ))
+
+    suspend fun uploadDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
+            api.uploadDocument(file, id, documentId)
+
+    suspend fun editDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
+            api.editDocument(file, id, documentId)
 }
