@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.reviewconsultation.ReviewConsultation">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="249dp"
+        android:fontFamily="@font/inter_semibold"
+        android:lineSpacingExtra="4sp"
+        android:text="Apakah Anda menyukai konsultan ini ?"
+        android:textAlignment="center"
+        android:textColor="@color/primary_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_like"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@color/primary_white"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="56dp"
+            app:icon="@drawable/ic_thumb_down_24"
+            app:iconTint="@color/inactive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_dislike"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/inactive" />
+
+        <TextView
+            android:id="@+id/text_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8sp"
+            android:text="Tidak"
+            android:textColor="@color/secondary_black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_like"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintStart_toStartOf="@+id/btn_like"
+            app:layout_constraintTop_toBottomOf="@+id/btn_like" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_dislike"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="56dp"
+            app:icon="@drawable/ic_thumb_up_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8sp"
+            android:text="Ya"
+            android:textColor="@color/secondary_black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_dislike"
+            app:layout_constraintStart_toStartOf="@+id/btn_dislike"
+            app:layout_constraintTop_toBottomOf="@+id/btn_dislike" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

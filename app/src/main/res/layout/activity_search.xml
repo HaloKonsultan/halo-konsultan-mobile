@@ -30,6 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
+            android:fontFamily="@font/inter_regular"
+            android:textSize="14sp"
+            android:lineSpacingExtra="8sp"
             android:hint="@string/cari_konsultan_kategori_konsultan"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -42,7 +45,9 @@
         android:text="@string/lihat_kategori_konsultan"
         android:textAlignment="center"
         android:textColor="@color/primary_blue"
+        android:fontFamily="@font/inter_regular"
         android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
         android:layout_gravity="center"
         app:drawableEndCompat="@drawable/ic_east"
         app:layout_constraintTop_toBottomOf="@id/tf_search"

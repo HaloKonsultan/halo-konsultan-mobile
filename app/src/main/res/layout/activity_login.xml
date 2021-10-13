@@ -23,6 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/inter_regular"
+        android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
         android:text="@string/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_greeting" />
@@ -44,6 +47,7 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
             android:hint="@string/masukkan_email_kamu"
             android:inputType="textEmailAddress"/>
 
@@ -55,6 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/inter_regular"
+        android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
         android:text="@string/kata_sandi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tf_email" />
@@ -78,6 +85,7 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
             android:inputType="textPassword"
             android:hint="@string/masukkan_password_kamu"/>
 
@@ -95,6 +103,8 @@
         android:backgroundTint="@color/primary_blue"
         android:insetTop="0dp"
         android:insetBottom="0dp"
+        android:fontFamily="@font/inter_medium"
+        android:lineSpacingExtra="8sp"
         android:textSize="14sp"
         android:text="@string/masuk_ke_dalam_akun"
         android:textAllCaps="false"
@@ -108,6 +118,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/inter_regular"
+        android:lineSpacingExtra="6sp"
+        android:textSize="12sp"
         android:text="@string/belum_punya_akun_registrasi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

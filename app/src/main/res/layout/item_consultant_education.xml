@@ -16,6 +16,10 @@
             android:id="@+id/tv_institution_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:lineSpacingExtra="8sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/secondary_black"
             android:text="@string/university_up_and_down"/>
 
         <TextView
@@ -23,6 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:lineSpacingExtra="4sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/placeholder"
             android:text="@string/magister_hukum"/>
     </LinearLayout>
 
@@ -30,5 +37,9 @@
         android:id="@+id/tv_range_year"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/secondary_black"
         android:text="@string/_2021_2021"/>
 </LinearLayout>
