@@ -34,8 +34,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_medium"
+                android:textSize="14sp"
+                android:lineSpacingExtra="2sp"
                 android:text="@string/sayu_ogiwara_s_h"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 app:layout_constraintTop_toBottomOf="@id/img_consultant"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -46,7 +49,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/konsultan_hukum_perdata"
+                android:fontFamily="@font/inter_regular"
                 android:textSize="12sp"
+                android:lineSpacingExtra="4sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_consultant_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -73,7 +78,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/_200_orang"
+                            android:fontFamily="@font/inter_regular"
                             android:textSize="12sp"
+                            android:lineSpacingExtra="4sp"
                             android:textColor="@color/primary_blue"
                             android:layout_gravity="center"
                             android:drawableTint="@color/primary_blue"
@@ -104,7 +111,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sidoarjo"
+                            android:fontFamily="@font/inter_regular"
                             android:textSize="12sp"
+                            android:lineSpacingExtra="4sp"
                             android:textColor="@color/primary_blue"
                             android:layout_gravity="center"
                             android:drawableTint="@color/primary_blue"
@@ -127,8 +136,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="@color/label"
+                android:lineSpacingExtra="4sp"
                 android:text="@string/tentang_saya"
-                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/ll_consultant_stat"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -137,6 +150,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter_regular"
+                android:textSize="14sp"
+                android:lineSpacingExtra="8sp"
                 android:text="@string/saya_adalah_konsultan_hukum_perdata_dengan_pengalaman_lebih_dari_6_tahun_di_bidang_ini_saya_telah_bekerja_sama_dengan_beberapa_perusahaan_besar_untuk_menangani_permasalahan_mereka"
                 app:layout_constraintTop_toBottomOf="@id/tv_tentang_saya"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -156,7 +172,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/pengalaman_pekerjaan"
-                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="@color/label"
+                android:lineSpacingExtra="4sp"
                 app:layout_constraintTop_toBottomOf="@id/line1"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -182,7 +202,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/dokumentasi_pekerjaan"
-                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="@color/label"
+                android:lineSpacingExtra="4sp"
                 app:layout_constraintTop_toBottomOf="@id/line2"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -208,7 +232,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/pendidikan"
-                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="@color/label"
+                android:lineSpacingExtra="4sp"
                 app:layout_constraintTop_toBottomOf="@id/line3"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -234,7 +262,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/bidang_keahlian"
-                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="@color/label"
+                android:lineSpacingExtra="4sp"
                 app:layout_constraintTop_toBottomOf="@id/line4"
                 app:layout_constraintStart_toStartOf="parent"/>
 
