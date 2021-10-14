@@ -1,5 +1,6 @@
 package com.halokonsultan.mobile.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,9 @@ import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.data.model.Profile
+import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
+import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,6 +35,7 @@ class HomeViewModel @Inject constructor(
             val response = repository.getRandomCategories()
             var tempCategory = response.body()!!.data
             tempCategory = tempCategory.toMutableList()
+            tempCategory = tempCategory.take(5).toMutableList()
             tempCategory.add(
                 Category(
                     999,
@@ -49,7 +53,8 @@ class HomeViewModel @Inject constructor(
         _consultants.postValue(Resource.Loading())
         try {
             val response = repository.getNearestConsultants(city)
-            _consultants.postValue(Resource.Success(response.body()!!.data))
+            val responseData = response.body()!!.data
+            _consultants.postValue(Resource.Success(responseData.data))
         } catch (e: Exception) {
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }

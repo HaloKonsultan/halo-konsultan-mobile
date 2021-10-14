@@ -6,9 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
-import com.halokonsultan.mobile.data.model.Consultation
-import com.halokonsultan.mobile.data.model.ConsultationResponse
-import com.halokonsultan.mobile.data.model.ConsultationsPrefDate
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -34,7 +34,7 @@ class ConsultantAdapter: RecyclerView.Adapter<ConsultantAdapter.ConsultantViewHo
         with(holder.binding) {
             val loveStat = "${consultant.likes_total} orang menyukai konsultan ini."
             tvConsultantName.text = consultant.name
-            tvConsultantCategory.text = consultant.category
+            tvConsultantCategory.text = consultant.position
             tvConsultantLocation.text = consultant.location
             tvConsultantLovesStat.text = loveStat
 
