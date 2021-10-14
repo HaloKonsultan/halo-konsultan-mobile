@@ -32,7 +32,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         val category = differ.currentList[position]
         holder.binding.tvCategoryName.text = category.name
         Glide.with(holder.itemView.context)
-            .load(R.drawable.ic_other_category)
+            .load("https://via.placeholder.com/640x480.png")
             .into(holder.binding.imgCategoryIcon)
 
         holder.itemView.setOnClickListener {

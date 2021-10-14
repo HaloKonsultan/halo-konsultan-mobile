@@ -5,18 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivityCategoryBinding
 import com.halokonsultan.mobile.ui.search.SearchActivity
 import com.halokonsultan.mobile.utils.DummyData
+import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CategoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCategoryBinding
     private lateinit var parentCategoryAdapter: ParentCategoryAdapter
+    private val viewModel: CategoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +36,13 @@ class CategoryActivity : AppCompatActivity() {
         Utils.setTitleTextView(this, "Kategori Konsultan")
 
         setupRecyclerView()
-        parentCategoryAdapter.differ.submitList(DummyData.getParentCategoryList())
+        viewModel.getAllCategories()
+        viewModel.categories.observe(this, { response ->
+            if (response is Resource.Success) {
+                parentCategoryAdapter.differ.submitList(response.data)
+            }
+        })
+//        parentCategoryAdapter.differ.submitList(DummyData.getParentCategoryList())
     }
 
     private fun setupRecyclerView() {

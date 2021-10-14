@@ -86,16 +86,16 @@ class ConsultantActivity : AppCompatActivity() {
         val btnDiscussText = "Diskusi - ${data?.chat_price}"
         with(binding) {
             tvConsultantName.text = data?.name
-            tvConsultantCategory.text = data?.category
+            tvConsultantCategory.text = data?.position
             tvConsultantTotalLikes.text = data?.likes_total.toString()
             tvConsultantLocation.text = data?.location
             tvConsultantDesc.text = data?.description
             btnDiscuss.text = btnDiscussText
 
             experienceAdapter.differ.submitList(data?.consultant_experience)
-            documentationAdapter.differ.submitList(data?.consultant_doc)
-            educationAdapter.differ.submitList(data?.consultant_educations)
-            skillAdapter.differ.submitList(data?.consultant_skills)
+            documentationAdapter.differ.submitList(data?.consultant_documentation)
+            educationAdapter.differ.submitList(data?.consultant_education)
+            skillAdapter.differ.submitList(data?.consultant_skill)
 
             Glide.with(this@ConsultantActivity)
                 .load(data?.photo)

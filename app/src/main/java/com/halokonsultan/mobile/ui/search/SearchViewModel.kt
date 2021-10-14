@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.model.Consultant
+import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class SearchViewModel @Inject constructor(
         _consultants.postValue(Resource.Loading())
         try {
             val response = repository.searchConsultantByName(name)
-            _consultants.postValue(Resource.Success(response.body()!!.data))
+            _consultants.postValue(Resource.Success(response.body()!!.data.data))
         } catch (e: Exception) {
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
@@ -34,7 +35,7 @@ class SearchViewModel @Inject constructor(
         _consultants.postValue(Resource.Loading())
         try {
             val response = repository.getConsultantByCategory(id)
-            _consultants.postValue(Resource.Success(response.body()!!.data))
+            _consultants.postValue(Resource.Success(response.body()!!.data.data))
         } catch (e: Exception) {
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }

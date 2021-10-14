@@ -25,12 +25,12 @@ class ConsultationViewModel @Inject constructor(
     val consultation: LiveData<Resource<DetailConsultation>>
         get() = _consultation
 
-    fun getConsultationListBasedOnStatus(userId: Int, status: String, limit: Int, page: Int)
+    fun getConsultationListBasedOnStatus(userId: Int, status: String)
     = viewModelScope.launch {
         _consultationList.postValue(Resource.Loading())
         try {
-            val response = repository.getListConsultation(userId, status, limit, page)
-            _consultationList.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.getListConsultation(userId, status)
+            _consultationList.postValue(Resource.Success(response.body()!!.data.data))
         } catch (e: Exception) {
             _consultationList.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }

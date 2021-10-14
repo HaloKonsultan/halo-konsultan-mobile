@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
 import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
@@ -35,7 +36,7 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
 
-        viewModel.getConsultationListBasedOnStatus(1, resources.getString(type), 10, 1)
+        viewModel.getConsultationListBasedOnStatus(1, getStatus(type))
         Log.d("coba", "onViewCreated: ${resources.getString(type)}")
         viewModel.consultationList.observe(viewLifecycleOwner, { response ->
             when(response) {
@@ -54,17 +55,17 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
         })
 
         // dummy
-        when (type) {
-            TAB_TITLES[0] -> {
-                consultationAdapter.differ.submitList(DummyData.getConsultationList())
-            }
-            TAB_TITLES[1] -> {
-                consultationAdapter.differ.submitList(DummyData.getWaitingConsultationList())
-            }
-            TAB_TITLES[2] -> {
-                consultationAdapter.differ.submitList(DummyData.getDoneConsultationList())
-            }
-        }
+//        when (type) {
+//            TAB_TITLES[0] -> {
+//                consultationAdapter.differ.submitList(DummyData.getConsultationList())
+//            }
+//            TAB_TITLES[1] -> {
+//                consultationAdapter.differ.submitList(DummyData.getWaitingConsultationList())
+//            }
+//            TAB_TITLES[2] -> {
+//                consultationAdapter.differ.submitList(DummyData.getDoneConsultationList())
+//            }
+//        }
     }
 
     private fun setupRecyclerView() {
@@ -79,5 +80,13 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
             intent.putExtra(DetailConsultationActivity.EXTRA_ID, it.id)
             startActivity(intent)
         }
+    }
+
+    private fun getStatus(type: Int): String =
+            when(type) {
+                R.string.tab_text_1 -> "active"
+                R.string.tab_text_2 -> "waiting"
+                R.string.tab_text_3 -> "done"
+                else -> "active"
     }
 }

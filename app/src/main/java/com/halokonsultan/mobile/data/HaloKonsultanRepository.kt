@@ -1,25 +1,24 @@
 package com.halokonsultan.mobile.data
 
+import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class HaloKonsultanRepository @Inject constructor(
-        private val api: HaloKonsultanApi
+        private val api: HaloKonsultanApi,
+        private val preferences: Preferences
 ) {
 
-    suspend fun login(email: String, password: String) = api.login(hashMapOf(
-            "email" to email,
-            "password" to password
-    ))
+    suspend fun login(email: String, password: String) = api.login(email, password)
 
-    suspend fun register(name: String, email: String, password: String) = api.login(hashMapOf(
-            "name" to name,
-            "email" to email,
-            "password" to password
-    ))
+    suspend fun register(name: String, email: String, password: String) = api.register(name, email, password)
+
+    suspend fun logout() = api.logout()
 
     suspend fun getRandomCategories() = api.getRandomCategories()
+
+    suspend fun getAllCategories() = api.getAllCategories()
 
     suspend fun getNearestConsultants(city: String) = api.getNearestConsultants(city)
 
@@ -38,8 +37,8 @@ class HaloKonsultanRepository @Inject constructor(
             "location" to location
         ))
 
-    suspend fun getListConsultation(userId: Int, status: String, limit: Int, page: Int) =
-        api.getConsultationList(userId, status, limit, page)
+    suspend fun getListConsultation(userId: Int, status: String) =
+        api.getConsultationList(userId, status)
 
     suspend fun getDetailConsultation(id: Int) = api.getDetailConsultation(id)
 
@@ -52,4 +51,11 @@ class HaloKonsultanRepository @Inject constructor(
 
     suspend fun editDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
             api.editDocument(file, id, documentId)
+
+    // preference related function
+    fun saveToken(token: String) = preferences.saveToken(token)
+    fun saveUserId(id: Int) = preferences.saveUserId(id)
+    fun setLoggedIn(value: Boolean) = preferences.isLoggedIn(value)
+    fun getUserId() = preferences.userID
+    fun isLoggedIn() = preferences.loggedIn
 }

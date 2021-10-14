@@ -1,5 +1,6 @@
 package com.halokonsultan.mobile.data.remote
 
+import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.utils.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,6 +14,7 @@ class RetrofitInstance {
         private val retrofit by lazy {
             val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val okHttp = OkHttpClient.Builder()
+                .addInterceptor(BasicInterceptor(Preferences.instance.token))
                 .addInterceptor(logger)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build()
