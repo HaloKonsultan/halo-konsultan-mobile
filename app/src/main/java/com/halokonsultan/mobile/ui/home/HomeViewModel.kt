@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
             tempCategory.add(
                 Category(
                     999,
-                    "https://res.cloudinary.com/anongtf/image/upload/v1632140913/Perpajakan_sa3sbc.svg",
+                    "https://via.placeholder.com/640x480.png/0077cc?text=labore",
                     "Lainnya",
                 )
             )

@@ -98,119 +98,119 @@ object DummyData {
         return list
     }
 
-    fun getConsultationList(): List<Consultation> {
-        val list: MutableList<Consultation> = ArrayList()
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "aktif",
-                1,
-                "1632398841000"
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "aktif",
-                1,
-                "1632398841000"
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "aktif",
-                1,
-                "1632398841000"
-            )
-        )
-        return list
-    }
+//    fun getConsultationList(): List<Consultation> {
+//        val list: MutableList<Consultation> = ArrayList()
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "aktif",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "aktif",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "aktif",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        return list
+//    }
 
-    fun getWaitingConsultationList(): List<Consultation> {
-        val list: MutableList<Consultation> = ArrayList()
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "menunggu",
-                1,
-                "1632398841000"
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "menunggu",
-                1,
-                "1632398841000"
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "menunggu",
-                1,
-                "1632398841000"
-            )
-        )
-        return list
-    }
-
-    fun getDoneConsultationList(): List<Consultation> {
-        val list: MutableList<Consultation> = ArrayList()
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "selesai",
-                1,
-                "1632398841000"
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "selesai",
-                1,
-                "1632398841000"
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "selesai",
-                1,
-                "1632398841000"
-            )
-        )
-        return list
-    }
+//    fun getWaitingConsultationList(): List<Consultation> {
+//        val list: MutableList<Consultation> = ArrayList()
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "menunggu",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "menunggu",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "menunggu",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        return list
+//    }
+//
+//    fun getDoneConsultationList(): List<Consultation> {
+//        val list: MutableList<Consultation> = ArrayList()
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "selesai",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "selesai",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        list.add(
+//            Consultation(
+//                1,
+//                1,
+//                "Konsultanku",
+//                "Konsultasi hati",
+//                "selesai",
+//                1,
+//                "1632398841000"
+//            )
+//        )
+//        return list
+//    }
 
     fun getDocumentList(): List<ConsultantDoc> {
         val list: MutableList<ConsultantDoc> = ArrayList()
@@ -305,15 +305,15 @@ object DummyData {
     fun getConsultationTime(): List<ConsultationsPrefDate> {
         val list: MutableList<ConsultationsPrefDate> = ArrayList()
         list.add(
-            ConsultationsPrefDate("Senin, 21 Juni 2021, 12.00")
+            ConsultationsPrefDate("Senin, 21 Juni 2021, 12.00", "")
         )
 
         list.add(
-            ConsultationsPrefDate("Selasa, 22 Juni 2021, 12.00")
+            ConsultationsPrefDate("Selasa, 22 Juni 2021, 12.00", "")
         )
 
         list.add(
-            ConsultationsPrefDate("Rabu, 23 Juni 2021, 15.00")
+            ConsultationsPrefDate("Rabu, 23 Juni 2021, 15.00", "")
         )
 
         return list

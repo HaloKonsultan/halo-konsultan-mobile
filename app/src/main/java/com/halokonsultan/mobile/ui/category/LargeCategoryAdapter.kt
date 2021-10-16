@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Category
-import com.halokonsultan.mobile.databinding.ItemCategoryBinding
 import com.halokonsultan.mobile.databinding.ItemCategoryLargeBinding
+import com.squareup.picasso.Picasso
 
 class LargeCategoryAdapter: RecyclerView.Adapter<LargeCategoryAdapter.CategoryViewHolder>() {
 
@@ -33,9 +31,8 @@ class LargeCategoryAdapter: RecyclerView.Adapter<LargeCategoryAdapter.CategoryVi
         val category = differ.currentList[position]
         val categoryName = "Konsultan ${category.name}"
         holder.binding.tvCategoryName.text = categoryName
-        Glide.with(holder.itemView.context)
-            .load(R.drawable.ic_other_category)
-            .into(holder.binding.imgCategoryIcon)
+
+        Picasso.get().load(category.logo).into(holder.binding.imgCategoryIcon)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let { it(category) }

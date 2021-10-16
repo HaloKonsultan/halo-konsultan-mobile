@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.FragmentProfileBinding
 import com.halokonsultan.mobile.ui.auth.LandingActivity
+import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,9 +36,13 @@ class ProfileFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
-            val intent = Intent(context, LandingActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            viewModel.logout.observe(viewLifecycleOwner, { data ->
+                if (data is Resource.Success) {
+                    val intent = Intent(context, LandingActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+            })
         }
     }
 }

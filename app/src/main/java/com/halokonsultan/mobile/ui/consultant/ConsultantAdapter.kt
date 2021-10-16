@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.databinding.ItemConsultantBinding
+import com.squareup.picasso.Picasso
 
 class ConsultantAdapter: RecyclerView.Adapter<ConsultantAdapter.ConsultantViewHolder>() {
 
@@ -38,10 +37,10 @@ class ConsultantAdapter: RecyclerView.Adapter<ConsultantAdapter.ConsultantViewHo
             tvConsultantLocation.text = consultant.location
             tvConsultantLovesStat.text = loveStat
 
-            Glide.with(holder.itemView.context)
-                    .load(consultant.photo)
-                    .apply(RequestOptions().override(56))
-                    .into(imgPhotoProfile)
+            Picasso.get().load(consultant.photo)
+                .resize(56, 56)
+                .centerCrop()
+                .into(imgPhotoProfile)
         }
 
         holder.itemView.setOnClickListener {

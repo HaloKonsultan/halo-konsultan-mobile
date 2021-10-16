@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.databinding.ActivityConsultantBinding
@@ -17,6 +16,7 @@ import com.halokonsultan.mobile.ui.booking.BookingActivity
 import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +33,7 @@ class ConsultantActivity : AppCompatActivity() {
     private lateinit var skillAdapter: SkillAdapter
     private val viewModel: ConsultantViewModel by viewModels()
     private var id = 0
+    private var profileData: DetailConsultant? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +58,8 @@ class ConsultantActivity : AppCompatActivity() {
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    val profileData = response.data
-                    populateData(profileData)
+                    profileData = response.data
+                    populateData()
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -78,28 +79,31 @@ class ConsultantActivity : AppCompatActivity() {
         binding.btnBooking.setOnClickListener {
             val intent = Intent(this@ConsultantActivity, BookingActivity::class.java)
             intent.putExtra(BookingActivity.EXTRA_ID, id)
+            intent.putExtra(BookingActivity.EXTRA_NAME, profileData?.name)
+            intent.putExtra(BookingActivity.EXTRA_PHOTO, profileData?.photo)
+            intent.putExtra(BookingActivity.EXTRA_CATEGORY, profileData?.position)
             startActivity(intent)
         }
     }
 
-    private fun populateData(data: DetailConsultant?) {
-        val btnDiscussText = "Diskusi - ${data?.chat_price}"
+    private fun populateData() {
+        val btnDiscussText = "Diskusi - ${profileData?.chat_price}"
         with(binding) {
-            tvConsultantName.text = data?.name
-            tvConsultantCategory.text = data?.position
-            tvConsultantTotalLikes.text = data?.likes_total.toString()
-            tvConsultantLocation.text = data?.location
-            tvConsultantDesc.text = data?.description
+            tvConsultantName.text = profileData?.name
+            tvConsultantCategory.text = profileData?.position
+            tvConsultantTotalLikes.text = profileData?.likes_total.toString()
+            tvConsultantLocation.text = profileData?.location
+            tvConsultantDesc.text = profileData?.description
             btnDiscuss.text = btnDiscussText
 
-            experienceAdapter.differ.submitList(data?.consultant_experience)
-            documentationAdapter.differ.submitList(data?.consultant_documentation)
-            educationAdapter.differ.submitList(data?.consultant_education)
-            skillAdapter.differ.submitList(data?.consultant_skill)
+            experienceAdapter.differ.submitList(profileData?.consultant_experience)
+            documentationAdapter.differ.submitList(profileData?.consultant_documentation)
+            educationAdapter.differ.submitList(profileData?.consultant_education)
+            skillAdapter.differ.submitList(profileData?.consultant_skill)
 
-            Glide.with(this@ConsultantActivity)
-                .load(data?.photo)
-                .override(120)
+            Picasso.get().load(profileData?.photo)
+                .resize(120, 120)
+                .centerCrop()
                 .into(imgConsultant)
         }
     }

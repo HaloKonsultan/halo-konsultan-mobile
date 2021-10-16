@@ -28,29 +28,27 @@ class HaloKonsultanRepository @Inject constructor(
 
     suspend fun getConsultantByCategory(id: Int) = api.getConsultantByCategory(id)
 
-    suspend fun bookingConsultation(title: String, description: String, isOnline: Boolean, isOffline: Boolean, location: String) =
-        api.bookingConsultation(hashMapOf(
-            "title" to title,
-            "description" to description,
-            "is_online" to isOnline,
-            "is_offline" to isOffline,
-            "location" to location
-        ))
+    suspend fun bookingConsultation(title: String,
+                                    consultantId: Int,
+                                    userId: Int,
+                                    description: String,
+                                    isOnline: Int,
+                                    isOffline: Int,
+                                    location: String) =
+        api.bookingConsultation(title, consultantId, userId, description, isOnline, isOffline, location)
 
     suspend fun getListConsultation(userId: Int, status: String) =
         api.getConsultationList(userId, status)
 
     suspend fun getDetailConsultation(id: Int) = api.getDetailConsultation(id)
 
-    suspend fun getPrefDate(id: Int, date: String) = api.getPrefDate(id, hashMapOf(
-        "date" to date
-    ))
+    suspend fun getPrefDate(id: Int, date: String, time: String) = api.getPrefDate(id, date, time)
 
     suspend fun uploadDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
             api.uploadDocument(file, id, documentId)
 
-    suspend fun editDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
-            api.editDocument(file, id, documentId)
+//    suspend fun editDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
+//            api.editDocument(file, id, documentId)
 
     // preference related function
     fun saveToken(token: String) = preferences.saveToken(token)
