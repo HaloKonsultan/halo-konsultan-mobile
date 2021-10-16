@@ -35,17 +35,19 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupSwiper()
 
         viewModel.getConsultationListBasedOnStatus(1, getStatus(type))
-        Log.d("coba", "onViewCreated: ${resources.getString(type)}")
         viewModel.consultationList.observe(viewLifecycleOwner, { response ->
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    binding.swiper.isRefreshing = false
                     consultationAdapter.differ.submitList(response.data)
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
+                    binding.swiper.isRefreshing = false
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
                 is Resource.Loading -> {
@@ -53,19 +55,12 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                 }
             }
         })
+    }
 
-        // dummy
-//        when (type) {
-//            TAB_TITLES[0] -> {
-//                consultationAdapter.differ.submitList(DummyData.getConsultationList())
-//            }
-//            TAB_TITLES[1] -> {
-//                consultationAdapter.differ.submitList(DummyData.getWaitingConsultationList())
-//            }
-//            TAB_TITLES[2] -> {
-//                consultationAdapter.differ.submitList(DummyData.getDoneConsultationList())
-//            }
-//        }
+    private fun setupSwiper() {
+        binding.swiper.setOnRefreshListener {
+            viewModel.getConsultationListBasedOnStatus(1, getStatus(type))
+        }
     }
 
     private fun setupRecyclerView() {

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.utils.Resource
+import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,14 +21,22 @@ class BookingViewModel @Inject constructor(
     val consultation: LiveData<Resource<DetailConsultation>>
         get() = _consultation
 
-    fun bookingConsultation(title: String, description: String, isOnline: Boolean, isOffline: Boolean, location: String)
+    fun bookingConsultation(title: String, consultantId: Int, userId: Int, description: String, isOnline: Boolean, isOffline: Boolean, location: String)
     = viewModelScope.launch {
         _consultation.postValue(Resource.Loading())
         try {
-            val response = repository.bookingConsultation(title, description, isOnline, isOffline, location)
+            val response = repository.bookingConsultation(title,
+                    1,
+                    1,
+                    description,
+                    Utils.booleanToInt(isOnline),
+                    Utils.booleanToInt(isOffline),
+                    location)
             _consultation.postValue(Resource.Success(response.body()!!.data))
         } catch (e: Exception) {
             _consultation.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
     }
+
+    fun getUserId() = repository.getUserId()
 }

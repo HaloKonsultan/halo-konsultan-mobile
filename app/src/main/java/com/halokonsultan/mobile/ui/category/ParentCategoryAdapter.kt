@@ -1,14 +1,11 @@
 package com.halokonsultan.mobile.ui.category
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.data.model.ParentCategory
 import com.halokonsultan.mobile.databinding.ItemParentCategoryBinding

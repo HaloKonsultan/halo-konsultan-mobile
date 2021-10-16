@@ -39,10 +39,10 @@ class AuthViewModel @Inject constructor(
         _account.postValue(Resource.Loading())
         try {
             val response = repository.login(email, password)
-            _account.postValue(Resource.Success(response.body()!!))
             repository.saveToken(response.body()!!.access_token)
             repository.setLoggedIn(true)
             repository.saveUserId(response.body()!!.data.id)
+            _account.postValue(Resource.Success(response.body()!!))
         } catch (e: Exception) {
             _account.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }

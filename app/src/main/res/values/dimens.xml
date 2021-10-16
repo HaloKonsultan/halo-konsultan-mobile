@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_top_detail_consultation">30dp</dimen>
+    <dimen name="padding_bottom_detail_consultation">80dp</dimen>
+</resources>

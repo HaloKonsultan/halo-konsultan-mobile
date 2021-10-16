@@ -7,5 +7,6 @@ data class Consultation(
     val title: String,
     val status: String,
     val is_confirmed: Int,
-    val date: String
+    val date: String,
+    val time: String
 )

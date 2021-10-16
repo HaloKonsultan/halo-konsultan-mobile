@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.databinding.ItemCategoryBinding
+import com.squareup.picasso.Picasso
 
 class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
@@ -31,9 +30,8 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = differ.currentList[position]
         holder.binding.tvCategoryName.text = category.name
-        Glide.with(holder.itemView.context)
-            .load("https://via.placeholder.com/640x480.png")
-            .into(holder.binding.imgCategoryIcon)
+
+        Picasso.get().load(category.logo).into(holder.binding.imgCategoryIcon)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let { it(category) }

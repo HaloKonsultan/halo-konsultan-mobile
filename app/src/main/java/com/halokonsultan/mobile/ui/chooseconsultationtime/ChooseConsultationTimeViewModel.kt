@@ -19,11 +19,11 @@ class ChooseConsultationTimeViewModel @Inject constructor(
     val date: LiveData<Resource<DetailConsultation>>
         get() = _date
 
-    fun getPrefDate(id: Int, date: String) = viewModelScope.launch {
+    fun getPrefDate(id: Int, date: String, time: String) = viewModelScope.launch {
         _date.postValue(Resource.Loading())
 
         try {
-            val response = repository.getPrefDate(id, date)
+            val response = repository.getPrefDate(id, date, time)
             _date.postValue(Resource.Success(response.body()!!.data))
         } catch (e: Exception) {
             _date.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))

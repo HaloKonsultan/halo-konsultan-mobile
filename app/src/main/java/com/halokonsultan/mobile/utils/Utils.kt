@@ -23,12 +23,15 @@ object Utils {
         return Calendar.getInstance().time
     }
 
+    fun booleanToInt(value: Boolean) = if (value) 1 else 0
+
     fun String.isValidEmail() =
             !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     fun formatPrice(data: Int): String {
         val numberFormat = NumberFormat.getCurrencyInstance()
         numberFormat.maximumFractionDigits = 0
+        numberFormat.currency = Currency.getInstance("IDR")
         return numberFormat.format(data)
     }
 
