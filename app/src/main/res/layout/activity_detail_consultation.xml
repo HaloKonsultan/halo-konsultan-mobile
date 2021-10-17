@@ -310,6 +310,9 @@
                 android:textSize="14sp"
                 android:lineSpacingExtra="8sp"
                 android:textColor="@color/black"
+                app:iconGravity="textEnd"
+                app:iconTint="@color/green"
+                app:iconPadding="10dp"
                 app:strokeColor="@color/black"
                 app:backgroundTint="@color/white"
                 app:cornerRadius="8dp"/>
@@ -353,6 +356,9 @@
                 android:textSize="14sp"
                 android:lineSpacingExtra="8sp"
                 android:textColor="@color/black"
+                app:iconGravity="textEnd"
+                app:iconTint="@color/green"
+                app:iconPadding="10dp"
                 app:strokeColor="@color/black"
                 app:backgroundTint="@color/white"
                 app:cornerRadius="8dp"/>
