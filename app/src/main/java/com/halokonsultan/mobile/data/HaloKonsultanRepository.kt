@@ -16,6 +16,8 @@ class HaloKonsultanRepository @Inject constructor(
 
     suspend fun logout() = api.logout()
 
+    suspend fun getProfile(id: Int) = api.getProfile(id)
+
     suspend fun getRandomCategories() = api.getRandomCategories()
 
     suspend fun getAllCategories() = api.getAllCategories()
@@ -47,8 +49,7 @@ class HaloKonsultanRepository @Inject constructor(
     suspend fun uploadDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
             api.uploadDocument(file, id, documentId)
 
-//    suspend fun editDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
-//            api.editDocument(file, id, documentId)
+    suspend fun pay(id:Int) = api.pay(id)
 
     // preference related function
     fun saveToken(token: String) = preferences.saveToken(token)
@@ -56,4 +57,6 @@ class HaloKonsultanRepository @Inject constructor(
     fun setLoggedIn(value: Boolean) = preferences.isLoggedIn(value)
     fun getUserId() = preferences.userID
     fun isLoggedIn() = preferences.loggedIn
+    fun setExpirationTime(value: Int) = preferences.setExpirationTime(value)
+    fun getExpiredTime() = preferences.expiredTime
 }

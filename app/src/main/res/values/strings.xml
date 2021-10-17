@@ -120,4 +120,5 @@
     <string name="ini_adalah_deskripsi_dari_dokumen_foto_ktp">Ini adalah deskripsi dari dokumen foto KTP</string>
     <string name="parent">Parent</string>
     <string name="title">Title</string>
+    <string name="kembali_ke_beranda">Kembali ke Beranda</string>
 </resources>

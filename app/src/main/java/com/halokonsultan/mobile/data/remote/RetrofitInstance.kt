@@ -9,25 +9,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class RetrofitInstance {
-    companion object {
 
-        private val retrofit by lazy {
-            val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            val okHttp = OkHttpClient.Builder()
-                .addInterceptor(BasicInterceptor(Preferences.instance.token))
-                .addInterceptor(logger)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .build()
+    fun createApi(): HaloKonsultanApi {
+        val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        val okHttp = OkHttpClient.Builder()
+            .addInterceptor(BasicInterceptor(Preferences.instance.token))
+            .addInterceptor(logger)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .build()
 
-            Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttp)
-                .build()
-        }
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttp)
+            .build()
 
-        val api: HaloKonsultanApi by lazy {
-            retrofit.create(HaloKonsultanApi::class.java)
-        }
+        return retrofit.create(HaloKonsultanApi::class.java)
     }
 }

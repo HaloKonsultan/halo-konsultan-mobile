@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.databinding.ActivityBookingBinding
-import com.halokonsultan.mobile.ui.main.MainActivity
+import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,7 +92,9 @@ class BookingActivity : AppCompatActivity() {
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    intent = Intent(this, MainActivity::class.java)
+                    intent = Intent(this, ConfirmationActivity::class.java)
+                    intent.putExtra(ConfirmationActivity.EXTRA_TITLE, "Booking berhasil!")
+                    intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Menunggu konfirmasi konsultan")
                     startActivity(intent)
                 }
                 is Resource.Error -> {

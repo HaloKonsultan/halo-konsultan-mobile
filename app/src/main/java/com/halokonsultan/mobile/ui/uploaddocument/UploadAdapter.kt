@@ -1,13 +1,11 @@
 package com.halokonsultan.mobile.ui.uploaddocument
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.halokonsultan.mobile.data.model.Consultation
 import com.halokonsultan.mobile.data.model.ConsultationsDocument
 import com.halokonsultan.mobile.databinding.ItemConsultationDocBinding
 

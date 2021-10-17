@@ -27,6 +27,12 @@ interface HaloKonsultanApi {
     @POST("logout")
     suspend fun logout(): Response<LogoutResponse>
 
+    // Profile
+    @GET("profile/{id}")
+    suspend fun getProfile(
+        @Path("id") id: Int
+    ): Response<ProfileResponse>
+
     // Category
 
     @GET("categories/random")
@@ -96,5 +102,10 @@ interface HaloKonsultanApi {
         @Part file: MultipartBody.Part,
         @Path("id") id: Int,
         @Path("id_document") documentId: Int
+    ): Response<DetailConsultationResponse>
+
+    @PATCH("consultations/transaction/{id}")
+    suspend fun pay(
+        @Path("id") id:Int
     ): Response<DetailConsultationResponse>
 }

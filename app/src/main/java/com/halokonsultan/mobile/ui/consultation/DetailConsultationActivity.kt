@@ -15,6 +15,7 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityDetailConsultationBinding
 import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTimeActivity
+import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
@@ -67,6 +68,26 @@ class DetailConsultationActivity : AppCompatActivity() {
                 }
             }
         })
+
+        viewModel.payResponse.observe(this, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    val intent = Intent(this@DetailConsultationActivity, ConfirmationActivity::class.java)
+                    intent.putExtra(ConfirmationActivity.EXTRA_TITLE, "Pembayaran berhasil!")
+                    intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE,
+                        "Silahkan masuk ke list konsultasi aktif untuk melihat detail konsultasi")
+                    startActivity(intent)
+                }
+                is Resource.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     private fun populateData() {
@@ -94,6 +115,10 @@ class DetailConsultationActivity : AppCompatActivity() {
                         ArrayList(data?.consultation_document))
                 intent.putExtra(UploadDocumentActivity.EXTRA_CONSULTATION_ID, data?.id)
                 startActivity(intent)
+            }
+
+            btnPay.setOnClickListener {
+                data?.id?.let { id -> viewModel.pay(id) }
             }
         }
     }

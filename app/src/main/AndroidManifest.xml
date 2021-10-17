@@ -4,24 +4,25 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".HaloKonsultanApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
-        android:theme="@style/Theme.HaloKonsultan">
+        android:theme="@style/Theme.HaloKonsultan"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.reviewconsultation.ReviewConsultation"
             android:exported="true" />
-        <activity android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity"
+            android:exported="true" />
         <activity android:name=".ui.category.CategoryActivity" />
         <activity android:name=".ui.consultation.DetailConsultationActivity" />
         <activity android:name=".ui.uploaddocument.UploadDocumentActivity" />
@@ -47,6 +48,8 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
+        <activity android:name=".ui.confirmation.ConfirmationActivity"
+            android:theme="@style/Theme.HaloKonsultan.NoActionBar"/>
     </application>
 
 </manifest>

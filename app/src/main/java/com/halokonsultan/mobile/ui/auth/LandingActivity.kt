@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.databinding.ActivityLandingBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
@@ -20,9 +21,15 @@ class LandingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (viewModel.isLoggedIn()) {
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (viewModel.isExpired()) {
+                viewModel.resetPref()
+                Toast.makeText(this, "Session telah expired, Silahkan login kembali",
+                    Toast.LENGTH_LONG).show()
+            } else {
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
 
         binding.btnLogin.setOnClickListener {
