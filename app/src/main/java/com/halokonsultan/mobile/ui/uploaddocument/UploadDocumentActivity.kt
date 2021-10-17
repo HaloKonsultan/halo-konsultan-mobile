@@ -1,9 +1,7 @@
 package com.halokonsultan.mobile.ui.uploaddocument
 
-import android.R.attr
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -16,7 +14,6 @@ import com.halokonsultan.mobile.databinding.ActivityUploadDocumentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import me.rosuh.filepicker.config.FilePickerManager
 import java.io.File
-
 
 @AndroidEntryPoint
 class UploadDocumentActivity : AppCompatActivity() {

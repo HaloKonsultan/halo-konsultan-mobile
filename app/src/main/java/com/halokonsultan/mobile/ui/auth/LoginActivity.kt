@@ -45,8 +45,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             if (validateLogin()) {
                 login()
-//                startActivity(Intent(this, MainActivity::class.java))
-//                finish()
             } else {
                 Toast.makeText(this, "Email harus valid dan password wajib diisi", Toast.LENGTH_LONG).show()
             }

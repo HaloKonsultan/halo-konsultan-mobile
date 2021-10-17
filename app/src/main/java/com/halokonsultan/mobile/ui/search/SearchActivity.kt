@@ -1,7 +1,7 @@
 package com.halokonsultan.mobile.ui.search
+
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -11,12 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
-import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.databinding.ActivitySearchBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
-import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.SEARCH_USER_TIME_DELAY
 import com.halokonsultan.mobile.utils.Utils

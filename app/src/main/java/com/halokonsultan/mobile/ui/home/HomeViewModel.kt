@@ -1,6 +1,5 @@
 package com.halokonsultan.mobile.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.data.model.Consultant
-import com.halokonsultan.mobile.data.model.Profile
-import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
-import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,7 +35,7 @@ class HomeViewModel @Inject constructor(
             tempCategory.add(
                 Category(
                     999,
-                    "https://via.placeholder.com/640x480.png/0077cc?text=labore",
+                    "https://res.cloudinary.com/anongtf/image/upload/v1634384878/i9actiizomb6fplq73xz.png",
                     "Lainnya",
                 )
             )

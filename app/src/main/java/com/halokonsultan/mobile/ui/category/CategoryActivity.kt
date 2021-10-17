@@ -4,14 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivityCategoryBinding
 import com.halokonsultan.mobile.ui.search.SearchActivity
-import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint

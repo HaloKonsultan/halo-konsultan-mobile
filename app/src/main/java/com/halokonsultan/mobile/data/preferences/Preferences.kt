@@ -4,10 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.halokonsultan.mobile.HaloKonsultanApplication
-import com.halokonsultan.mobile.utils.PREF_KEY
-import com.halokonsultan.mobile.utils.PREF_LOGGED_IN
-import com.halokonsultan.mobile.utils.PREF_TOKEN
-import com.halokonsultan.mobile.utils.PREF_USER_ID
+import com.halokonsultan.mobile.utils.*
+import java.util.*
 
 
 class Preferences private constructor() {
@@ -23,6 +21,9 @@ class Preferences private constructor() {
     val loggedIn: Boolean
         get() = instance.mPrefs.getBoolean(PREF_LOGGED_IN, false)
 
+    val expiredTime: Long
+        get() = instance.mPrefs.getLong(PREF_EXPIRED_TIME, 0L)
+
     fun saveToken(value: String?) {
         mEdit.putString(PREF_TOKEN, value)
         mEdit.apply()
@@ -35,6 +36,13 @@ class Preferences private constructor() {
 
     fun isLoggedIn(value: Boolean) {
         mEdit.putBoolean(PREF_LOGGED_IN, value)
+        mEdit.apply()
+    }
+
+    fun setExpirationTime(value: Int) {
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.SECOND, value)
+        mEdit.putLong(PREF_EXPIRED_TIME, cal.timeInMillis)
         mEdit.apply()
     }
 

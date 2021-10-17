@@ -21,13 +21,14 @@ class BookingViewModel @Inject constructor(
     val consultation: LiveData<Resource<DetailConsultation>>
         get() = _consultation
 
-    fun bookingConsultation(title: String, consultantId: Int, userId: Int, description: String, isOnline: Boolean, isOffline: Boolean, location: String)
+    fun bookingConsultation(title: String, consultantId: Int, userId: Int, description: String,
+                            isOnline: Boolean, isOffline: Boolean, location: String)
     = viewModelScope.launch {
         _consultation.postValue(Resource.Loading())
         try {
             val response = repository.bookingConsultation(title,
-                    1,
-                    1,
+                    consultantId,
+                    userId,
                     description,
                     Utils.booleanToInt(isOnline),
                     Utils.booleanToInt(isOffline),

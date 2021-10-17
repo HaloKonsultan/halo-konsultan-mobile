@@ -10,6 +10,7 @@ import com.halokonsultan.mobile.data.model.dto.AuthResponse
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,11 +43,23 @@ class AuthViewModel @Inject constructor(
             repository.saveToken(response.body()!!.access_token)
             repository.setLoggedIn(true)
             repository.saveUserId(response.body()!!.data.id)
+            repository.setExpirationTime(response.body()!!.expires_in)
             _account.postValue(Resource.Success(response.body()!!))
         } catch (e: Exception) {
             _account.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }
     }
 
+    fun resetPref() {
+        repository.saveToken("")
+        repository.setLoggedIn(false)
+        repository.saveUserId(0)
+        repository.setExpirationTime(0)
+    }
+
     fun isLoggedIn() = repository.isLoggedIn()
+    fun isExpired(): Boolean {
+        val cal = Calendar.getInstance()
+        return cal.timeInMillis >= repository.getExpiredTime()
+    }
 }
