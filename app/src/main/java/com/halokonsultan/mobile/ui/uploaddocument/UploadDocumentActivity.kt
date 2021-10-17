@@ -5,12 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.data.model.ConsultationsDocument
+import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityUploadDocumentBinding
+import com.halokonsultan.mobile.ui.consultation.DetailConsultationActivity
+import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import me.rosuh.filepicker.config.FilePickerManager
 import java.io.File
@@ -46,7 +50,36 @@ class UploadDocumentActivity : AppCompatActivity() {
             val docs = intent.getParcelableArrayListExtra<ConsultationsDocument>(EXTRA_DOC)
             if (docs != null) {
                 uploadAdapter.differ.submitList(docs)
+                if (docs.all { it.file != null }) {
+                    binding.btnSubmit.isEnabled = true
+                }
             }
+        }
+
+        viewModel.upload.observe(this, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    val files = response.data?.consultation_document
+                    uploadAdapter.differ.submitList(files)
+                    if (files?.all { it.file != null } == true) {
+                        binding.btnSubmit.isEnabled = true
+                    }
+                }
+                is Resource.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        binding.btnSubmit.setOnClickListener {
+            intent = Intent(this, DetailConsultationActivity::class.java)
+            intent.putExtra(DetailConsultationActivity.EXTRA_ID, consultationId)
+            startActivity(intent)
         }
     }
 

@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
+import com.google.android.material.button.MaterialButton
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityDetailConsultationBinding
@@ -151,6 +152,10 @@ class DetailConsultationActivity : AppCompatActivity() {
         binding.cardPayment.visibility = View.VISIBLE
         if (data?.date != null) {
             binding.btnChooseTime.text = "${data?.date} ${data?.time}"
+            binding.btnChooseTime.icon = resources.getDrawable(R.drawable.ic_check_circle)
+        }
+        if (data?.consultation_document?.all { it.file != null } == true) {
+            binding.btnChooseDocument.icon = resources.getDrawable(R.drawable.ic_check_circle)
         }
     }
 

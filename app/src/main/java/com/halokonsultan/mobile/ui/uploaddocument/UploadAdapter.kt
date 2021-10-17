@@ -34,9 +34,8 @@ class UploadAdapter: RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
             tvDocNumber.text = (position+1).toString()
             tvDocTitle.text = document.name
             tvDocDesc.text = document.description
-            if (document.file.isEmpty()) {
-                btnUnggah.text = "Unggah"
-            } else {
+            if (document.file == null) btnUnggah.text = "Unggah"
+            else {
                 btnUnggah.text = "Edit"
                 imgCheck.isVisible = true
             }
