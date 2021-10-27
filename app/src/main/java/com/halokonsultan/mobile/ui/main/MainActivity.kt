@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.miConsultation -> setCurrentFragment(consultationFragment)
                 R.id.miProfile -> setCurrentFragment(profileFragment)
             }
+
             true
         }
     }

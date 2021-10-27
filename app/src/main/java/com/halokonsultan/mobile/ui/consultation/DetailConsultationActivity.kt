@@ -45,10 +45,12 @@ class DetailConsultationActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     populateData(response.data)
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }

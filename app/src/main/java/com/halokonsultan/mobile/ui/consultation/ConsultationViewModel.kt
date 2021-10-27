@@ -45,5 +45,4 @@ class ConsultationViewModel @Inject constructor(
             _consultation.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
     }
-
 }

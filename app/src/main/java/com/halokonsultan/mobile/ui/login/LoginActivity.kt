@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivityLoginBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.ui.register.RegisterActivity
@@ -80,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                 return true
             }
         }
+
         return super.onOptionsItemSelected(item)
     }
-
 }

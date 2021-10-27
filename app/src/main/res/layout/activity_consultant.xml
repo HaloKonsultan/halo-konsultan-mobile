@@ -147,8 +147,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/line"
-                app:layout_constraintTop_toBottomOf="@id/tv_consultant_desc"
-                />
+                app:layout_constraintTop_toBottomOf="@id/tv_consultant_desc"/>
 
             <TextView
                 android:id="@+id/tv_pengalaman_pekerjaan"
@@ -173,8 +172,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/line"
-                app:layout_constraintTop_toBottomOf="@id/rv_pengalaman"
-                />
+                app:layout_constraintTop_toBottomOf="@id/rv_pengalaman" />
 
             <TextView
                 android:id="@+id/tv_dokumentasi_pekerjaan"
@@ -199,8 +197,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/line"
-                app:layout_constraintTop_toBottomOf="@id/rv_dokumentasi"
-                />
+                app:layout_constraintTop_toBottomOf="@id/rv_dokumentasi" />
 
             <TextView
                 android:id="@+id/tv_pendidikan"
@@ -225,8 +222,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/line"
-                app:layout_constraintTop_toBottomOf="@id/rv_pendidikan"
-                />
+                app:layout_constraintTop_toBottomOf="@id/rv_pendidikan"/>
 
             <TextView
                 android:id="@+id/tv_bidang_keahlian"

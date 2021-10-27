@@ -29,5 +29,4 @@ class LoginViewModel @Inject constructor(
             _profile.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }
     }
-
 }

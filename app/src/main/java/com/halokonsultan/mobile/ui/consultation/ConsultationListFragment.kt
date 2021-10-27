@@ -43,10 +43,12 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     consultationAdapter.differ.submitList(response.data)
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
@@ -58,9 +60,11 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
             TAB_TITLES[0] -> {
                 consultationAdapter.differ.submitList(DummyData.getConsultationList())
             }
+
             TAB_TITLES[1] -> {
                 consultationAdapter.differ.submitList(DummyData.getWaitingConsultationList())
             }
+
             TAB_TITLES[2] -> {
                 consultationAdapter.differ.submitList(DummyData.getDoneConsultationList())
             }

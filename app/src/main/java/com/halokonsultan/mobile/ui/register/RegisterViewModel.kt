@@ -29,5 +29,4 @@ class RegisterViewModel @Inject constructor(
             _profile.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }
     }
-
 }

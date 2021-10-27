@@ -1,14 +1,11 @@
 package com.halokonsultan.mobile.ui.category
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.data.model.ParentCategory
 import com.halokonsultan.mobile.databinding.ItemParentCategoryBinding
@@ -19,7 +16,6 @@ class ParentCategoryAdapter : RecyclerView.Adapter<ParentCategoryAdapter.ParentC
 
     private val differCallback = object : DiffUtil.ItemCallback<ParentCategory>() {
         override fun areItemsTheSame(oldItem: ParentCategory, newItem: ParentCategory) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldParentCategory: ParentCategory, newParentCategory: ParentCategory)
         =  oldParentCategory == newParentCategory
     }

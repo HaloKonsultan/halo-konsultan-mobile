@@ -65,10 +65,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun validateRegister(): Boolean =
-            !binding.etNama.text.isNullOrBlank()
-                    && !binding.etEmail.text.isNullOrBlank()
-                    && !binding.etSandi.text.isNullOrBlank()
-                    && binding.etEmail.text.toString().isValidEmail()
+        !binding.etNama.text.isNullOrBlank()
+                && !binding.etEmail.text.isNullOrBlank()
+                && !binding.etSandi.text.isNullOrBlank()
+                && binding.etEmail.text.toString().isValidEmail()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -77,6 +77,7 @@ class RegisterActivity : AppCompatActivity() {
                 return true
             }
         }
+
         return super.onOptionsItemSelected(item)
     }
 }

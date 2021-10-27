@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Category
-import com.halokonsultan.mobile.databinding.ItemCategoryBinding
 import com.halokonsultan.mobile.databinding.ItemCategoryLargeBinding
 
 class LargeCategoryAdapter: RecyclerView.Adapter<LargeCategoryAdapter.CategoryViewHolder>() {
@@ -17,7 +16,6 @@ class LargeCategoryAdapter: RecyclerView.Adapter<LargeCategoryAdapter.CategoryVi
 
     private val differCallback = object : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldCategory: Category, newCategory: Category) =  oldCategory == newCategory
     }
 

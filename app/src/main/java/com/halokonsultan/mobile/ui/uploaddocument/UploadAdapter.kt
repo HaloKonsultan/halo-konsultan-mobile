@@ -15,7 +15,6 @@ class UploadAdapter: RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Document>() {
         override fun areItemsTheSame(oldItem: Document, newItem: Document) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldDocument: Document, newDocument: Document) =  oldDocument == newDocument
     }
 

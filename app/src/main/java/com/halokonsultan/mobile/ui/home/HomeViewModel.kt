@@ -18,11 +18,11 @@ class HomeViewModel @Inject constructor(
     private val repository: HaloKonsultanRepository
 ) : ViewModel() {
 
-    private val _categories : MutableLiveData<Resource<List<Category>>> = MutableLiveData()
+    private val _categories: MutableLiveData<Resource<List<Category>>> = MutableLiveData()
     val categories: LiveData<Resource<List<Category>>>
         get() = _categories
 
-    private val _consultants : MutableLiveData<Resource<List<Consultant>>> = MutableLiveData()
+    private val _consultants: MutableLiveData<Resource<List<Consultant>>> = MutableLiveData()
     val consultants: LiveData<Resource<List<Consultant>>>
         get() = _consultants
 
@@ -54,5 +54,4 @@ class HomeViewModel @Inject constructor(
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }
     }
-
 }
