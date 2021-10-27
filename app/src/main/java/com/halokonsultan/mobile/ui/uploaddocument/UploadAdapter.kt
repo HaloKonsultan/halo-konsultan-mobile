@@ -6,22 +6,24 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.halokonsultan.mobile.data.model.Document
-import com.halokonsultan.mobile.databinding.ItemRvDocBinding
+import com.halokonsultan.mobile.data.model.ConsultationsDocument
+import com.halokonsultan.mobile.databinding.ItemConsultationDocBinding
 
 class UploadAdapter: RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
 
-    inner class UploadViewHolder(val binding: ItemRvDocBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class UploadViewHolder(val binding: ItemConsultationDocBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<Document>() {
-        override fun areItemsTheSame(oldItem: Document, newItem: Document) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldDocument: Document, newDocument: Document) =  oldDocument == newDocument
+    private val differCallback = object : DiffUtil.ItemCallback<ConsultationsDocument>() {
+        override fun areItemsTheSame(oldItem: ConsultationsDocument, newItem: ConsultationsDocument) = oldItem.name == newItem.name
+
+        override fun areContentsTheSame(oldDocument: ConsultationsDocument, newDocument: ConsultationsDocument) =  oldDocument == newDocument
     }
 
     val differ = AsyncListDiffer(this, differCallback)
+    private var onUploadClickListener: ((ConsultationsDocument) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UploadViewHolder {
-        val itemBinding = ItemRvDocBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = ItemConsultationDocBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UploadViewHolder(itemBinding)
     }
 
@@ -29,18 +31,23 @@ class UploadAdapter: RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
         val document = differ.currentList[position]
 
         with(holder.binding) {
-            docNumber.text = (position+1).toString()
-            docTitle.text = document.docTitle
-            docDesc.text = document.docDesc
-            if (document.file.isEmpty()) {
-                btnUnggah.setText("Unggah")
-            } else {
-                btnUnggah.setText("Edit")
-                iconCheck.isVisible = true
+            tvDocNumber.text = (position+1).toString()
+            tvDocTitle.text = document.name
+            tvDocDesc.text = document.description
+            if (document.file == null) btnUnggah.text = "Unggah"
+            else {
+                btnUnggah.text = "Edit"
+                imgCheck.isVisible = true
             }
-
+            btnUnggah.setOnClickListener {
+                onUploadClickListener?.let { func -> func(document) }
+            }
         }
     }
 
     override fun getItemCount() = differ.currentList.size
+
+    fun setOnUploadClickListener(listener: (ConsultationsDocument) -> Unit) {
+        onUploadClickListener = listener
+    }
 }

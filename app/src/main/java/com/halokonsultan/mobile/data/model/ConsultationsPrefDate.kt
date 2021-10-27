@@ -5,5 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ConsultationsPrefDate(
-    val date: String
+    val date: String,
+    val time: String
 ): Parcelable

@@ -11,11 +11,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Konsultan bae"/>
+        android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/secondary_black"
+        android:text="@string/konsultan_bae"/>
 
     <TextView
         android:id="@+id/tv_range_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2021-2021"/>
+        android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/secondary_black"
+        android:text="@string/_2021_2021"/>
 </LinearLayout>

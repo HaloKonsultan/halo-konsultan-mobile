@@ -2,7 +2,6 @@ package com.halokonsultan.mobile.ui.consultation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
-import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
-import com.halokonsultan.mobile.utils.TAB_TITLES
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,18 +32,20 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupSwiper()
 
-        viewModel.getConsultationListBasedOnStatus(1, resources.getString(type), 10, 1)
-        Log.d("coba", "onViewCreated: ${resources.getString(type)}")
+        viewModel.getConsultationListBasedOnStatus(viewModel.getUserID(), getStatus(type))
         viewModel.consultationList.observe(viewLifecycleOwner, { response ->
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    binding.swiper.isRefreshing = false
                     consultationAdapter.differ.submitList(response.data)
                 }
 
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
+                    binding.swiper.isRefreshing = false
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
 
@@ -54,20 +54,11 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                 }
             }
         })
+    }
 
-        // dummy
-        when (type) {
-            TAB_TITLES[0] -> {
-                consultationAdapter.differ.submitList(DummyData.getConsultationList())
-            }
-
-            TAB_TITLES[1] -> {
-                consultationAdapter.differ.submitList(DummyData.getWaitingConsultationList())
-            }
-
-            TAB_TITLES[2] -> {
-                consultationAdapter.differ.submitList(DummyData.getDoneConsultationList())
-            }
+    private fun setupSwiper() {
+        binding.swiper.setOnRefreshListener {
+            viewModel.getConsultationListBasedOnStatus(viewModel.getUserID(), getStatus(type))
         }
     }
 
@@ -83,5 +74,13 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
             intent.putExtra(DetailConsultationActivity.EXTRA_ID, it.id)
             startActivity(intent)
         }
+    }
+
+    private fun getStatus(type: Int): String =
+            when(type) {
+                R.string.tab_text_1 -> "active"
+                R.string.tab_text_2 -> "waiting"
+                R.string.tab_text_3 -> "done"
+                else -> "active"
     }
 }

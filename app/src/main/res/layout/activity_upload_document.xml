@@ -14,7 +14,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/inter_semibold"
-        android:lineHeight="24dp"
+        android:lineSpacingExtra="4sp"
         android:text="@string/unggah_dokumen"
         android:textColor="@color/primary_black"
         android:textSize="20sp"
@@ -30,7 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/inter_regular"
-        android:lineHeight="22dp"
+        android:lineSpacingExtra="8sp"
         android:text="@string/command_unggah_dokumen"
         android:textColor="@color/secondary_black"
         android:textSize="14sp"
@@ -47,6 +47,43 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCommand" />
+        app:layout_constraintTop_toBottomOf="@+id/textCommand"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="@color/primary_blue"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:text="@string/simpan_dokumen"
+        android:fontFamily="@font/inter_medium"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:enabled="false"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_doc" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,24 +1,26 @@
 package com.halokonsultan.mobile.data
 
+import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class HaloKonsultanRepository @Inject constructor(
-        private val api: HaloKonsultanApi
+        private val api: HaloKonsultanApi,
+        private val preferences: Preferences
 ) {
 
-    suspend fun login(email: String, password: String) = api.login(hashMapOf(
-            "email" to email,
-            "password" to password
-    ))
+    suspend fun login(email: String, password: String) = api.login(email, password)
 
-    suspend fun register(name: String, email: String, password: String) = api.login(hashMapOf(
-            "name" to name,
-            "email" to email,
-            "password" to password
-    ))
+    suspend fun register(name: String, email: String, password: String) = api.register(name, email, password)
+
+    suspend fun logout() = api.logout()
+
+    suspend fun getProfile(id: Int) = api.getProfile(id)
 
     suspend fun getRandomCategories() = api.getRandomCategories()
+
+    suspend fun getAllCategories() = api.getAllCategories()
 
     suspend fun getNearestConsultants(city: String) = api.getNearestConsultants(city)
 
@@ -28,17 +30,33 @@ class HaloKonsultanRepository @Inject constructor(
 
     suspend fun getConsultantByCategory(id: Int) = api.getConsultantByCategory(id)
 
-    suspend fun bookingConsultation(title: String, description: String, isOnline: Boolean, isOffline: Boolean, location: String) =
-        api.bookingConsultation(hashMapOf(
-            "title" to title,
-            "description" to description,
-            "is_online" to isOnline,
-            "is_offline" to isOffline,
-            "location" to location
-        ))
+    suspend fun bookingConsultation(title: String,
+                                    consultantId: Int,
+                                    userId: Int,
+                                    description: String,
+                                    isOnline: Int,
+                                    isOffline: Int,
+                                    location: String) =
+        api.bookingConsultation(title, consultantId, userId, description, isOnline, isOffline, location)
 
-    suspend fun getListConsultation(userId: Int, status: String, limit: Int, page: Int) =
-        api.getConsultationList(userId, status, limit, page)
+    suspend fun getListConsultation(userId: Int, status: String) =
+        api.getConsultationList(userId, status)
 
     suspend fun getDetailConsultation(id: Int) = api.getDetailConsultation(id)
+
+    suspend fun getPrefDate(id: Int, date: String, time: String) = api.getPrefDate(id, date, time)
+
+    suspend fun uploadDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
+            api.uploadDocument(file, id, documentId)
+
+    suspend fun pay(id:Int) = api.pay(id)
+
+    // preference related function
+    fun saveToken(token: String) = preferences.saveToken(token)
+    fun saveUserId(id: Int) = preferences.saveUserId(id)
+    fun setLoggedIn(value: Boolean) = preferences.isLoggedIn(value)
+    fun getUserId() = preferences.userID
+    fun isLoggedIn() = preferences.loggedIn
+    fun setExpirationTime(value: Int) = preferences.setExpirationTime(value)
+    fun getExpiredTime() = preferences.expiredTime
 }

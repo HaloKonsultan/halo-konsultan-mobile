@@ -16,19 +16,30 @@
             android:id="@+id/tv_institution_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="University up and down"/>
+            android:textSize="14sp"
+            android:lineSpacingExtra="8sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/secondary_black"
+            android:text="@string/university_up_and_down"/>
 
         <TextView
             android:id="@+id/tv_major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="Magister hukum"/>
+            android:lineSpacingExtra="4sp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/placeholder"
+            android:text="@string/magister_hukum"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_range_year"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="2021-2021"/>
+        android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/secondary_black"
+        android:text="@string/_2021_2021"/>
 </LinearLayout>

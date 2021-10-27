@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.getNearestConsultants("Surabaya")
+        viewModel.getNearestConsultants("surabaya")
         viewModel.consultants.observe(viewLifecycleOwner, { response ->
             when(response) {
                 is Resource.Success -> {

@@ -25,12 +25,16 @@ class ConsultationViewModel @Inject constructor(
     val consultation: LiveData<Resource<DetailConsultation>>
         get() = _consultation
 
-    fun getConsultationListBasedOnStatus(userId: Int, status: String, limit: Int, page: Int)
+    private val _pay: MutableLiveData<Resource<DetailConsultation>> = MutableLiveData()
+    val payResponse: LiveData<Resource<DetailConsultation>>
+        get() = _pay
+
+    fun getConsultationListBasedOnStatus(userId: Int, status: String)
     = viewModelScope.launch {
         _consultationList.postValue(Resource.Loading())
         try {
-            val response = repository.getListConsultation(userId, status, limit, page)
-            _consultationList.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.getListConsultation(userId, status)
+            _consultationList.postValue(Resource.Success(response.body()!!.data.data))
         } catch (e: Exception) {
             _consultationList.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
@@ -45,4 +49,16 @@ class ConsultationViewModel @Inject constructor(
             _consultation.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
     }
+
+    fun pay(id: Int) = viewModelScope.launch {
+        _pay.postValue(Resource.Loading())
+        try {
+            val response = repository.pay(id)
+            _pay.postValue(Resource.Success(response.body()!!.data))
+        } catch (e: Exception) {
+            _pay.postValue(Resource.Error(e.message ?: "unknown error"))
+        }
+    }
+
+    fun getUserID() = repository.getUserId()
 }

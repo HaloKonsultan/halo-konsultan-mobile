@@ -1,18 +1,23 @@
 package com.halokonsultan.mobile.ui.search
+
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivitySearchBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.SEARCH_USER_TIME_DELAY
+import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -37,6 +42,13 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRecyclerView()
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.title_text_view)
+        supportActionBar?.elevation = 0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        Utils.setTitleTextView(this, "Cari Konsultan")
 
         val bundle = intent.extras
         if (bundle != null) {
@@ -109,5 +121,15 @@ class SearchActivity : AppCompatActivity() {
             intent.putExtra(ConsultantActivity.EXTRA_ID, it.id)
             startActivity(intent)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

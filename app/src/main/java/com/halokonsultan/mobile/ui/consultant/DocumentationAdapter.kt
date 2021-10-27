@@ -1,15 +1,13 @@
 package com.halokonsultan.mobile.ui.consultant
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.halokonsultan.mobile.data.model.ConsultantDoc
 import com.halokonsultan.mobile.databinding.ItemConsultantDocumentationBinding
+import com.squareup.picasso.Picasso
 
 class DocumentationAdapter: RecyclerView.Adapter<DocumentationAdapter.DocumentationViewHolder>() {
 
@@ -30,10 +28,10 @@ class DocumentationAdapter: RecyclerView.Adapter<DocumentationAdapter.Documentat
 
     override fun onBindViewHolder(holder: DocumentationViewHolder, position: Int) {
         val documentation = differ.currentList[position]
-        Glide.with(holder.itemView.context)
-                .load(Uri.parse(documentation.photo))
-                .apply(RequestOptions().override(210, 160))
-                .into(holder.binding.imgConsultantDocumentation)
+        Picasso.get().load(documentation.photo)
+            .resize(210,160)
+            .centerCrop()
+            .into(holder.binding.imgConsultantDocumentation)
     }
 
     override fun getItemCount() = differ.currentList.size

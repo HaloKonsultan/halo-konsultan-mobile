@@ -61,9 +61,10 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'me.rosuh:AndroidFilePicker:0.7.4-x'
+    implementation "com.airbnb.android:lottie:3.7.0"
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -80,7 +81,7 @@ dependencies {
 
     implementation "androidx.paging:paging-runtime:2.1.1"
 
-    implementation 'com.neovisionaries:nv-websocket-client:2.14'
+    implementation 'com.github.florent37:runtime-permission-kotlin:1.1.2'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

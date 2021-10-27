@@ -3,19 +3,28 @@
     package="com.halokonsultan.mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".HaloKonsultanApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HaloKonsultan">
-        <activity android:name=".ui.category.CategoryActivity"></activity>
+        android:theme="@style/Theme.HaloKonsultan"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.consultation.DetailConsultationActivity"
+            android:name=".ui.reviewconsultation.ReviewConsultation"
             android:exported="true" />
+        <activity
+            android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity"
+            android:exported="true" />
+        <activity android:name=".ui.category.CategoryActivity" />
+        <activity android:name=".ui.consultation.DetailConsultationActivity" />
         <activity android:name=".ui.uploaddocument.UploadDocumentActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.consultant.ConsultantActivity" />
@@ -31,14 +40,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.chooselocation.ChooseLocationActivity" />
-        <activity android:name=".ui.register.RegisterActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.auth.RegisterActivity" />
+        <activity android:name=".ui.auth.LoginActivity" />
         <activity
-            android:name=".ui.landing.LandingActivity"
+            android:name=".ui.auth.LandingActivity"
             android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
+        <activity android:name=".ui.confirmation.ConfirmationActivity"
+            android:theme="@style/Theme.HaloKonsultan.NoActionBar"/>
     </application>
 
 </manifest>

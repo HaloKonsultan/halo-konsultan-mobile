@@ -5,7 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ConsultationsDocument(
-    val description: String,
-    val `file`: String,
-    val name: String
+        val id: Int,
+        val description: String,
+        val `file`: String?,
+        val name: String
 ): Parcelable

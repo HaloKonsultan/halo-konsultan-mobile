@@ -38,175 +38,31 @@ object DummyData {
         return list
     }
 
-    fun getParentCategoryList(): List<ParentCategory> {
-        val list: MutableList<ParentCategory> = ArrayList()
-        list.add(
-            ParentCategory(
-            1,
-            "Agama",
-            getCategoryList())
-        )
-
-        list.add(
-            ParentCategory(
-                2,
-                "Keuangan",
-                getCategoryList())
-        )
-
-        list.add(
-            ParentCategory(
-                3,
-                "Bangunan",
-                getCategoryList())
-        )
-
-        list.add(
-            ParentCategory(
-                4,
-                "Kesehatan",
-                getCategoryList())
-        )
-        return list
-    }
-
     fun getConsultantList(): List<Consultant> {
         val list: MutableList<Consultant> = ArrayList()
-        list.add(Consultant("Konsultan Hukum Perdata",
+        list.add(Consultant(
                 1,
+                "nama lengkap",
+                "Konsultan Hukum Perdata",
                 100,
                 "Sidoarjo",
-        "nama lengkap",
         "https://res.cloudinary.com/anongtf/image/upload/v1632140731/nuupzj8zr4ws0j7hiykq.png"))
 
-        list.add(Consultant("Konsultan Hukum Perdata",
+        list.add(Consultant(
                 2,
+                "nama lengkap",
+                "Konsultan Hukum Perdata",
                 100,
                 "Sidoarjo",
-                "nama lengkap",
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140731/nuupzj8zr4ws0j7hiykq.png"))
-
-        list.add(Consultant("Konsultan Hukum Perdata",
-                2,
+        list.add(Consultant(
+                3,
+                "nama lengkap",
+                "Konsultan Hukum Perdata",
                 100,
                 "Sidoarjo",
-                "nama lengkap",
                 "https://res.cloudinary.com/anongtf/image/upload/v1632140731/nuupzj8zr4ws0j7hiykq.png"))
 
-        return list
-    }
-
-    fun getConsultationList(): List<Consultation> {
-        val list: MutableList<Consultation> = ArrayList()
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "aktif",
-                true,
-                1632398841000
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "aktif",
-                true,
-                1632398841000
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "aktif",
-                true,
-                1632398841000
-            )
-        )
-        return list
-    }
-
-    fun getWaitingConsultationList(): List<Consultation> {
-        val list: MutableList<Consultation> = ArrayList()
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "menunggu",
-                false,
-                1632398841000
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "menunggu",
-                true,
-                1632398841000
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "menunggu",
-                false,
-                1632398841000
-            )
-        )
-        return list
-    }
-
-    fun getDoneConsultationList(): List<Consultation> {
-        val list: MutableList<Consultation> = ArrayList()
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "selesai",
-                true,
-                1632398841000
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "selesai",
-                false,
-                1632398841000
-            )
-        )
-        list.add(
-            Consultation(
-                1,
-                1,
-                "Konsultanku",
-                "Konsultasi hati",
-                "selesai",
-                false,
-                1632398841000
-            )
-        )
         return list
     }
 
@@ -214,13 +70,11 @@ object DummyData {
         val list: MutableList<ConsultantDoc> = ArrayList()
         list.add(ConsultantDoc(
                 1,
-                1,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632654470/rgv0nn0dbm6ekvwpxaw7.png"
         ))
 
         list.add(ConsultantDoc(
                 2,
-                1,
                 "https://res.cloudinary.com/anongtf/image/upload/v1632654507/pxjxngj3brpbylzitjkn.png"
         ))
         return list
@@ -230,7 +84,6 @@ object DummyData {
         val list: MutableList<ConsultantEducation> = ArrayList()
         list.add(ConsultantEducation(
                 1,
-                1,
                 "Universitas Atas Bawah",
                 "Sarjana Filsahat Hukum Percintaan",
                 "2016",
@@ -238,7 +91,6 @@ object DummyData {
         ))
         list.add(ConsultantEducation(
                 2,
-                1,
                 "University of Up and Down",
                 "Magister of Love Law Philosophical",
                 "2020",
@@ -251,14 +103,12 @@ object DummyData {
         val list: MutableList<ConsultantExperience> = ArrayList()
         list.add(ConsultantExperience(
                 1,
-                1,
                 "Konsultan Percintaan",
                 "2020",
                 "Sekarang"
         ))
         list.add(ConsultantExperience(
                 2,
-                1,
                 "Freelance Konsultan",
                 "2021",
                 "2021"
@@ -283,26 +133,6 @@ object DummyData {
                 1,
                 "Love Language Detection"
         ))
-        return list
-    }
-
-    fun getUploadDocumentList(): List<Document> {
-        val list: MutableList<Document> = ArrayList()
-        list.add(
-            Document(1,"Foto KTP",
-                "Ini adalah deskripsi dari dokumen foto KTP", "")
-        )
-
-        list.add(
-            Document(2,"Foto NPWP",
-                "Ini adalah deskripsi dari dokumen foto NPWP", "")
-        )
-
-        list.add(
-            Document(3,"Foto NPWP",
-                "Ini adalah deskripsi dari dokumen foto NPWP", "ini adalah link file")
-        )
-
         return list
     }
 }

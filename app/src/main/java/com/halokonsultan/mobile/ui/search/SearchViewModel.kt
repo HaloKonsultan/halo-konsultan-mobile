@@ -24,7 +24,7 @@ class SearchViewModel @Inject constructor(
         _consultants.postValue(Resource.Loading())
         try {
             val response = repository.searchConsultantByName(name)
-            _consultants.postValue(Resource.Success(response.body()!!.data))
+            _consultants.postValue(Resource.Success(response.body()!!.data.data))
         } catch (e: Exception) {
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
@@ -34,7 +34,7 @@ class SearchViewModel @Inject constructor(
         _consultants.postValue(Resource.Loading())
         try {
             val response = repository.getConsultantByCategory(id)
-            _consultants.postValue(Resource.Success(response.body()!!.data))
+            _consultants.postValue(Resource.Success(response.body()!!.data.data))
         } catch (e: Exception) {
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }

@@ -38,15 +38,15 @@ class ConsultationAdapter(
 
         with(holder.binding) {
             tvConsultationTitle.text = consultation.title
-            tvConsultantName.text = consultation.consultant_name
+            tvConsultantName.text = consultation.name
             when (type) {
                 TAB_TITLES[0] -> {
-                    tvConsultationTime.text = Date(consultation.date).toString("dd/MM/yyyy hh:mm")
+                    tvConsultationTime.text = "${consultation.date} ${consultation.time}"
                     tvConsultationTime.visibility = View.VISIBLE
                 }
 
                 TAB_TITLES[1] -> {
-                    if (consultation.is_confirmed) {
+                    if (consultation.is_confirmed == 1) {
                         tvConsultationStatus.text = "Menunggu Pembayaran"
                         tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.green))
                     } else {
@@ -58,7 +58,7 @@ class ConsultationAdapter(
                 }
 
                 TAB_TITLES[2] -> {
-                    if (consultation.is_confirmed) {
+                    if (consultation.is_confirmed == 1) {
                         tvConsultationStatus.text = "selesai"
                         tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.primary_blue))
                     } else {

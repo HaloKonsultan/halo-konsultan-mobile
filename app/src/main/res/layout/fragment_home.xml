@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:src="@drawable/logo_white"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:contentDescription="@string/halo_konsultan_logo" />
         </LinearLayout>
     </Toolbar>
 
@@ -54,7 +55,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chat dengan Konsultan"
+                        android:text="@string/chat_dengan_konsultan"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:layout_marginBottom="16dp"
@@ -70,7 +71,10 @@
                         android:layout_marginBottom="24dp"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
-                        android:text="Cari Konsultan, Kategori Konsultan"
+                        android:fontFamily="@font/inter_regular"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="8sp"
+                        android:text="@string/cari_konsultan_kategori_konsultan"
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
                         android:textColor="@color/label"
@@ -87,8 +91,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp"
-                android:text="Konsultan Spesialis"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/konsultan_spesialis"
                 android:textSize="14sp"
+                android:lineSpacingExtra="2sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/cv_top"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -124,8 +130,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp"
-                android:text="Konsultan Terdekat"
+                android:text="@string/konsultan_terdekat"
+                android:fontFamily="@font/inter_medium"
                 android:textSize="14sp"
+                android:lineSpacingExtra="2sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/rv_category"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -136,8 +144,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Lihat Lainnya"
+                android:text="@string/lihat_lainnya"
+                android:fontFamily="@font/inter_regular"
                 android:textSize="12sp"
+                android:lineSpacingExtra="4sp"
                 android:textColor="@color/primary_blue"
                 app:layout_constraintTop_toBottomOf="@id/rv_category"
                 app:layout_constraintEnd_toEndOf="parent"/>
