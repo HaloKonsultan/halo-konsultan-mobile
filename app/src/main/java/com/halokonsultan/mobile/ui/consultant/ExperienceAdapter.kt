@@ -14,7 +14,6 @@ class ExperienceAdapter: RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHo
 
     private val differCallback = object : DiffUtil.ItemCallback<ConsultantExperience>() {
         override fun areItemsTheSame(oldItem: ConsultantExperience, newItem: ConsultantExperience) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldConsultantExperience: ConsultantExperience,
                                         newConsultantExperience: ConsultantExperience)
                                         = oldConsultantExperience == newConsultantExperience

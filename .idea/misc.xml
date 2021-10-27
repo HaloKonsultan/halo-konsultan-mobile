@@ -36,18 +36,36 @@
         <entry key="..\:/College/Semester-5/WPPL/halo-konsultan-mobile-v5/halo-konsultan-mobile/app/src/main/res/layout/item_consultation_doc.xml" value="0.536" />
         <entry key="..\:/College/Semester-5/WPPL/halo-konsultan-mobile-v5/halo-konsultan-mobile/app/src/main/res/layout/item_parent_category.xml" value="0.4" />
         <entry key="..\:/College/Semester-5/WPPL/halo-konsultan-mobile-v5/halo-konsultan-mobile/app/src/main/res/layout/item_rv_doc.xml" value="0.25833333333333336" />
+<<<<<<< HEAD
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_booking.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_category.xml" value="0.11197916666666667" />
+=======
         <entry key="..\:/College/Semester-5/WPPL/halo-konsultan-mobile-v5/halo-konsultan-mobile/app/src/main/res/layout/title_text_view.xml" value="0.264" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_booking.xml" value="0.19429347826086957" />
+>>>>>>> 809746745ea80048c467dac18c1b3187989e21ac
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_choose_location.xml" value="0.19429347826086957" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_consultant.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_detail_consultation.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_detil_consultation.xml" value="0.22" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_detil_consultation2.xml" value="0.19429347826086957" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_edit_profile.xml" value="0.19429347826086957" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_landing.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_register.xml" value="0.17617753623188406" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_search.xml" value="0.1272644927536232" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/activity_upload_document.xml" value="0.1272644927536232" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/fragment_chat.xml" value="0.1272644927536232" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/fragment_consultation.xml" value="0.1272644927536232" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/fragment_consultation_list.xml" value="0.19429347826086957" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_category.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_category_large.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_consultant.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_consultant_documentation.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_consultant_education.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_consultant_experience.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_consultant_skill.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_parent_category.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile-new/app/src/main/res/layout/item_rv_doc.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1546875" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/custom_button.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Lenovo/.android/halo-konsultan-mobile/app/src/main/res/drawable/ic_arrow_back.xml" value="0.20052083333333334" />

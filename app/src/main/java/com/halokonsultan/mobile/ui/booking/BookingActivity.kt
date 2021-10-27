@@ -97,10 +97,12 @@ class BookingActivity : AppCompatActivity() {
                     intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Menunggu konfirmasi konsultan")
                     startActivity(intent)
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }

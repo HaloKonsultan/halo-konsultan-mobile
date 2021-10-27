@@ -15,7 +15,6 @@ class DocumentationAdapter: RecyclerView.Adapter<DocumentationAdapter.Documentat
 
     private val differCallback = object : DiffUtil.ItemCallback<ConsultantDoc>() {
         override fun areItemsTheSame(oldItem: ConsultantDoc, newItem: ConsultantDoc) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldConsultantDoc: ConsultantDoc, newConsultantDoc: ConsultantDoc) =
                                         oldConsultantDoc == newConsultantDoc
     }

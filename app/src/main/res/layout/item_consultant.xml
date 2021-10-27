@@ -87,8 +87,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_consultant_loves_stat"
                 app:layout_constraintStart_toEndOf="@id/img_photo_profile"
                 app:drawableStartCompat="@drawable/ic_pin" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

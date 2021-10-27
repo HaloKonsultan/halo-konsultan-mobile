@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.FragmentConsultationBinding
 import com.halokonsultan.mobile.utils.TAB_TITLES
 

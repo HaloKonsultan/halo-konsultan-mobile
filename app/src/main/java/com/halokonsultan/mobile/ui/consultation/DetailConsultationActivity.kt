@@ -80,10 +80,12 @@ class DetailConsultationActivity : AppCompatActivity() {
                         "Silahkan masuk ke list konsultasi aktif untuk melihat detail konsultasi")
                     startActivity(intent)
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }

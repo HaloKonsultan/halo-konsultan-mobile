@@ -61,5 +61,4 @@ class ConsultationViewModel @Inject constructor(
     }
 
     fun getUserID() = repository.getUserId()
-
 }

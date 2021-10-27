@@ -15,7 +15,6 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
 
     private val differCallback = object : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldCategory: Category, newCategory: Category) =  oldCategory == newCategory
     }
 

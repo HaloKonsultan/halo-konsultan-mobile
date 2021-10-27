@@ -42,11 +42,13 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                     binding.swiper.isRefreshing = false
                     consultationAdapter.differ.submitList(response.data)
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.swiper.isRefreshing = false
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }

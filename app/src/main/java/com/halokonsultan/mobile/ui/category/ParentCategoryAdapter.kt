@@ -16,7 +16,6 @@ class ParentCategoryAdapter : RecyclerView.Adapter<ParentCategoryAdapter.ParentC
 
     private val differCallback = object : DiffUtil.ItemCallback<ParentCategory>() {
         override fun areItemsTheSame(oldItem: ParentCategory, newItem: ParentCategory) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldParentCategory: ParentCategory, newParentCategory: ParentCategory)
         =  oldParentCategory == newParentCategory
     }

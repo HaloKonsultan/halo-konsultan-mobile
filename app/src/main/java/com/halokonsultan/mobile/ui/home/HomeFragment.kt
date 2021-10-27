@@ -48,10 +48,12 @@ class HomeFragment : Fragment() {
                     Log.d("coba", "onViewCreated: ${response.data}")
                     categoryAdapter.differ.submitList(response.data)
                 }
+
                 is Resource.Error -> {
                     binding.categoryProgressBar.visibility = View.GONE
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Resource.Loading -> {
                     binding.categoryProgressBar.visibility = View.VISIBLE
                 }
@@ -65,10 +67,12 @@ class HomeFragment : Fragment() {
                     binding.consultantProgressBar.visibility = View.GONE
                     consultantAdapter.differ.submitList(response.data)
                 }
+
                 is Resource.Error -> {
                     binding.consultantProgressBar.visibility = View.GONE
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Resource.Loading -> {
                     binding.consultantProgressBar.visibility = View.VISIBLE
                 }

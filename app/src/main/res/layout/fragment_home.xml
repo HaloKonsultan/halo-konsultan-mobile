@@ -81,10 +81,7 @@
                         app:icon="@drawable/ic_search"
                         app:iconTint="@color/black"
                         app:backgroundTint="@color/white"
-                        app:cornerRadius="8dp"
-
-                        />
-
+                        app:cornerRadius="8dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

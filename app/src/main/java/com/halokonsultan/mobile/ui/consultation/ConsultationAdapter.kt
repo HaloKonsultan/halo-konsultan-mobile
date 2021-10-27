@@ -21,7 +21,6 @@ class ConsultationAdapter(
 
     private val differCallback = object : DiffUtil.ItemCallback<Consultation>() {
         override fun areItemsTheSame(oldItem: Consultation, newItem: Consultation) = oldItem.id == newItem.id
-
         override fun areContentsTheSame(oldConsultation: Consultation, newConsultation: Consultation) =
             oldConsultation == newConsultation
     }
@@ -45,6 +44,7 @@ class ConsultationAdapter(
                     tvConsultationTime.text = "${consultation.date} ${consultation.time}"
                     tvConsultationTime.visibility = View.VISIBLE
                 }
+
                 TAB_TITLES[1] -> {
                     if (consultation.is_confirmed == 1) {
                         tvConsultationStatus.text = "Menunggu Pembayaran"
@@ -53,8 +53,10 @@ class ConsultationAdapter(
                         tvConsultationStatus.text = "Menunggu Konfirmasi Konsultan"
                         tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.orange))
                     }
+
                     tvConsultationStatus.visibility = View.VISIBLE
                 }
+
                 TAB_TITLES[2] -> {
                     if (consultation.is_confirmed == 1) {
                         tvConsultationStatus.text = "selesai"
@@ -63,6 +65,7 @@ class ConsultationAdapter(
                         tvConsultationStatus.text = "ditolak"
                         tvConsultationStatus.setTextColor(this.root.resources.getColor(R.color.danger))
                     }
+
                     tvConsultationStatus.visibility = View.VISIBLE
                 }
             }
