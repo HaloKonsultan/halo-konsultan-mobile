@@ -1,11 +1,8 @@
 package com.halokonsultan.mobile.data.model.dto
 
-import com.halokonsultan.mobile.data.model.Consultant
-
-
-data class ConsultantResponse (
+data class PaginationData<T>(
         val current_page: Int,
-        val `data`: List<Consultant>,
+        val `data`: List<T>,
         val first_page_url: String,
         val from: Int,
         val last_page: Int,

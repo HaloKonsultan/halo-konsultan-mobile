@@ -43,8 +43,10 @@ class ConsultationViewModel @Inject constructor(
     fun getDetailConsultation(id: Int) = viewModelScope.launch {
         _consultation.postValue(Resource.Loading())
         try {
-            val response = repository.getDetailConsultation(id)
-            _consultation.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.getDetailConsultation(id).body()
+            if (response?.data != null) {
+                _consultation.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _consultation.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
@@ -53,8 +55,10 @@ class ConsultationViewModel @Inject constructor(
     fun pay(id: Int) = viewModelScope.launch {
         _pay.postValue(Resource.Loading())
         try {
-            val response = repository.pay(id)
-            _pay.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.pay(id).body()
+            if (response?.data != null) {
+               _pay.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _pay.postValue(Resource.Error(e.message ?: "unknown error"))
         }

@@ -23,8 +23,10 @@ class CategoryViewModel @Inject constructor(
     fun getAllCategories() = viewModelScope.launch {
         _categories.postValue(Resource.Loading())
         try {
-            val response = repository.getAllCategories()
-            _categories.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.getAllCategories().body()
+            if (response?.data != null) {
+                _categories.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _categories.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }

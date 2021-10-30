@@ -23,8 +23,10 @@ class ChooseConsultationTimeViewModel @Inject constructor(
         _date.postValue(Resource.Loading())
 
         try {
-            val response = repository.getPrefDate(id, date, time)
-            _date.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.getPrefDate(id, date, time).body()
+            if (response?.data != null) {
+                _date.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _date.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }

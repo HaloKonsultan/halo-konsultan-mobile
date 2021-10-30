@@ -1,5 +1,6 @@
 package com.halokonsultan.mobile.data.remote
 
+import com.halokonsultan.mobile.data.model.*
 import com.halokonsultan.mobile.data.model.dto.*
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -31,37 +32,37 @@ interface HaloKonsultanApi {
     @GET("profile/{id}")
     suspend fun getProfile(
         @Path("id") id: Int
-    ): Response<ProfileResponse>
+    ): Response<BasicResponse<Profile>>
 
     // Category
 
     @GET("categories/random")
-    suspend fun getRandomCategories(): Response<CategoryResponse>
+    suspend fun getRandomCategories(): Response<BasicResponse<List<Category>>>
 
     @GET("categories/all")
-    suspend fun getAllCategories(): Response<ParentCategoryResponse>
+    suspend fun getAllCategories(): Response<BasicResponse<List<ParentCategory>>>
 
     // Consultant
 
     @GET("consultants/city/{city}")
     suspend fun getNearestConsultants(
         @Path("city") city: String
-    ): Response<ConsultantPaginationResponse>
+    ): Response<PaginationResponse<Consultant>>
 
     @GET("consultants/{id}")
     suspend fun getConsultantDetail(
         @Path("id") id: Int
-    ): Response<DetailConsultantResponse>
+    ): Response<BasicResponse<DetailConsultant>>
 
     @GET("consultants/search/{name}")
     suspend fun search(
         @Path("name") keyword: String
-    ): Response<ConsultantPaginationResponse>
+    ): Response<PaginationResponse<Consultant>>
 
     @GET("consultants/category/{category_id}")
     suspend fun getConsultantByCategory(
         @Path("category_id") categoryId: Int
-    ): Response<ConsultantPaginationResponse>
+    ): Response<PaginationResponse<Consultant>>
 
     // Consultation
 
@@ -75,18 +76,18 @@ interface HaloKonsultanApi {
         @Field("is_online") isOnline: Int,
         @Field("is_offline") isOffline: Int,
         @Field("location") location: String
-    ): Response<DetailConsultationResponse>
+    ): Response<BasicResponse<DetailConsultation>>
 
     @GET("consultations/user/{user_id}/status/{status}")
     suspend fun getConsultationList(
         @Path("user_id") userId: Int,
         @Path("status") status: String
-    ): Response<ConsultationPaginationResponse>
+    ): Response<PaginationResponse<Consultation>>
 
     @GET("consultations/{id}")
     suspend fun getDetailConsultation(
         @Path("id") id: Int
-    ): Response<DetailConsultationResponse>
+    ): Response<BasicResponse<DetailConsultation>>
 
     @FormUrlEncoded
     @PATCH("consultations/{id}")
@@ -94,7 +95,7 @@ interface HaloKonsultanApi {
         @Path("id") id: Int,
         @Field("date") date: String,
         @Field("time") time: String
-    ): Response<DetailConsultationResponse>
+    ): Response<BasicResponse<DetailConsultation>>
 
     @Multipart
     @POST("consultations/{id}/upload-document/{id_document}")
@@ -102,10 +103,10 @@ interface HaloKonsultanApi {
         @Part file: MultipartBody.Part,
         @Path("id") id: Int,
         @Path("id_document") documentId: Int
-    ): Response<DetailConsultationResponse>
+    ): Response<BasicResponse<DetailConsultation>>
 
     @PATCH("consultations/transaction/{id}")
     suspend fun pay(
         @Path("id") id:Int
-    ): Response<DetailConsultationResponse>
+    ): Response<BasicResponse<DetailConsultation>>
 }

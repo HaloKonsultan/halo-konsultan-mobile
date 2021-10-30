@@ -48,7 +48,10 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
-        <activity android:name=".ui.confirmation.ConfirmationActivity"
+        <activity
+            android:name=".ui.confirmation.ConfirmationActivity"
+            android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
+        <activity android:name=".ui.payment.PaymentActivity"
             android:theme="@style/Theme.HaloKonsultan.NoActionBar"/>
     </application>
 

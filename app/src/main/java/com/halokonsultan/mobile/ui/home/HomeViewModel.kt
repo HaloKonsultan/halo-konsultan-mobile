@@ -30,16 +30,18 @@ class HomeViewModel @Inject constructor(
         try {
             val response = repository.getRandomCategories()
             var tempCategory = response.body()!!.data
-            tempCategory = tempCategory.toMutableList()
-            tempCategory = tempCategory.take(5).toMutableList()
-            tempCategory.add(
-                Category(
-                    999,
-                    "https://res.cloudinary.com/anongtf/image/upload/v1634384878/i9actiizomb6fplq73xz.png",
-                    "Lainnya",
+            if (tempCategory != null) {
+                tempCategory = tempCategory.toMutableList()
+                tempCategory = tempCategory.take(5).toMutableList()
+                tempCategory.add(
+                        Category(
+                                999,
+                                "https://res.cloudinary.com/anongtf/image/upload/v1634384878/i9actiizomb6fplq73xz.png",
+                                "Lainnya",
+                        )
                 )
-            )
-            _categories.postValue(Resource.Success(tempCategory))
+                _categories.postValue(Resource.Success(tempCategory))
+            }
         } catch (e: Exception) {
             _categories.postValue(Resource.Error(e.localizedMessage ?: "Unknown error"))
         }
