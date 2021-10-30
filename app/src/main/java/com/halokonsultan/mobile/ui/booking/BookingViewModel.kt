@@ -32,8 +32,10 @@ class BookingViewModel @Inject constructor(
                     description,
                     Utils.booleanToInt(isOnline),
                     Utils.booleanToInt(isOffline),
-                    location)
-            _consultation.postValue(Resource.Success(response.body()!!.data))
+                    location).body()
+            if (response?.data != null) {
+                _consultation.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _consultation.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }

@@ -89,14 +89,14 @@ class ConsultantActivity : AppCompatActivity() {
     }
 
     private fun populateData() {
-        val btnDiscussText = "Diskusi - ${profileData?.chat_price}"
+        val btnDiscussText = "Rp ${profileData?.chat_price}"
         with(binding) {
             tvConsultantName.text = profileData?.name
             tvConsultantCategory.text = profileData?.position
             tvConsultantTotalLikes.text = profileData?.likes_total.toString()
             tvConsultantLocation.text = profileData?.location
             tvConsultantDesc.text = profileData?.description
-            btnDiscuss.text = btnDiscussText
+            tvChatPrice.text = btnDiscussText
 
             experienceAdapter.differ.submitList(profileData?.consultant_experience)
             documentationAdapter.differ.submitList(profileData?.consultant_documentation)

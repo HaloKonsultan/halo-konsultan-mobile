@@ -31,8 +31,10 @@ class UploadViewModel @Inject constructor(
         try {
             val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = requestFile.let { MultipartBody.Part.createFormData("file", file.name, it) }
-            val response = repository.uploadDocument(body, consultationId, docId)
-            _upload.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.uploadDocument(body, consultationId, docId).body()
+            if (response?.data != null) {
+                _upload.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _upload.postValue(Resource.Error(e.message ?: "unknown error"))
         }

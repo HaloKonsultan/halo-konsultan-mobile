@@ -13,7 +13,7 @@ class RetrofitInstance {
     fun createApi(): HaloKonsultanApi {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttp = OkHttpClient.Builder()
-            .addInterceptor(BasicInterceptor(Preferences.instance.token))
+            .addInterceptor(AuthInterceptor(Preferences.instance.token))
             .addInterceptor(logger)
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()

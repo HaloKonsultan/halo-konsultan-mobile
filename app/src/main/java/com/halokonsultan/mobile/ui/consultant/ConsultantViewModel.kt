@@ -23,8 +23,10 @@ class ConsultantViewModel @Inject constructor(
     fun getConsultantDetail(id: Int) = viewModelScope.launch {
         _profile.postValue(Resource.Loading())
         try {
-            val response = repository.getConsultantDetail(id)
-            _profile.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.getConsultantDetail(id).body()
+            if (response?.data != null) {
+                _profile.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _profile.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }

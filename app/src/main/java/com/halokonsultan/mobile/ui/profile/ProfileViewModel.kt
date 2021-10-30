@@ -29,8 +29,10 @@ class ProfileViewModel @Inject constructor(
     fun getProfile() = viewModelScope.launch {
         _profile.postValue(Resource.Loading())
         try {
-            val response = repository.getProfile(repository.getUserId())
-            _profile.postValue(Resource.Success(response.body()!!.data))
+            val response = repository.getProfile(repository.getUserId()).body()
+            if (response?.data != null) {
+                _profile.postValue(Resource.Success(response.data))
+            }
         } catch (e: Exception) {
             _profile.postValue(Resource.Error(e.message ?: "unknown error"))
         }
