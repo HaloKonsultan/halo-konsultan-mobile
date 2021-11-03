@@ -25,6 +25,7 @@ class PaymentActivity : AppCompatActivity() {
             val invoiceUrl = intent.getStringExtra(EXTRA_URL).toString()
             loadPage(invoiceUrl)
         }
+        setupSwiper()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -40,6 +41,23 @@ class PaymentActivity : AppCompatActivity() {
                 }
             }
             loadUrl(invoiceUrl)
+        }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setupSwiper() {
+        binding.swiperPayment.setOnRefreshListener {
+            with(binding.wvInvoice) {
+                settings.javaScriptEnabled = true
+                webViewClient = object : WebViewClient() {
+                    override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                        if (url != null) {
+                            view?.reload()
+                        }
+                        return true
+                    }
+                }
+            }
         }
     }
 }

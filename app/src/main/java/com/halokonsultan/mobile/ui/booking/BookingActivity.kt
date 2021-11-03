@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.afollestad.vvalidator.form
 import com.halokonsultan.mobile.databinding.ActivityBookingBinding
 import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
 import com.halokonsultan.mobile.utils.Resource
@@ -52,16 +53,37 @@ class BookingActivity : AppCompatActivity() {
         binding.tvConsultantCategory.text = consultantCategory
         Picasso.get().load(consultantPhoto).into(binding.imgConsultant)
 
+        bookingValidation()
+
         binding.cbOffline.setOnCheckedChangeListener { _, isChecked ->
             binding.tvLocationText.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
             binding.tfChooseLocation.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
         }
+    }
 
-        binding.btnBooking.setOnClickListener {
-            try {
-                booking()
-            } catch (e: Exception) {
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+    private fun bookingValidation() {
+        form{
+            useRealTimeValidation(disableSubmit = true)
+            input(binding.etTitle){
+                isNotEmpty()
+            }
+
+            input(binding.etDescProblem){
+                isNotEmpty()
+            }
+
+            input(binding.etChooseLocation){
+                conditional({binding.cbOffline.isChecked}){
+                    isNotEmpty()
+                }
+            }
+
+            submitWith(binding.btnBooking){
+                try {
+                    booking()
+                } catch (e: Exception) {
+                    Toast.makeText(this@BookingActivity, e.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

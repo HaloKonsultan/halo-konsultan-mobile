@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import com.halokonsultan.mobile.R
 
 // url related stuff
-const val BASE_URL = "http://192.168.1.100:8000/api/users/"
+const val BASE_URL = "http://192.168.1.5:8000/api/users/"
 
 // shared preference related stuff
 const val PREF_KEY = "com.halokonsultan.mobile.PREFERENCE_KEY"

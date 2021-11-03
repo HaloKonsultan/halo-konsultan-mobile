@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.afollestad.vvalidator.form
 import com.halokonsultan.mobile.databinding.ActivityLoginBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.utils.Resource
@@ -42,16 +43,29 @@ class LoginActivity : AppCompatActivity() {
         spannable.setSpan(UnderlineSpan(), 18, 28, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         binding.tvRegister.text = spannable
 
-        binding.btnLogin.setOnClickListener {
-            if (validateLogin()) {
-                login()
-            } else {
-                Toast.makeText(this, "Email harus valid dan password wajib diisi", Toast.LENGTH_LONG).show()
-            }
-        }
+        loginValidation()
 
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+    }
+
+    private fun loginValidation() {
+        form{
+            useRealTimeValidation()
+            input(binding.etEmail, name = null){
+                isNotEmpty()
+                isEmail()
+            }
+
+            input(binding.etPassword, name = null){
+                isNotEmpty()
+            }
+            submitWith(binding.btnLogin){
+                login()
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
+            }
         }
     }
 
@@ -76,11 +90,6 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
-
-    private fun validateLogin(): Boolean =
-            !binding.etEmail.text.isNullOrBlank()
-                    && !binding.etPassword.text.isNullOrBlank()
-                    && binding.etEmail.text.toString().isValidEmail()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

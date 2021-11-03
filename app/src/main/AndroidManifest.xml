@@ -24,12 +24,16 @@
             android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity"
             android:exported="true" />
         <activity android:name=".ui.category.CategoryActivity" />
-        <activity android:name=".ui.consultation.DetailConsultationActivity" />
-        <activity android:name=".ui.uploaddocument.UploadDocumentActivity" />
+        <activity android:name=".ui.consultation.DetailConsultationActivity"
+            android:exported="true"/>
+        <activity android:name=".ui.uploaddocument.UploadDocumentActivity"
+            android:exported="true"/>
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.consultant.ConsultantActivity" />
         <activity android:name=".ui.profile.EditProfileActivity" />
         <activity android:name=".ui.booking.BookingActivity" />
+        <activity android:name=".ui.onboarding.OnboardingActivity"
+            android:exported="true"/>
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/splashScreenStyle">
@@ -44,15 +48,18 @@
         <activity android:name=".ui.auth.LoginActivity" />
         <activity
             android:name=".ui.auth.LandingActivity"
-            android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
+            android:theme="@style/Theme.HaloKonsultan.NoActionBar"
+            android:exported="true"/>
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
+            android:theme="@style/Theme.HaloKonsultan.NoActionBar"
+            android:exported="true"/>
         <activity
             android:name=".ui.confirmation.ConfirmationActivity"
             android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
         <activity android:name=".ui.payment.PaymentActivity"
-            android:theme="@style/Theme.HaloKonsultan.NoActionBar"/>
+            android:theme="@style/Theme.HaloKonsultan.NoActionBar"
+            android:exported="true"/>
     </application>
 
 </manifest>

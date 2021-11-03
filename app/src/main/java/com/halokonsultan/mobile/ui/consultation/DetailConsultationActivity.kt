@@ -17,6 +17,7 @@ import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityDetailConsultationBinding
 import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTimeActivity
 import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
+import com.halokonsultan.mobile.ui.payment.PaymentActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
@@ -121,7 +122,11 @@ class DetailConsultationActivity : AppCompatActivity() {
             }
 
             btnPay.setOnClickListener {
-                data?.id?.let { id -> viewModel.pay(id) }
+                data?.id?.let { id ->
+                    val intent = Intent(this@DetailConsultationActivity, PaymentActivity::class.java)
+                    intent.putExtra(PaymentActivity.EXTRA_URL, "https://checkout-staging.xendit.co/web/6181fdd0a2669d9883894a5f")
+                    startActivity(intent)
+                }
             }
         }
     }

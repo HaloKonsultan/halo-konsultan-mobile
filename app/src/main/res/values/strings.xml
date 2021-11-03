@@ -122,4 +122,17 @@
     <string name="title">Title</string>
     <string name="kembali_ke_beranda">Kembali ke Beranda</string>
     <string name="pesan_konsultan">Pesan Konsultan</string>
+    <string name="selesai">Selesai</string>
+    <string name="provinsi_anda">Provinsi Anda</string>
+
+    <!--Onboarding-->
+    <string name="cari_konsultan">Cari Konsultan</string>
+    <string name="desc_cari_konsultan">Semua konsultan yang anda butuhkan tersedia di sini.</string>
+    <string name="selanjutnya">Selanjutnya</string>
+    <string name="sebelumnya">Sebelumnya</string>
+    <string name="chat_konsultan">Chat Konsultan</string>
+    <string name="desc_chat_konsultan">Anda bisa melakukan chat dengan konsultasi dengan konsultan.</string>
+    <string name="desc_booking_konsultasi">Tidak hanya chat, Anda juga bisa memesan konsultasi dan bahkan bertemu langsung dengan konsultan.</string>
+    <string name="masuk">Masuk</string>
+
 </resources>

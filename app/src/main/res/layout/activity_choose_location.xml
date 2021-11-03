@@ -37,55 +37,101 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
-        android:id="@+id/tv_form_desc"
+        android:id="@+id/tv_provinsi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/kota_anda"
-        android:fontFamily="@font/inter_regular"
-        android:textSize="14sp"
-        android:lineSpacingExtra="8sp"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/inter_regular"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/provinsi_anda"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
-    <EditText
-        android:id="@+id/et_kota"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/menu_provinsi"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:autofillHints="city"
-        android:inputType="text"
-        android:textSize="14sp"
-        android:lineSpacingExtra="8sp"
-        android:fontFamily="@font/inter_regular"
-        android:hint="@string/masukkan_kota_anda"
+        android:layout_marginTop="8dp"
+
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_form_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_provinsi">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:layout_weight="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_kota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/inter_regular"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/kota_anda"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_provinsi" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/menu_kota"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kota">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:layout_weight="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_editProfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
+        android:layout_marginTop="56dp"
         android:backgroundTint="@color/primary_blue"
+        android:fontFamily="@font/inter_medium"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:fontFamily="@font/inter_medium"
-        android:textSize="14sp"
         android:lineSpacingExtra="8sp"
-        android:text="@string/pilih_kota"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:text="@string/selesai"
         android:textAllCaps="false"
+        android:textSize="14sp"
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_kota" />
+        app:layout_constraintTop_toBottomOf="@+id/menu_kota" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
