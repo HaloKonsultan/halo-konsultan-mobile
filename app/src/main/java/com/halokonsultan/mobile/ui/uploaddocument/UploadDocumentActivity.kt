@@ -1,23 +1,19 @@
 package com.halokonsultan.mobile.ui.uploaddocument
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.anggrayudi.storage.SimpleStorageHelper
 import com.halokonsultan.mobile.data.model.ConsultationsDocument
-import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityUploadDocumentBinding
 import com.halokonsultan.mobile.ui.consultation.DetailConsultationActivity
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import me.rosuh.filepicker.config.FilePickerManager
-import java.io.File
 
 @AndroidEntryPoint
 class UploadDocumentActivity : AppCompatActivity() {
@@ -32,6 +28,7 @@ class UploadDocumentActivity : AppCompatActivity() {
     private val viewModel: UploadViewModel by viewModels()
     private var docId: Int = 0
     private var consultationId: Int = 0
+    private val storageHelper = SimpleStorageHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +78,10 @@ class UploadDocumentActivity : AppCompatActivity() {
             intent.putExtra(DetailConsultationActivity.EXTRA_ID, consultationId)
             startActivity(intent)
         }
+
+        storageHelper.onFileSelected = { _, file ->
+            viewModel.uploadDocument(contentResolver, file[0], consultationId, docId)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -92,33 +93,7 @@ class UploadDocumentActivity : AppCompatActivity() {
 
         uploadAdapter.setOnUploadClickListener { data ->
             docId = data.id
-            FilePickerManager
-                .from(this)
-                .maxSelectable(1)
-                .showCheckBox(false)
-                .forResult(FilePickerManager.REQUEST_CODE)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            FilePickerManager.REQUEST_CODE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    val list = FilePickerManager.obtainData()
-                    list.forEach { filePath ->
-                        val mFile = File(filePath)
-                        Log.d("coba", "onActivityResult: ${mFile.name}")
-                    }
-                    val mFile = File(list[0])
-                    viewModel.uploadDocument(mFile, consultationId, docId )
-                } else {
-                    Toast.makeText(
-                        this@UploadDocumentActivity,
-                        "You didn't choose anything~", Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+            storageHelper.openFilePicker()
         }
     }
 
@@ -130,5 +105,15 @@ class UploadDocumentActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        storageHelper.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        storageHelper.onRestoreInstanceState(savedInstanceState)
     }
 }

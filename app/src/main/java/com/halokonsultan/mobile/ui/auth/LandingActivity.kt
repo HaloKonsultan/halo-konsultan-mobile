@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.databinding.ActivityLandingBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
+import com.halokonsultan.mobile.ui.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,10 @@ class LandingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (viewModel.isFirstTime()) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+        }
 
         if (viewModel.isLoggedIn()) {
             if (viewModel.isExpired()) {
