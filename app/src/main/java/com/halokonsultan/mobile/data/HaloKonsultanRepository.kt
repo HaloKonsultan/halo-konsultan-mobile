@@ -2,11 +2,13 @@ package com.halokonsultan.mobile.data
 
 import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
+import com.halokonsultan.mobile.data.remote.LocationApi
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class HaloKonsultanRepository @Inject constructor(
         private val api: HaloKonsultanApi,
+        private val locationApi: LocationApi,
         private val preferences: Preferences
 ) {
 
@@ -17,6 +19,10 @@ class HaloKonsultanRepository @Inject constructor(
     suspend fun logout() = api.logout()
 
     suspend fun getProfile(id: Int) = api.getProfile(id)
+
+    suspend fun getAllProvince() = locationApi.getAllProvince()
+
+    suspend fun getAllCity(id: Int) = locationApi.getAllCity(id)
 
     suspend fun getRandomCategories() = api.getRandomCategories()
 

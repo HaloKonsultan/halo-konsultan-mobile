@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.databinding.ActivityRegisterBinding
+import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationActivity
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils.isValidEmail
@@ -80,7 +81,10 @@ class RegisterActivity : AppCompatActivity() {
             when(data) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    startActivity(Intent(this, MainActivity::class.java))
+                    intent = Intent(this, ChooseLocationActivity::class.java)
+                    intent.putExtra(ChooseLocationActivity.EXTRA_ID, data.data?.data?.id)
+                    intent.putExtra(ChooseLocationActivity.EXTRA_NAME, data.data?.data?.name)
+                    startActivity(intent)
                     finish()
                 }
 
