@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.di
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
+import com.halokonsultan.mobile.data.remote.LocationApi
 import com.halokonsultan.mobile.data.remote.RetrofitInstance
 import dagger.Module
 import dagger.Provides
@@ -19,10 +20,14 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideLocationApi(): LocationApi = RetrofitInstance().createLocationApi()
+
+    @Singleton
+    @Provides
     fun providePreferences(): Preferences = Preferences.instance
 
     @Provides
-    fun provideRepository(api: HaloKonsultanApi, preferences: Preferences): HaloKonsultanRepository =
-            HaloKonsultanRepository(api, preferences)
+    fun provideRepository(api: HaloKonsultanApi, locationApi: LocationApi, preferences: Preferences)
+    : HaloKonsultanRepository = HaloKonsultanRepository(api, locationApi, preferences)
 
 }
