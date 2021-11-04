@@ -59,4 +59,6 @@ class HaloKonsultanRepository @Inject constructor(
     fun isLoggedIn() = preferences.loggedIn
     fun setExpirationTime(value: Int) = preferences.setExpirationTime(value)
     fun getExpiredTime() = preferences.expiredTime
+    fun setFirstTime(value: Boolean) = preferences.isFirstTime(value)
+    fun isFirstTime() = preferences.firstTime
 }

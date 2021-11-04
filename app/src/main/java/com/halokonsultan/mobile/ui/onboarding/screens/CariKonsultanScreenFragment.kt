@@ -7,25 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.halokonsultan.mobile.R
-import com.halokonsultan.mobile.databinding.FragmentCariKonsultanScreenBinding
+import com.halokonsultan.mobile.databinding.FragmentOnboardingCariBinding
 
 class CariKonsultanScreenFragment : Fragment() {
 
-    private lateinit var binding: FragmentCariKonsultanScreenBinding
+    private lateinit var binding: FragmentOnboardingCariBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentCariKonsultanScreenBinding.inflate(layoutInflater, container, false)
+    ): View {
+        binding = FragmentOnboardingCariBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val viewPager = activity?.findViewById<ViewPager2>(R.id.onboardingViewPager)
+
+        binding.btnPrev.isEnabled = false
 
         binding.btnNext.setOnClickListener{
             viewPager?.currentItem = 1
         }
-
-        return binding.root
     }
 }

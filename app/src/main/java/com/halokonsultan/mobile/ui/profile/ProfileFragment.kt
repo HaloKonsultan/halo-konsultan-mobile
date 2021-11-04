@@ -51,6 +51,11 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.btnBankDokumen.setOnClickListener {
+            val intent = Intent(context, BankDocumentActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
             viewModel.logout.observe(viewLifecycleOwner, { data ->

@@ -24,6 +24,9 @@ class Preferences private constructor() {
     val expiredTime: Long
         get() = instance.mPrefs.getLong(PREF_EXPIRED_TIME, 0L)
 
+    val firstTime: Boolean
+        get() = instance.mPrefs.getBoolean(PREF_FIRST_TIME, true)
+
     fun saveToken(value: String?) {
         mEdit.putString(PREF_TOKEN, value)
         mEdit.apply()
@@ -43,6 +46,11 @@ class Preferences private constructor() {
         val cal = Calendar.getInstance()
         cal.add(Calendar.SECOND, value)
         mEdit.putLong(PREF_EXPIRED_TIME, cal.timeInMillis)
+        mEdit.apply()
+    }
+
+    fun isFirstTime(value: Boolean) {
+        mEdit.putBoolean(PREF_FIRST_TIME, value)
         mEdit.apply()
     }
 

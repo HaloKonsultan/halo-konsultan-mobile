@@ -62,4 +62,6 @@ class AuthViewModel @Inject constructor(
         val cal = Calendar.getInstance()
         return cal.timeInMillis >= repository.getExpiredTime()
     }
+
+    fun isFirstTime() = repository.isFirstTime()
 }
