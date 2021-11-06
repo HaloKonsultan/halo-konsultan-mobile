@@ -109,9 +109,27 @@ class HaloKonsultanRepository @Inject constructor(
         }
     )
 
+    fun getConsultantByCategoryAdvance(id: Int) = networkBoundResource(
+            query = {
+                db.getDao().getConsultantByCategory(id)
+            },
+            fetch = {
+                val response = api.getConsultantByCategory(id)
+                response.body()?.data?.data
+            },
+            saveFetchResult = { consultants ->
+                if (consultants != null) {
+                    db.withTransaction {
+                        db.getDao().deleteConsultantsByCategory(id)
+                        db.getDao().upsertConsultants(consultants)
+                    }
+                }
+            }
+    )
+
     fun getConsultationByStatusAdvance(id: Int, status: String) = networkBoundResource(
         query = {
-            db.getDao().getConsultationsByStatus(status)
+            db.getDao().getConsultationsByStatus(id, status)
         },
         fetch = {
             val response = api.getConsultationList(id, status)

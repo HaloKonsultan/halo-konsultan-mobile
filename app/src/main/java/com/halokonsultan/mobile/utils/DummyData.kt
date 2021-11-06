@@ -38,34 +38,6 @@ object DummyData {
         return list
     }
 
-    fun getConsultantList(): List<Consultant> {
-        val list: MutableList<Consultant> = ArrayList()
-        list.add(Consultant(
-                1,
-                "nama lengkap",
-                "Konsultan Hukum Perdata",
-                100,
-                "Sidoarjo",
-        "https://res.cloudinary.com/anongtf/image/upload/v1632140731/nuupzj8zr4ws0j7hiykq.png"))
-
-        list.add(Consultant(
-                2,
-                "nama lengkap",
-                "Konsultan Hukum Perdata",
-                100,
-                "Sidoarjo",
-                "https://res.cloudinary.com/anongtf/image/upload/v1632140731/nuupzj8zr4ws0j7hiykq.png"))
-        list.add(Consultant(
-                3,
-                "nama lengkap",
-                "Konsultan Hukum Perdata",
-                100,
-                "Sidoarjo",
-                "https://res.cloudinary.com/anongtf/image/upload/v1632140731/nuupzj8zr4ws0j7hiykq.png"))
-
-        return list
-    }
-
     fun getDocumentList(): List<ConsultantDoc> {
         val list: MutableList<ConsultantDoc> = ArrayList()
         list.add(ConsultantDoc(

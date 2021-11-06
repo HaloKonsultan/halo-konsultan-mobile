@@ -13,5 +13,5 @@ data class Consultant(
         val likes_total: Int?,
         val city: String?,
         val photo: String,
-//        val categoryId: Int
+        val category_id: Int
 )

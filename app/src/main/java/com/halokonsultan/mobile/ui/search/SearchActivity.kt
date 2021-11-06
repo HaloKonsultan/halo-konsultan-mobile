@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
@@ -60,7 +61,7 @@ class SearchActivity : AppCompatActivity() {
             binding.tvResult.text = searchResultText
             binding.tvResult.visibility = View.VISIBLE
             binding.tfSearch.visibility = View.GONE
-            viewModel.searchConsultantByCategory(categoryId)
+            searchByCategory(categoryId)
         }
 
         if (!showCategory) {
@@ -84,29 +85,32 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.consultants.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    consultantAdapter.differ.submitList(response.data)
-                }
-
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
-
-//        consultantAdapter.differ.submitList(DummyData.getConsultantList())
         binding.tvShowCategory.setOnClickListener {
             val intent = Intent(this@SearchActivity, CategoryActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun searchByCategory(categoryId: Int) {
+        viewModel.searchConsultantByCategoryAdvance(categoryId).observe(this, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    binding.progressBar.isVisible = false
+                    consultantAdapter.differ.submitList(response.data)
+                }
+
+                is Resource.Error -> {
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
+                }
+
+                is Resource.Loading -> {
+                    binding.progressBar.isVisible = true
+                    consultantAdapter.differ.submitList(response.data)
+                }
+            }
+
+        })
     }
 
     private fun setupRecyclerView() {

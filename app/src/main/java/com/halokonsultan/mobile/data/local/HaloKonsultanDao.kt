@@ -19,11 +19,11 @@ interface HaloKonsultanDao {
     @Query("SELECT * FROM consultants WHERE city = :city")
     fun getNearestConsultants(city: String): Flow<List<Consultant>>
 
-//    @Query("SELECT * FROM consultants WHERE category_id = :categoryId")
-//    fun getConsultantByCategory(categoryId: Int): LiveData<List<Consultant>>
+    @Query("SELECT * FROM consultants WHERE category_id = :categoryId")
+    fun getConsultantByCategory(categoryId: Int): Flow<List<Consultant>>
 
-    @Query("SELECT * FROM consultations WHERE status = :status")
-    fun getConsultationsByStatus(status: String): Flow<List<Consultation>>
+    @Query("SELECT * FROM consultations WHERE user_id = :id AND status = :status")
+    fun getConsultationsByStatus(id:Int, status: String): Flow<List<Consultation>>
 
     @Query("SELECT * FROM profile WHERE id = :id")
     fun getProfile(id: Int): Flow<Profile>
@@ -45,6 +45,9 @@ interface HaloKonsultanDao {
 
     @Query("DELETE FROM consultants WHERE city = :city")
     suspend fun deleteConsultantsByCity(city: String)
+
+    @Query("DELETE FROM consultants WHERE category_id = :id")
+    suspend fun deleteConsultantsByCategory(id: Int)
 
     @Query("DELETE FROM consultations WHERE status = :status")
     suspend fun deleteConsultationsByStatus(status: String)

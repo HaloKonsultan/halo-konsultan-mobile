@@ -8,6 +8,7 @@ data class Consultation(
 
     @PrimaryKey(autoGenerate = false)
     val id: Int,
+    val user_id: Int,
     val consultant_id: Int,
     val name: String,
     val title: String,
