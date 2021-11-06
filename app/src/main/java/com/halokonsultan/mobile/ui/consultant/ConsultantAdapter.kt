@@ -34,7 +34,7 @@ class ConsultantAdapter: RecyclerView.Adapter<ConsultantAdapter.ConsultantViewHo
             val loveStat = "${consultant.likes_total} orang menyukai konsultan ini."
             tvConsultantName.text = consultant.name
             tvConsultantCategory.text = consultant.position
-            tvConsultantLocation.text = consultant.location
+            tvConsultantLocation.text = consultant.city
             tvConsultantLovesStat.text = loveStat
 
             Picasso.get().load(consultant.photo)

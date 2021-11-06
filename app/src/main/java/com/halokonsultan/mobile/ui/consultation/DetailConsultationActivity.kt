@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
+import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultation
@@ -157,6 +158,7 @@ class DetailConsultationActivity : AppCompatActivity() {
         binding.svMain.setPadding(0,0,0,
                 resources.getDimensionPixelOffset(R.dimen.padding_bottom_detail_consultation))
         binding.cardPayment.visibility = View.VISIBLE
+        binding.cardMessage.isVisible = false
         if (data?.date != null) {
             binding.btnChooseTime.text = "${data?.date} ${data?.time}"
             binding.btnChooseTime.icon = resources.getDrawable(R.drawable.ic_check_circle)
@@ -173,6 +175,7 @@ class DetailConsultationActivity : AppCompatActivity() {
                 resources.getDimensionPixelOffset(R.dimen.padding_top_detail_consultation),
                 0,
                 0)
+        binding.cardMessage.isVisible = false
         disableChooseTimeAndDocument()
     }
 
@@ -186,6 +189,8 @@ class DetailConsultationActivity : AppCompatActivity() {
             }
         }
 
+        binding.cardMessage.isVisible = false
+
         binding.btnChooseTime.text = "${data?.date} ${data?.time}"
         disableChooseTimeAndDocument()
     }
@@ -198,6 +203,9 @@ class DetailConsultationActivity : AppCompatActivity() {
                 resources.getDimensionPixelOffset(R.dimen.padding_top_detail_consultation),
                 0,
                 0)
+        binding.cardMessage.setStrokeColor(ColorStateList.valueOf(resources.getColor(R.color.danger)))
+        binding.tvMessageTitle.text = "Alasan Penolakan"
+        binding.tvConsultantMessage.text = data?.message
         disableChooseTimeAndDocument()
     }
 
@@ -210,6 +218,7 @@ class DetailConsultationActivity : AppCompatActivity() {
                 0,
                 0)
         binding.btnChooseTime.text = "${data?.date} ${data?.time}"
+        binding.tvConsultantMessage.text = data?.message
         disableChooseTimeAndDocument()
     }
 

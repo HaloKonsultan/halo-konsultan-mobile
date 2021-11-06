@@ -31,8 +31,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getProfile()
-        viewModel.profile.observe(viewLifecycleOwner, { data ->
+        viewModel.getProfileAdvance().observe(viewLifecycleOwner, { data ->
             when(data) {
                 is Resource.Success -> {
                     populateData(data.data)
@@ -41,7 +40,7 @@ class ProfileFragment : Fragment() {
                     Toast.makeText(context, data.message, Toast.LENGTH_LONG).show()
                 }
                 is Resource.Loading -> {
-
+                    populateData(data.data)
                 }
             }
         })
@@ -76,6 +75,6 @@ class ProfileFragment : Fragment() {
     private fun populateData(data: Profile?) {
         binding.tvNamaLengkap.text = data?.name
         binding.tvNamaEmail.text = data?.email
-        binding.tvNamaKota.text = data?.location
+        binding.tvNamaKota.text = data?.city
     }
 }
