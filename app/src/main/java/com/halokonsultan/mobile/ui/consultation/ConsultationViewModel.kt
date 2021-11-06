@@ -1,9 +1,6 @@
 package com.halokonsultan.mobile.ui.consultation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.model.Consultation
 import com.halokonsultan.mobile.data.model.DetailConsultation
@@ -17,10 +14,6 @@ class ConsultationViewModel @Inject constructor(
     private val repository: HaloKonsultanRepository
 ) : ViewModel() {
 
-    private val _consultationList: MutableLiveData<Resource<List<Consultation>>> = MutableLiveData()
-    val consultationList: LiveData<Resource<List<Consultation>>>
-        get() = _consultationList
-
     private val _consultation: MutableLiveData<Resource<DetailConsultation>> = MutableLiveData()
     val consultation: LiveData<Resource<DetailConsultation>>
         get() = _consultation
@@ -29,16 +22,8 @@ class ConsultationViewModel @Inject constructor(
     val payResponse: LiveData<Resource<DetailConsultation>>
         get() = _pay
 
-    fun getConsultationListBasedOnStatus(userId: Int, status: String)
-    = viewModelScope.launch {
-        _consultationList.postValue(Resource.Loading())
-        try {
-            val response = repository.getListConsultation(userId, status)
-            _consultationList.postValue(Resource.Success(response.body()!!.data.data))
-        } catch (e: Exception) {
-            _consultationList.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
-        }
-    }
+    fun getConsultationByStatusAdvance(status: String)
+    = repository.getConsultationByStatusAdvance(getUserID(), status).asLiveData()
 
     fun getDetailConsultation(id: Int) = viewModelScope.launch {
         _consultation.postValue(Resource.Loading())

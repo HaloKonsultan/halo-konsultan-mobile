@@ -1,15 +1,19 @@
 package com.halokonsultan.mobile.data
 
+import androidx.room.withTransaction
+import com.halokonsultan.mobile.data.local.HaloKonsultanDatabase
 import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
 import com.halokonsultan.mobile.data.remote.LocationApi
+import com.halokonsultan.mobile.utils.networkBoundResource
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class HaloKonsultanRepository @Inject constructor(
         private val api: HaloKonsultanApi,
         private val locationApi: LocationApi,
-        private val preferences: Preferences
+        private val preferences: Preferences,
+        private val db: HaloKonsultanDatabase
 ) {
 
     suspend fun login(email: String, password: String) = api.login(email, password)
@@ -67,4 +71,77 @@ class HaloKonsultanRepository @Inject constructor(
     fun getExpiredTime() = preferences.expiredTime
     fun setFirstTime(value: Boolean) = preferences.isFirstTime(value)
     fun isFirstTime() = preferences.firstTime
+
+    // Experiment with networkBoundResource
+    fun getRandomCategoriesAdvance() = networkBoundResource(
+        query = {
+            db.getDao().getRandomCategories()
+        },
+        fetch = {
+            val response = api.getRandomCategories()
+            response.body()?.data
+        },
+        saveFetchResult = { categories ->
+            if (categories != null) {
+                db.withTransaction {
+                    db.getDao().deleteAllCategories()
+                    db.getDao().upsertCategories(categories)
+                }
+            }
+        }
+    )
+
+    fun getNearestConsultantAdvance(city: String) = networkBoundResource(
+        query = {
+            db.getDao().getNearestConsultants(city)
+        },
+        fetch = {
+            val response = api.getNearestConsultants(city)
+            response.body()?.data?.data
+        },
+        saveFetchResult = { consultants ->
+            if (consultants != null) {
+                db.withTransaction {
+                    db.getDao().deleteConsultantsByCity(city)
+                    db.getDao().upsertConsultants(consultants)
+                }
+            }
+        }
+    )
+
+    fun getConsultationByStatusAdvance(id: Int, status: String) = networkBoundResource(
+        query = {
+            db.getDao().getConsultationsByStatus(status)
+        },
+        fetch = {
+            val response = api.getConsultationList(id, status)
+            response.body()?.data?.data
+        },
+        saveFetchResult = { consultations ->
+            if (consultations != null) {
+                db.withTransaction {
+                    db.getDao().deleteConsultationsByStatus(status)
+                    db.getDao().upsertConsultations(consultations)
+                }
+            }
+        }
+    )
+
+    fun getProfileAdvance(id: Int) = networkBoundResource(
+        query = {
+            db.getDao().getProfile(id)
+        },
+        fetch = {
+            val response = api.getProfile(id)
+            response.body()?.data
+        },
+        saveFetchResult = { profile ->
+            if (profile != null) {
+                db.withTransaction {
+                    db.getDao().deleteProfile(id)
+                    db.getDao().upsertProfile(profile)
+                }
+            }
+        }
+    )
 }

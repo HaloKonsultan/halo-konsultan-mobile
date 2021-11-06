@@ -94,7 +94,7 @@ class ConsultantActivity : AppCompatActivity() {
             tvConsultantName.text = profileData?.name
             tvConsultantCategory.text = profileData?.position
             tvConsultantTotalLikes.text = profileData?.likes_total.toString()
-            tvConsultantLocation.text = profileData?.location
+            tvConsultantLocation.text = profileData?.city
             tvConsultantDesc.text = profileData?.description
             tvChatPrice.text = btnDiscussText
 

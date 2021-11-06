@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,47 +41,43 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
 
-        viewModel.getRandomCategories()
-        viewModel.categories.observe(viewLifecycleOwner, { response ->
+        viewModel.getRandomCategoriesAdvance().observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
-                    binding.categoryProgressBar.visibility = View.GONE
-                    Log.d("coba", "onViewCreated: ${response.data}")
-                    categoryAdapter.differ.submitList(response.data)
+                    binding.categoryProgressBar.isVisible = false
+                    categoryAdapter.differ.submitList(viewModel.categoriesWithOther(response.data))
                 }
 
                 is Resource.Error -> {
-                    binding.categoryProgressBar.visibility = View.GONE
+                    binding.categoryProgressBar.isVisible = false
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
 
                 is Resource.Loading -> {
-                    binding.categoryProgressBar.visibility = View.VISIBLE
+                    binding.categoryProgressBar.isVisible = true
+                    categoryAdapter.differ.submitList(viewModel.categoriesWithOther(response.data))
                 }
             }
         })
 
-        viewModel.getNearestConsultants("surabaya")
-        viewModel.consultants.observe(viewLifecycleOwner, { response ->
-            when(response) {
+        viewModel.getNearestConsultantsAdvance("surabaya").observe(viewLifecycleOwner, { response ->
+            when (response) {
                 is Resource.Success -> {
-                    binding.consultantProgressBar.visibility = View.GONE
+                    binding.consultantProgressBar.isVisible = false
                     consultantAdapter.differ.submitList(response.data)
                 }
 
                 is Resource.Error -> {
-                    binding.consultantProgressBar.visibility = View.GONE
+                    binding.consultantProgressBar.isVisible = false
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
 
                 is Resource.Loading -> {
-                    binding.consultantProgressBar.visibility = View.VISIBLE
+                    binding.consultantProgressBar.isVisible = true
+                    consultantAdapter.differ.submitList(response.data)
                 }
             }
         })
-
-        consultantAdapter.differ.submitList(DummyData.getConsultantList())
-        categoryAdapter.differ.submitList(DummyData.getCategoryList())
 
         binding.btnSearch.setOnClickListener {
             val intent = Intent(context, SearchActivity::class.java)

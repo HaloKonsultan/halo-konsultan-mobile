@@ -13,6 +13,7 @@ data class DetailConsultation(
         val location: String,
         val preference: String,
         val status: String,
+        val message: String?,
         val consultant: Consultant?,
         val consultation_document: List<ConsultationsDocument>,
         val consultation_preference_date: List<ConsultationsPrefDate>,

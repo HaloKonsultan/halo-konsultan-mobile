@@ -1,6 +1,8 @@
 package com.halokonsultan.mobile.di
 
+import android.content.Context
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
+import com.halokonsultan.mobile.data.local.HaloKonsultanDatabase
 import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
 import com.halokonsultan.mobile.data.remote.LocationApi
@@ -8,7 +10,9 @@ import com.halokonsultan.mobile.data.remote.RetrofitInstance
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -26,8 +30,17 @@ object AppModule {
     @Provides
     fun providePreferences(): Preferences = Preferences.instance
 
+    @Singleton
     @Provides
-    fun provideRepository(api: HaloKonsultanApi, locationApi: LocationApi, preferences: Preferences)
-    : HaloKonsultanRepository = HaloKonsultanRepository(api, locationApi, preferences)
+    fun provideDatabase(@ApplicationContext context: Context): HaloKonsultanDatabase
+    = HaloKonsultanDatabase(context)
+
+    @Provides
+    fun provideRepository(
+        api: HaloKonsultanApi,
+        locationApi: LocationApi,
+        preferences: Preferences,
+        db: HaloKonsultanDatabase)
+    : HaloKonsultanRepository = HaloKonsultanRepository(api, locationApi, preferences, db)
 
 }

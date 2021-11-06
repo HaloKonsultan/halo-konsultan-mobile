@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
@@ -33,33 +34,36 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSwiper()
+        setupData()
+    }
 
-        viewModel.getConsultationListBasedOnStatus(viewModel.getUserID(), getStatus(type))
-        viewModel.consultationList.observe(viewLifecycleOwner, { response ->
+    private fun setupSwiper() {
+        binding.swiper.setOnRefreshListener {
+            setupData()
+        }
+    }
+
+    private fun setupData() {
+        viewModel.getConsultationByStatusAdvance(getStatus(type)).observe(viewLifecycleOwner, { response ->
             when(response) {
                 is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
+                    binding.progressBar.isVisible = false
                     binding.swiper.isRefreshing = false
                     consultationAdapter.differ.submitList(response.data)
                 }
 
                 is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
+                    binding.progressBar.isVisible = false
                     binding.swiper.isRefreshing = false
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
 
                 is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    consultationAdapter.differ.submitList(response.data)
+                    binding.progressBar.isVisible = true
                 }
             }
         })
-    }
-
-    private fun setupSwiper() {
-        binding.swiper.setOnRefreshListener {
-            viewModel.getConsultationListBasedOnStatus(viewModel.getUserID(), getStatus(type))
-        }
     }
 
     private fun setupRecyclerView() {
