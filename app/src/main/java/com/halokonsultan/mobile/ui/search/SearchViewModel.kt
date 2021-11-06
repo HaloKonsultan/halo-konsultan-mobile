@@ -1,9 +1,6 @@
 package com.halokonsultan.mobile.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.utils.Resource
@@ -39,4 +36,6 @@ class SearchViewModel @Inject constructor(
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
     }
+
+    fun searchConsultantByCategoryAdvance(id: Int) = repository.getConsultantByCategoryAdvance(id).asLiveData()
 }
