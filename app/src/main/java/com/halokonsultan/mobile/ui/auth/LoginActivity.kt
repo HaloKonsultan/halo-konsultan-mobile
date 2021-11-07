@@ -63,8 +63,6 @@ class LoginActivity : AppCompatActivity() {
             }
             submitWith(binding.btnLogin){
                 login()
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                finish()
             }
         }
     }

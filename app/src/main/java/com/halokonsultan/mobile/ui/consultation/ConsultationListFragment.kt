@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.ui.consultation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
 import com.halokonsultan.mobile.utils.Resource
@@ -21,6 +23,7 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
     private lateinit var binding: FragmentConsultationListBinding
     private lateinit var consultationAdapter: ConsultationAdapter
     private val viewModel: ConsultationViewModel by viewModels()
+    var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,8 +72,27 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
     private fun setupRecyclerView() {
         consultationAdapter = ConsultationAdapter(type)
         with(binding.rvConsultation) {
-            layoutManager = LinearLayoutManager(context)
+            val lm = LinearLayoutManager(context)
+            layoutManager = lm
             adapter = consultationAdapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 0) {
+                        var vItem = lm.childCount
+                        var lItem = lm.findFirstCompletelyVisibleItemPosition()
+                        var count = consultationAdapter.itemCount
+
+                        if (!isLoading) {
+                            if (vItem + lItem >= count) {
+                                addMoreData()
+                                Log.e("tes", vItem.toString())
+                            }
+
+                        }
+                    }
+                    super.onScrolled(recyclerView, dx, dy)
+                }
+            })
         }
 
         consultationAdapter.setOnItemClickListener {
@@ -86,5 +108,16 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                 R.string.tab_text_2 -> "waiting"
                 R.string.tab_text_3 -> "done"
                 else -> "active"
+    }
+
+    private fun addMoreData() {
+//        isLoading = true
+//        progress_bar.vi
+//        for (i in 0..6) {
+//
+//
+//        }
+//        Handler().postDelayed({
+//        })
     }
 }
