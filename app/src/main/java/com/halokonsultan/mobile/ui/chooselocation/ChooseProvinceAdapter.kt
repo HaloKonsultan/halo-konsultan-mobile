@@ -7,12 +7,13 @@ import android.view.View
 import java.util.ArrayList
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Province
 import java.lang.Exception
 
 
-class ChooseLocationAdapter(
+class ChooseProvinceAdapter(
     mContext: Context,
     private val layoutResourceId: Int,
     private val mArrayList: ArrayList<Province>
@@ -35,13 +36,5 @@ class ChooseLocationAdapter(
             e.printStackTrace()
         }
         return mConvertView!!
-    }
-
-    fun getItemNameAtPosition(position: Int): String {
-        return mArrayList[position].nama
-    }
-
-    fun getItemIDAtPosition(position: Int): Int {
-        return mArrayList[position].id
     }
 }

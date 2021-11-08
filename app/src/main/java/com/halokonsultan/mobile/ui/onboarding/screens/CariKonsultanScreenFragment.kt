@@ -25,7 +25,7 @@ class CariKonsultanScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = activity?.findViewById<ViewPager2>(R.id.onboardingViewPager)
 
-        binding.btnPrev.isEnabled = false
+//        binding.btnPrev.isEnabled = false
 
         binding.btnNext.setOnClickListener{
             viewPager?.currentItem = 1

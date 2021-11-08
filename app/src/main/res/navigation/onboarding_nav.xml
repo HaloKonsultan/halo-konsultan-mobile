@@ -8,7 +8,7 @@
         android:id="@+id/onboardingFragment"
         android:name="com.halokonsultan.mobile.ui.onboarding.OnboardingFragment"
         android:label="fragment_onboarding"
-        tools:layout="@layout/fragment_onboarding" >
+        tools:layout="@layout/fragment_onboarding">
         <action
             android:id="@+id/action_onboardingFragment_to_landingActivity"
             app:destination="@id/landingActivity"

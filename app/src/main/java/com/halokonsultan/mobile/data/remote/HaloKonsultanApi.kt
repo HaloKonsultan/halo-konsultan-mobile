@@ -29,9 +29,19 @@ interface HaloKonsultanApi {
     suspend fun logout(): Response<LogoutResponse>
 
     // Profile
+
     @GET("profile/{id}")
     suspend fun getProfile(
         @Path("id") id: Int
+    ): Response<BasicResponse<Profile>>
+
+    @FormUrlEncoded
+    @PATCH("users/update/{id}")
+    suspend fun updateProfile(
+        @Path("id") id: Int,
+        @Field("name") name: String,
+        @Field("province") province: String,
+        @Field("city") city: String
     ): Response<BasicResponse<Profile>>
 
     // Category

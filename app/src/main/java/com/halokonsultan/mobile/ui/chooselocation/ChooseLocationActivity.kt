@@ -1,18 +1,21 @@
 package com.halokonsultan.mobile.ui.chooselocation
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import com.afollestad.materialdialogs.utils.MDUtil.getStringArray
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.data.model.Province
 import com.halokonsultan.mobile.databinding.ActivityChooseLocationBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+
+import android.widget.ArrayAdapter
+import com.halokonsultan.mobile.data.model.City
+
 
 @AndroidEntryPoint
 class ChooseLocationActivity : AppCompatActivity() {
@@ -40,6 +43,28 @@ class ChooseLocationActivity : AppCompatActivity() {
             val id = intent.getIntExtra(EXTRA_ID, 0)
             val name = intent.getStringExtra(EXTRA_NAME)
         }
+
+        binding.inputProvinsi.setOnItemClickListener { adapterView, view, position, l ->
+            val adapter = binding.inputProvinsi.adapter
+            val item = adapter.getItem(position) as Province
+            setupCityChooser(item.id)
+        }
+    }
+
+    private fun setupCityChooser(id: Int) {
+        viewModel.getAllCities(id)
+        viewModel.cities.observe(this, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    val adapter = ArrayAdapter(
+                        this,
+                        R.layout.item_location,
+                        ArrayList(response.data)
+                    )
+                    binding.inputKota.setAdapter(adapter)
+                }
+            }
+        })
     }
 
     private fun setupProvinceChooser() {
@@ -47,7 +72,12 @@ class ChooseLocationActivity : AppCompatActivity() {
         viewModel.provinces.observe(this, { response ->
             when(response) {
                 is Resource.Success -> {
-
+                    val adapter = ArrayAdapter<Province>(
+                        this,
+                        R.layout.item_location,
+                        ArrayList(response.data)
+                    )
+                    binding.inputProvinsi.setAdapter(adapter)
                 }
             }
         })

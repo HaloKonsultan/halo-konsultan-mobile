@@ -4,4 +4,8 @@ data class City(
     val id: Int,
     val id_provinsi: String,
     val nama: String
-)
+) {
+    override fun toString(): String {
+        return nama
+    }
+}

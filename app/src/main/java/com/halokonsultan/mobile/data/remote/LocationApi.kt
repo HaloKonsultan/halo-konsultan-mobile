@@ -4,6 +4,7 @@ import com.halokonsultan.mobile.data.model.dto.CityResponse
 import com.halokonsultan.mobile.data.model.dto.ProvinceResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Query
 
 interface LocationApi {
@@ -15,5 +16,4 @@ interface LocationApi {
     suspend fun getAllCity(
         @Query("id_provinsi") idProvince: Int
     ): Response<CityResponse>
-
 }

@@ -68,6 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_provinsi">
 
         <AutoCompleteTextView
+            android:id="@+id/input_provinsi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
@@ -106,6 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_kota">
 
         <AutoCompleteTextView
+            android:id="@+id/input_kota"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"

@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_logo"
-        app:lottie_rawRes="@raw/cari_icon_rev"
+        app:lottie_rawRes="@raw/cari_icon_revtwo"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"/>
 
@@ -80,30 +80,6 @@
         app:cornerRadius="24dp"
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_prev"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:backgroundTint="@color/primary_white"
-        android:fontFamily="@font/inter_medium"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:lineSpacingExtra="8sp"
-        android:paddingStart="32dp"
-        android:paddingTop="13dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="13dp"
-        android:text="@string/sebelumnya"
-        android:textAllCaps="false"
-        android:textColor="@color/primary_blue"
-        android:textSize="14sp"
-        app:cornerRadius="24dp"
-        app:elevation="0dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
