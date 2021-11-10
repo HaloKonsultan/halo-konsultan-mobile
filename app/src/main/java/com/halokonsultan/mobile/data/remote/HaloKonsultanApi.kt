@@ -56,7 +56,8 @@ interface HaloKonsultanApi {
 
     @GET("consultants/city/{city}")
     suspend fun getNearestConsultants(
-        @Path("city") city: String
+        @Path("city") city: String,
+        @Query("page") page: Int
     ): Response<PaginationResponse<Consultant>>
 
     @GET("consultants/{id}")
@@ -66,12 +67,14 @@ interface HaloKonsultanApi {
 
     @GET("consultants/search/{name}")
     suspend fun search(
-        @Path("name") keyword: String
+        @Path("name") keyword: String,
+        @Query("page") page: Int
     ): Response<PaginationResponse<Consultant>>
 
     @GET("consultants/category/{category_id}")
     suspend fun getConsultantByCategory(
-        @Path("category_id") categoryId: Int
+        @Path("category_id") categoryId: Int,
+        @Query("page") page: Int
     ): Response<PaginationResponse<Consultant>>
 
     // Consultation
@@ -91,7 +94,8 @@ interface HaloKonsultanApi {
     @GET("consultations/user/{user_id}/status/{status}")
     suspend fun getConsultationList(
         @Path("user_id") userId: Int,
-        @Path("status") status: String
+        @Path("status") status: String,
+        @Query("page") page: Int
     ): Response<PaginationResponse<Consultation>>
 
     @GET("consultations/{id}")

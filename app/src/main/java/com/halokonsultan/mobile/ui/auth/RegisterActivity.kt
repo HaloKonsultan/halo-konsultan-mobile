@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.afollestad.vvalidator.form
 import com.halokonsultan.mobile.databinding.ActivityRegisterBinding
 import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationActivity
 import com.halokonsultan.mobile.ui.main.MainActivity
@@ -43,11 +44,31 @@ class RegisterActivity : AppCompatActivity() {
         spannable.setSpan(UnderlineSpan(), 61, 86, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         binding.tvInformation.text = spannable
 
+        registerValidation()
+
         binding.btnRegistrasi.setOnClickListener {
             if (validateRegister()) {
                 register()
             } else {
                 Toast.makeText(this, "Email harus valid dan password wajib diisi", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun registerValidation() {
+        form {
+            useRealTimeValidation(disableSubmit = true)
+            input(binding.etNama) {
+                isNotEmpty().description("Field ini wajib diisi")
+            }
+
+            input(binding.etEmail) {
+                isEmail().description("Silahkan masukan email yang valid!")
+                isNotEmpty().description("Field ini wajib diisi")
+            }
+
+            submitWith(binding.btnRegistrasi) {
+                register()
             }
         }
     }

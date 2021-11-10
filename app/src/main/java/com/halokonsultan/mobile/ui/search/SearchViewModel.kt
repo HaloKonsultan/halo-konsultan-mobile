@@ -1,12 +1,16 @@
 package com.halokonsultan.mobile.ui.search
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.halokonsultan.mobile.data.HaloKonsultanRepository
 import com.halokonsultan.mobile.data.model.Consultant
+import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Resource
+import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -17,25 +21,21 @@ class SearchViewModel @Inject constructor(
     val consultants: LiveData<Resource<List<Consultant>>>
         get() = _consultants
 
-    fun searchConsultantByName(name: String) = viewModelScope.launch {
+    fun searchConsultantByName(name: String, page: Int) = viewModelScope.launch {
         _consultants.postValue(Resource.Loading())
         try {
-            val response = repository.searchConsultantByName(name)
+            Log.d("coba", "searchConsultantByName: $name $page")
+            val response = repository.searchConsultantByName(name, page)
+            GlobalState.nextPageConsultant =
+                    if (response.body()?.data?.next_page_url != null)
+                        Utils.getPageNumberFromUrl(response.body()?.data?.next_page_url!!)
+                    else
+                        null
             _consultants.postValue(Resource.Success(response.body()!!.data.data))
         } catch (e: Exception) {
             _consultants.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
         }
     }
 
-    fun searchConsultantByCategory(id: Int) = viewModelScope.launch {
-        _consultants.postValue(Resource.Loading())
-        try {
-            val response = repository.getConsultantByCategory(id)
-            _consultants.postValue(Resource.Success(response.body()!!.data.data))
-        } catch (e: Exception) {
-            _consultants.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
-        }
-    }
-
-    fun searchConsultantByCategoryAdvance(id: Int) = repository.getConsultantByCategoryAdvance(id).asLiveData()
+    fun searchConsultantByCategoryAdvance(id: Int, page: Int) = repository.getConsultantByCategoryAdvance(id, page).asLiveData()
 }

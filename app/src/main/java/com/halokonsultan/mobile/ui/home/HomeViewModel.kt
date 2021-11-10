@@ -13,7 +13,7 @@ class HomeViewModel @Inject constructor(
 
     fun getRandomCategoriesAdvance() = repository.getRandomCategoriesAdvance().asLiveData()
 
-    fun getNearestConsultantsAdvance(city: String) = repository.getNearestConsultantAdvance(city).asLiveData()
+    fun getNearestConsultantsAdvance(city: String, page: Int) = repository.getNearestConsultantAdvance(city, page).asLiveData()
 
     fun categoriesWithOther(data: List<Category>?): List<Category> {
         val temp = data?.toMutableList() ?: mutableListOf()
