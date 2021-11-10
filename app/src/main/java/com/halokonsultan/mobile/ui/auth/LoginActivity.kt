@@ -54,12 +54,12 @@ class LoginActivity : AppCompatActivity() {
         form{
             useRealTimeValidation()
             input(binding.etEmail, name = null){
-                isNotEmpty()
-                isEmail()
+                isNotEmpty().description("Field ini wajib diisi")
+                isEmail().description("Silahkan masukan email yang valid!")
             }
 
             input(binding.etPassword, name = null){
-                isNotEmpty()
+                isNotEmpty().description("Field ini wajib diisi")
             }
             submitWith(binding.btnLogin){
                 login()

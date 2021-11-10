@@ -1,10 +1,13 @@
 package com.halokonsultan.mobile.data
 
+import android.util.Log
 import androidx.room.withTransaction
 import com.halokonsultan.mobile.data.local.HaloKonsultanDatabase
 import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
 import com.halokonsultan.mobile.data.remote.LocationApi
+import com.halokonsultan.mobile.utils.GlobalState
+import com.halokonsultan.mobile.utils.Utils
 import com.halokonsultan.mobile.utils.networkBoundResource
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -22,23 +25,15 @@ class HaloKonsultanRepository @Inject constructor(
 
     suspend fun logout() = api.logout()
 
-    suspend fun getProfile(id: Int) = api.getProfile(id)
-
     suspend fun getAllProvince() = locationApi.getAllProvince()
 
     suspend fun getAllCity(id: Int) = locationApi.getAllCity(id)
 
-    suspend fun getRandomCategories() = api.getRandomCategories()
-
     suspend fun getAllCategories() = api.getAllCategories()
-
-    suspend fun getNearestConsultants(city: String) = api.getNearestConsultants(city)
 
     suspend fun getConsultantDetail(id: Int) = api.getConsultantDetail(id)
 
-    suspend fun searchConsultantByName(name: String) = api.search(name)
-
-    suspend fun getConsultantByCategory(id: Int) = api.getConsultantByCategory(id)
+    suspend fun searchConsultantByName(name: String, page: Int) = api.search(name, page)
 
     suspend fun bookingConsultation(title: String,
                                     consultantId: Int,
@@ -48,9 +43,6 @@ class HaloKonsultanRepository @Inject constructor(
                                     isOffline: Int,
                                     location: String) =
         api.bookingConsultation(title, consultantId, userId, description, isOnline, isOffline, location)
-
-    suspend fun getListConsultation(userId: Int, status: String) =
-        api.getConsultationList(userId, status)
 
     suspend fun getDetailConsultation(id: Int) = api.getDetailConsultation(id)
 
@@ -91,48 +83,64 @@ class HaloKonsultanRepository @Inject constructor(
         }
     )
 
-    fun getNearestConsultantAdvance(city: String) = networkBoundResource(
+    fun getNearestConsultantAdvance(city: String, page: Int) = networkBoundResource(
         query = {
             db.getDao().getNearestConsultants(city)
         },
         fetch = {
-            val response = api.getNearestConsultants(city)
+            val response = api.getNearestConsultants(city, page)
+            GlobalState.nextPageConsultant =
+                    if (response.body()?.data?.next_page_url != null)
+                        Utils.getPageNumberFromUrl(response.body()?.data?.next_page_url!!)
+                    else
+                        null
             response.body()?.data?.data
         },
         saveFetchResult = { consultants ->
             if (consultants != null) {
                 db.withTransaction {
-                    db.getDao().deleteConsultantsByCity(city)
+                    if (page == 1) db.getDao().deleteConsultantsByCity(city)
                     db.getDao().upsertConsultants(consultants)
                 }
             }
         }
     )
 
-    fun getConsultantByCategoryAdvance(id: Int) = networkBoundResource(
+    fun getConsultantByCategoryAdvance(id: Int, page: Int) = networkBoundResource(
             query = {
                 db.getDao().getConsultantByCategory(id)
             },
             fetch = {
-                val response = api.getConsultantByCategory(id)
+                val response = api.getConsultantByCategory(id, page)
+                GlobalState.nextPageConsultant =
+                        if (response.body()?.data?.next_page_url != null)
+                            Utils.getPageNumberFromUrl(response.body()?.data?.next_page_url!!)
+                        else
+                            null
+                Log.d("coba", "getConsultantByCategoryAdvance: ${GlobalState.nextPageConsultant}")
                 response.body()?.data?.data
             },
             saveFetchResult = { consultants ->
                 if (consultants != null) {
                     db.withTransaction {
-                        db.getDao().deleteConsultantsByCategory(id)
+                        if (page == 1) db.getDao().deleteConsultantsByCategory(id)
                         db.getDao().upsertConsultants(consultants)
                     }
                 }
             }
     )
 
-    fun getConsultationByStatusAdvance(id: Int, status: String) = networkBoundResource(
+    fun getConsultationByStatusAdvance(id: Int, status: String, page: Int) = networkBoundResource(
         query = {
             db.getDao().getConsultationsByStatus(id, status)
         },
         fetch = {
-            val response = api.getConsultationList(id, status)
+            val response = api.getConsultationList(id, status, page)
+            GlobalState.nextPageConsultation =
+                    if (response.body()?.data?.next_page_url != null)
+                        Utils.getPageNumberFromUrl(response.body()?.data?.next_page_url!!)
+                    else
+                        null
             response.body()?.data?.data
         },
         saveFetchResult = { consultations ->

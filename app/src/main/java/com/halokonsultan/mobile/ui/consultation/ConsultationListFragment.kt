@@ -2,7 +2,6 @@ package com.halokonsultan.mobile.ui.consultation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
+import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +23,6 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
     private lateinit var binding: FragmentConsultationListBinding
     private lateinit var consultationAdapter: ConsultationAdapter
     private val viewModel: ConsultationViewModel by viewModels()
-    var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,17 +41,26 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
 
     private fun setupSwiper() {
         binding.swiper.setOnRefreshListener {
+            GlobalState.nextPageConsultation = 1
             setupData()
         }
     }
 
     private fun setupData() {
-        viewModel.getConsultationByStatusAdvance(getStatus(type)).observe(viewLifecycleOwner, { response ->
+        viewModel.getConsultationByStatusAdvance(getStatus(type), GlobalState.nextPageConsultation ?: 1)
+                .observe(viewLifecycleOwner, { response ->
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
                     binding.swiper.isRefreshing = false
-                    consultationAdapter.differ.submitList(response.data)
+                    val page = GlobalState.nextPageConsultation
+                    if ((page == null || page > 2) && response.data != null) {
+                        val temp = consultationAdapter.differ.currentList.toMutableList()
+                        temp.addAll(response.data)
+                        consultationAdapter.differ.submitList(temp)
+                    } else {
+                        consultationAdapter.differ.submitList(response.data)
+                    }
                 }
 
                 is Resource.Error -> {
@@ -72,25 +80,18 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
     private fun setupRecyclerView() {
         consultationAdapter = ConsultationAdapter(type)
         with(binding.rvConsultation) {
-            val lm = LinearLayoutManager(context)
-            layoutManager = lm
+            layoutManager = LinearLayoutManager(context)
             adapter = consultationAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    if (dy > 0) {
-                        var vItem = lm.childCount
-                        var lItem = lm.findFirstCompletelyVisibleItemPosition()
-                        var count = consultationAdapter.itemCount
-
-                        if (!isLoading) {
-                            if (vItem + lItem >= count) {
-                                addMoreData()
-                                Log.e("tes", vItem.toString())
-                            }
-
-                        }
+                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                    val manager = this@with.layoutManager as LinearLayoutManager
+                    val max = rv.adapter?.itemCount?.minus(1)
+                    if (
+                            GlobalState.nextPageConsultation != null
+                            && (manager.findLastCompletelyVisibleItemPosition() == max)
+                    ) {
+                        setupData()
                     }
-                    super.onScrolled(recyclerView, dx, dy)
                 }
             })
         }
@@ -108,16 +109,5 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                 R.string.tab_text_2 -> "waiting"
                 R.string.tab_text_3 -> "done"
                 else -> "active"
-    }
-
-    private fun addMoreData() {
-//        isLoading = true
-//        progress_bar.vi
-//        for (i in 0..6) {
-//
-//
-//        }
-//        Handler().postDelayed({
-//        })
     }
 }

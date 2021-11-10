@@ -71,6 +71,11 @@ object Utils {
         }
     }
 
+    fun getPageNumberFromUrl(url: String): Int {
+        val temp = url.split("=")
+        return temp[1].toInt()
+    }
+
     fun openFile(context: Context, url: DocumentFile) {
         val uri: Uri = url.uri
         val intent = Intent(Intent.ACTION_VIEW)

@@ -2,7 +2,6 @@ package com.halokonsultan.mobile.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +11,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.ui.search.SearchActivity
-import com.halokonsultan.mobile.utils.DummyData
+import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,7 +40,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        getNearestConsultantData()
+        getRandomCategories()
 
+        binding.btnSearch.setOnClickListener {
+            val intent = Intent(context, SearchActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun getRandomCategories() {
         viewModel.getRandomCategoriesAdvance().observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
@@ -59,12 +68,22 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
 
-        viewModel.getNearestConsultantsAdvance("surabaya").observe(viewLifecycleOwner, { response ->
+    private fun getNearestConsultantData() {
+        viewModel.getNearestConsultantsAdvance("surabaya", GlobalState.nextPageConsultant ?: 1)
+                .observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     binding.consultantProgressBar.isVisible = false
-                    consultantAdapter.differ.submitList(response.data)
+                    val page = GlobalState.nextPageConsultant
+                    if (page == null || page > 2) {
+                        val temp = consultantAdapter.differ.currentList.toMutableList()
+                        response.data?.let { temp.addAll(it) }
+                        consultantAdapter.differ.submitList(temp)
+                    } else {
+                        consultantAdapter.differ.submitList(response.data)
+                    }
                 }
 
                 is Resource.Error -> {
@@ -78,11 +97,6 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-
-        binding.btnSearch.setOnClickListener {
-            val intent = Intent(context, SearchActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun setupRecyclerView() {
@@ -110,6 +124,16 @@ class HomeFragment : Fragment() {
         with(binding.rvNearestConsultant) {
             layoutManager = LinearLayoutManager(context)
             adapter = consultantAdapter
+
+            addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val manager = this@with.layoutManager as LinearLayoutManager
+                    val rv = this@with
+                    if (manager.findLastCompletelyVisibleItemPosition() == (rv.adapter?.itemCount?.minus(1))) {
+                        getNearestConsultantData()
+                    }
+                }
+            })
         }
 
         consultantAdapter.setOnItemClickListener {

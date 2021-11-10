@@ -22,8 +22,8 @@ class ConsultationViewModel @Inject constructor(
     val payResponse: LiveData<Resource<DetailConsultation>>
         get() = _pay
 
-    fun getConsultationByStatusAdvance(status: String)
-    = repository.getConsultationByStatusAdvance(getUserID(), status).asLiveData()
+    fun getConsultationByStatusAdvance(status: String, page: Int)
+    = repository.getConsultationByStatusAdvance(getUserID(), status, page).asLiveData()
 
     fun getDetailConsultation(id: Int) = viewModelScope.launch {
         _consultation.postValue(Resource.Loading())

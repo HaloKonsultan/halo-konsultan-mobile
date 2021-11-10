@@ -4,7 +4,8 @@ import androidx.annotation.StringRes
 import com.halokonsultan.mobile.R
 
 // url related stuff
-const val BASE_URL = "http://192.168.1.3:8000/api/users/"
+//const val BASE_URL = "http://192.168.1.3:8000/api/users/" // punya Ridlo
+const val BASE_URL = "http://192.168.1.100:8000/api/users/" // punya Galih
 const val BASE_URL_LOCATION = "https://dev.farizdotid.com/api/daerahindonesia/"
 
 // shared preference related stuff
@@ -25,3 +26,9 @@ val TAB_TITLES = intArrayOf(
 
 // others
 const val SEARCH_USER_TIME_DELAY = 500L
+
+// CONTOH CALLBACK INVOICE
+// http://6675-114-79-19-29.ngrok.io/api/users/transaction/invoice_callback
+
+// CONTOH CALLBACK DISBURSEMENT
+// http://6675-114-79-19-29.ngrok.io/api/consultants/transaction/withdraw_callback

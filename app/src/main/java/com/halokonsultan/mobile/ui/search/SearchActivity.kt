@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.ui.search
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -11,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivitySearchBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
+import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.SEARCH_USER_TIME_DELAY
 import com.halokonsultan.mobile.utils.Utils
@@ -37,6 +40,9 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var consultantAdapter: ConsultantAdapter
     private val viewModel: SearchViewModel by viewModels()
     private var showCategory = false
+    private var categoryId = 0
+    private var loading = false
+    private var shouldAppend = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +59,7 @@ class SearchActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         if (bundle != null) {
-            val categoryId = intent.getIntExtra(EXTRA_CATEGORY_ID, 0)
+            categoryId = intent.getIntExtra(EXTRA_CATEGORY_ID, 0)
             val categoryName = intent.getStringExtra(EXTRA_CATEGORY_NAME)
             val searchResultText = "Hasil Pencarian \"${categoryName}\""
 
@@ -61,7 +67,7 @@ class SearchActivity : AppCompatActivity() {
             binding.tvResult.text = searchResultText
             binding.tvResult.visibility = View.VISIBLE
             binding.tfSearch.visibility = View.GONE
-            searchByCategory(categoryId)
+            searchByCategory(1,false)
         }
 
         if (!showCategory) {
@@ -73,7 +79,8 @@ class SearchActivity : AppCompatActivity() {
                         delay(SEARCH_USER_TIME_DELAY)
                         editable?.let {
                             val searchResultText = "Hasil Pencarian \"${editable}\""
-                            viewModel.searchConsultantByName(editable.toString())
+                            viewModel.searchConsultantByName(editable.toString(), 1)
+                            registerObserverSearchByName()
                             binding.tvResult.text = searchResultText
                             binding.tvResult.visibility = View.VISIBLE
                         }
@@ -89,14 +96,31 @@ class SearchActivity : AppCompatActivity() {
             val intent = Intent(this@SearchActivity, CategoryActivity::class.java)
             startActivity(intent)
         }
+
+        consultantAdapter.differ.addListListener { previousList, currentList ->
+            currentList.forEach {
+                Log.d("coba", "onCreate: ${previousList.contains(it)}")
+            }
+            Log.d("coba", "onCreate: ===================================")
+        }
     }
 
-    private fun searchByCategory(categoryId: Int) {
-        viewModel.searchConsultantByCategoryAdvance(categoryId).observe(this, { response ->
-            when(response) {
+    private fun registerObserverSearchByName() {
+        viewModel.consultants.observe(this, { response ->
+            when (response) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    consultantAdapter.differ.submitList(response.data)
+                    if (response.data != null && shouldAppend) {
+                        val temp = consultantAdapter.differ.currentList.toMutableList()
+                        Log.d("coba", "searchByName sebelum: ${temp.size} ${consultantAdapter.differ.currentList.size}")
+                        temp.addAll(response.data)
+                        Log.d("coba", "searchByName sesudah: ${temp.size}")
+                        consultantAdapter.differ.submitList(temp)
+                    } else {
+                        Log.d("coba", "onCreate: not should append")
+                        consultantAdapter.differ.submitList(response.data)
+                    }
+                    loading = false
                 }
 
                 is Resource.Error -> {
@@ -106,11 +130,41 @@ class SearchActivity : AppCompatActivity() {
 
                 is Resource.Loading -> {
                     binding.progressBar.isVisible = true
-                    consultantAdapter.differ.submitList(response.data)
                 }
             }
 
         })
+    }
+
+    private fun searchByCategory(page: Int, shouldAppend: Boolean) {
+        viewModel.searchConsultantByCategoryAdvance(categoryId, page)
+                .observe(this, { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            binding.progressBar.isVisible = false
+                            if (response.data != null && shouldAppend) {
+                                val temp = consultantAdapter.differ.currentList.toMutableList()
+                                temp.addAll(response.data)
+                                consultantAdapter.differ.submitList(temp)
+                            } else {
+                                consultantAdapter.differ.submitList(response.data)
+                            }
+                            loading = false
+                        }
+
+                        is Resource.Error -> {
+                            binding.progressBar.isVisible = false
+                            Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
+                        }
+
+                        is Resource.Loading -> {
+                            binding.progressBar.isVisible = true
+                            Log.d("coba", "searchByCategory: test")
+                            consultantAdapter.differ.submitList(response.data)
+                        }
+                    }
+
+                })
     }
 
     private fun setupRecyclerView() {
@@ -118,6 +172,26 @@ class SearchActivity : AppCompatActivity() {
         with(binding.rvSearchConsultan) {
             layoutManager = LinearLayoutManager(context)
             adapter = consultantAdapter
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                    val manager = this@with.layoutManager as LinearLayoutManager
+                    val max = rv.adapter?.itemCount?.minus(1)
+                    if (
+                            GlobalState.nextPageConsultant != null
+                            && (manager.findLastCompletelyVisibleItemPosition() == max)
+                            && !loading
+                    ) {
+                        loading = true
+                        shouldAppend = true
+                        if (showCategory) {
+                            searchByCategory(GlobalState.nextPageConsultant!!, true)
+                        } else {
+                            viewModel.searchConsultantByName(binding.etSearch.text.toString(), GlobalState.nextPageConsultant!!)
+                        }
+                    }
+                }
+            })
         }
 
         consultantAdapter.setOnItemClickListener {
