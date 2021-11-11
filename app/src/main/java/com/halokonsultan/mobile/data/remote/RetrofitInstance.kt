@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitInstance {
 
-    fun createApi(): HaloKonsultanApi {
+    fun createApi(): BaseApi {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttp = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(Preferences.instance.token))
@@ -25,7 +25,7 @@ class RetrofitInstance {
             .client(okHttp)
             .build()
 
-        return retrofit.create(HaloKonsultanApi::class.java)
+        return retrofit.create(BaseApi::class.java)
     }
 
     fun createLocationApi(): LocationApi {

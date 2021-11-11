@@ -11,7 +11,7 @@ import com.halokonsultan.mobile.data.model.Profile
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface HaloKonsultanDao {
+interface BaseDao {
 
     @Query("SELECT * FROM categories ORDER BY RANDOM() LIMIT 5")
     fun getRandomCategories(): Flow<List<Category>>

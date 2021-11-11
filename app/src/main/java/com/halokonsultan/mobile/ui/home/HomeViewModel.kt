@@ -1,14 +1,14 @@
 package com.halokonsultan.mobile.ui.home
 
 import androidx.lifecycle.*
-import com.halokonsultan.mobile.data.HaloKonsultanRepository
+import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: HaloKonsultanRepository
+    private val repository: BaseRepository
 ) : ViewModel() {
 
     fun getRandomCategoriesAdvance() = repository.getRandomCategoriesAdvance().asLiveData()

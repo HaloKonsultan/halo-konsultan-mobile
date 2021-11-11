@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.halokonsultan.mobile.utils.Resource
-import com.halokonsultan.mobile.data.HaloKonsultanRepository
+import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChooseConsultationTimeViewModel @Inject constructor(
-    private val repository: HaloKonsultanRepository): ViewModel() {
+    private val repository: BaseRepository): ViewModel() {
 
     private val _date: MutableLiveData<Resource<DetailConsultation>> = MutableLiveData()
     val date: LiveData<Resource<DetailConsultation>>

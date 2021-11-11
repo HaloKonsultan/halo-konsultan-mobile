@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.halokonsultan.mobile.data.HaloKonsultanRepository
+import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConsultantViewModel @Inject constructor(
-    private val repository: HaloKonsultanRepository
+    private val repository: BaseRepository
 ) : ViewModel() {
 
     private val _profile : MutableLiveData<Resource<DetailConsultant>> = MutableLiveData()

@@ -2,7 +2,7 @@ package com.halokonsultan.mobile.ui.search
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.halokonsultan.mobile.data.HaloKonsultanRepository
+import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Resource
@@ -10,11 +10,10 @@ import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val repository: HaloKonsultanRepository
+    private val repository: BaseRepository
 ) : ViewModel() {
 
     private val _consultants: MutableLiveData<Resource<List<Consultant>>> = MutableLiveData()

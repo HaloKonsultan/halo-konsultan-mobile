@@ -19,12 +19,12 @@ import com.halokonsultan.mobile.data.model.Profile
     version = 1,
     exportSchema = false
 )
-abstract class HaloKonsultanDatabase : RoomDatabase() {
-    abstract fun getDao(): HaloKonsultanDao
+abstract class BaseDatabase : RoomDatabase() {
+    abstract fun getDao(): BaseDao
 
     companion object {
         @Volatile
-        private var instance: HaloKonsultanDatabase? = null
+        private var instance: BaseDatabase? = null
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
@@ -34,7 +34,7 @@ abstract class HaloKonsultanDatabase : RoomDatabase() {
         private fun createDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                HaloKonsultanDatabase::class.java,
+                BaseDatabase::class.java,
                 "halo_konsultan_db.db"
             ).build()
     }

@@ -54,6 +54,30 @@ class DetailConsultationActivity : AppCompatActivity() {
             viewModel.getDetailConsultation(id)
         }
 
+        observeConsultationResponse()
+        observePayResponse()
+    }
+
+    private fun observePayResponse() {
+        viewModel.payResponse.observe(this, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    val intent = Intent(baseContext, PaymentActivity::class.java)
+                    intent.putExtra(PaymentActivity.EXTRA_URL, response.data?.invoice_url)
+                    intent.putExtra(PaymentActivity.EXTRA_ID, response.data?.id)
+                    startActivity(intent)
+                }
+                is Resource.Error -> {
+
+                }
+                is Resource.Loading -> {
+
+                }
+            }
+        })
+    }
+
+    private fun observeConsultationResponse() {
         viewModel.consultation.observe(this, { response ->
             when(response) {
                 is Resource.Success -> {
@@ -66,28 +90,6 @@ class DetailConsultationActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                 }
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
-
-        viewModel.payResponse.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    val intent = Intent(this@DetailConsultationActivity, ConfirmationActivity::class.java)
-                    intent.putExtra(ConfirmationActivity.EXTRA_TITLE, "Pembayaran berhasil!")
-                    intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE,
-                        "Silahkan masuk ke list konsultasi aktif untuk melihat detail konsultasi")
-                    startActivity(intent)
-                }
-
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
-                }
-
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
@@ -123,10 +125,8 @@ class DetailConsultationActivity : AppCompatActivity() {
             }
 
             btnPay.setOnClickListener {
-                data?.id?.let { id ->
-                    val intent = Intent(this@DetailConsultationActivity, PaymentActivity::class.java)
-                    intent.putExtra(PaymentActivity.EXTRA_URL, "https://checkout-staging.xendit.co/web/6181fdd0a2669d9883894a5f")
-                    startActivity(intent)
+                if (data != null && data?.id != null && data?.consultation_price != null) {
+                    viewModel.pay(data?.id!!, data?.consultation_price!!)
                 }
             }
         }
