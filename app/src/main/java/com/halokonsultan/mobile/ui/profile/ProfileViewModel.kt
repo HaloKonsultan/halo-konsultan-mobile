@@ -1,7 +1,7 @@
 package com.halokonsultan.mobile.ui.profile
 
 import androidx.lifecycle.*
-import com.halokonsultan.mobile.data.HaloKonsultanRepository
+import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.dto.LogoutResponse
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-        private val repository: HaloKonsultanRepository
+        private val repository: BaseRepository
 ) : ViewModel() {
 
     private val _logout: MutableLiveData<Resource<LogoutResponse>> = MutableLiveData()

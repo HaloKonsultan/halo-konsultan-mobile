@@ -6,7 +6,7 @@ import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface HaloKonsultanApi {
+interface BaseApi {
 
     // Auth
 
@@ -119,8 +119,22 @@ interface HaloKonsultanApi {
         @Path("id_document") documentId: Int
     ): Response<BasicResponse<DetailConsultation>>
 
-    @PATCH("consultations/transaction/{id}")
+//    @PATCH("consultations/transaction/{id}")
+//    suspend fun pay(
+//        @Path("id") id:Int
+//    ): Response<BasicResponse<DetailConsultation>>
+
+    // transaction
+
+    @FormUrlEncoded
+    @POST("transaction/{id}/pay")
     suspend fun pay(
-        @Path("id") id:Int
-    ): Response<BasicResponse<DetailConsultation>>
+            @Path("id") idConsultation: Int,
+            @Field("amount") amount: Int
+    ): Response<BasicResponse<Transaction>>
+
+    @GET("transaction/{id}")
+    suspend fun getTransaction(
+            @Path("id") id: Int
+    ): Response<BasicResponse<Transaction>>
 }

@@ -2,9 +2,9 @@ package com.halokonsultan.mobile.data
 
 import android.util.Log
 import androidx.room.withTransaction
-import com.halokonsultan.mobile.data.local.HaloKonsultanDatabase
+import com.halokonsultan.mobile.data.local.BaseDatabase
 import com.halokonsultan.mobile.data.preferences.Preferences
-import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
+import com.halokonsultan.mobile.data.remote.BaseApi
 import com.halokonsultan.mobile.data.remote.LocationApi
 import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Utils
@@ -12,11 +12,11 @@ import com.halokonsultan.mobile.utils.networkBoundResource
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class HaloKonsultanRepository @Inject constructor(
-        private val api: HaloKonsultanApi,
+class BaseRepository @Inject constructor(
+        private val api: BaseApi,
         private val locationApi: LocationApi,
         private val preferences: Preferences,
-        private val db: HaloKonsultanDatabase
+        private val db: BaseDatabase
 ) {
 
     suspend fun login(email: String, password: String) = api.login(email, password)
@@ -51,7 +51,9 @@ class HaloKonsultanRepository @Inject constructor(
     suspend fun uploadDocument(file: MultipartBody.Part, id: Int, documentId: Int) =
             api.uploadDocument(file, id, documentId)
 
-    suspend fun pay(id:Int) = api.pay(id)
+    suspend fun pay(id:Int, amount: Int) = api.pay(id, amount)
+
+    suspend fun getTransaction(id:Int) = api.getTransaction(id)
 
     // preference related function
     fun saveToken(token: String) = preferences.saveToken(token)

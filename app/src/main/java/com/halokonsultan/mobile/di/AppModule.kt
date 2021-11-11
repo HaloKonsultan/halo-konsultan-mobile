@@ -1,10 +1,10 @@
 package com.halokonsultan.mobile.di
 
 import android.content.Context
-import com.halokonsultan.mobile.data.HaloKonsultanRepository
-import com.halokonsultan.mobile.data.local.HaloKonsultanDatabase
+import com.halokonsultan.mobile.data.BaseRepository
+import com.halokonsultan.mobile.data.local.BaseDatabase
 import com.halokonsultan.mobile.data.preferences.Preferences
-import com.halokonsultan.mobile.data.remote.HaloKonsultanApi
+import com.halokonsultan.mobile.data.remote.BaseApi
 import com.halokonsultan.mobile.data.remote.LocationApi
 import com.halokonsultan.mobile.data.remote.RetrofitInstance
 import dagger.Module
@@ -12,7 +12,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -20,7 +19,7 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    fun provideApi(): HaloKonsultanApi = RetrofitInstance().createApi()
+    fun provideApi(): BaseApi = RetrofitInstance().createApi()
 
     @Singleton
     @Provides
@@ -32,15 +31,15 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): HaloKonsultanDatabase
-    = HaloKonsultanDatabase(context)
+    fun provideDatabase(@ApplicationContext context: Context): BaseDatabase
+    = BaseDatabase(context)
 
     @Provides
     fun provideRepository(
-        api: HaloKonsultanApi,
-        locationApi: LocationApi,
-        preferences: Preferences,
-        db: HaloKonsultanDatabase)
-    : HaloKonsultanRepository = HaloKonsultanRepository(api, locationApi, preferences, db)
+            api: BaseApi,
+            locationApi: LocationApi,
+            preferences: Preferences,
+            db: BaseDatabase)
+    : BaseRepository = BaseRepository(api, locationApi, preferences, db)
 
 }

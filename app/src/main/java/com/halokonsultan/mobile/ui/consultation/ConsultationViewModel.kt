@@ -1,9 +1,9 @@
 package com.halokonsultan.mobile.ui.consultation
 
 import androidx.lifecycle.*
-import com.halokonsultan.mobile.data.HaloKonsultanRepository
-import com.halokonsultan.mobile.data.model.Consultation
+import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.DetailConsultation
+import com.halokonsultan.mobile.data.model.Transaction
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -11,15 +11,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConsultationViewModel @Inject constructor(
-    private val repository: HaloKonsultanRepository
+    private val repository: BaseRepository
 ) : ViewModel() {
 
     private val _consultation: MutableLiveData<Resource<DetailConsultation>> = MutableLiveData()
     val consultation: LiveData<Resource<DetailConsultation>>
         get() = _consultation
 
-    private val _pay: MutableLiveData<Resource<DetailConsultation>> = MutableLiveData()
-    val payResponse: LiveData<Resource<DetailConsultation>>
+    private val _pay: MutableLiveData<Resource<Transaction>> = MutableLiveData()
+    val payResponse: LiveData<Resource<Transaction>>
         get() = _pay
 
     fun getConsultationByStatusAdvance(status: String, page: Int)
@@ -37,10 +37,10 @@ class ConsultationViewModel @Inject constructor(
         }
     }
 
-    fun pay(id: Int) = viewModelScope.launch {
+    fun pay(id: Int, amount: Int) = viewModelScope.launch {
         _pay.postValue(Resource.Loading())
         try {
-            val response = repository.pay(id).body()
+            val response = repository.pay(id, amount).body()
             if (response?.data != null) {
                _pay.postValue(Resource.Success(response.data))
             }
