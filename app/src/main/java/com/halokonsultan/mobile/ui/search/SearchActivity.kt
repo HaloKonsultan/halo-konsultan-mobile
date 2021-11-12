@@ -2,7 +2,6 @@ package com.halokonsultan.mobile.ui.search
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -96,13 +95,6 @@ class SearchActivity : AppCompatActivity() {
             val intent = Intent(this@SearchActivity, CategoryActivity::class.java)
             startActivity(intent)
         }
-
-        consultantAdapter.differ.addListListener { previousList, currentList ->
-            currentList.forEach {
-                Log.d("coba", "onCreate: ${previousList.contains(it)}")
-            }
-            Log.d("coba", "onCreate: ===================================")
-        }
     }
 
     private fun registerObserverSearchByName() {
@@ -112,12 +104,9 @@ class SearchActivity : AppCompatActivity() {
                     binding.progressBar.isVisible = false
                     if (response.data != null && shouldAppend) {
                         val temp = consultantAdapter.differ.currentList.toMutableList()
-                        Log.d("coba", "searchByName sebelum: ${temp.size} ${consultantAdapter.differ.currentList.size}")
                         temp.addAll(response.data)
-                        Log.d("coba", "searchByName sesudah: ${temp.size}")
                         consultantAdapter.differ.submitList(temp)
                     } else {
-                        Log.d("coba", "onCreate: not should append")
                         consultantAdapter.differ.submitList(response.data)
                     }
                     loading = false
@@ -159,7 +148,6 @@ class SearchActivity : AppCompatActivity() {
 
                         is Resource.Loading -> {
                             binding.progressBar.isVisible = true
-                            Log.d("coba", "searchByCategory: test")
                             consultantAdapter.differ.submitList(response.data)
                         }
                     }

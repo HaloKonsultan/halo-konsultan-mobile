@@ -28,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var consultantAdapter: ConsultantAdapter
     private val viewModel: HomeViewModel by viewModels()
+    private var loading = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +41,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        getNearestConsultantData()
+        getNearestConsultantData(1, false)
         getRandomCategories()
 
         binding.btnSearch.setOnClickListener {
@@ -70,17 +71,17 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun getNearestConsultantData() {
-        viewModel.getNearestConsultantsAdvance("surabaya", GlobalState.nextPageConsultant ?: 1)
+    private fun getNearestConsultantData(page: Int, shouldAppend: Boolean) {
+        viewModel.getNearestConsultantsAdvance("surabaya", page)
                 .observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     binding.consultantProgressBar.isVisible = false
-                    val page = GlobalState.nextPageConsultant
-                    if (page == null || page > 2) {
+                    if (shouldAppend) {
                         val temp = consultantAdapter.differ.currentList.toMutableList()
                         response.data?.let { temp.addAll(it) }
                         consultantAdapter.differ.submitList(temp)
+                        loading = false
                     } else {
                         consultantAdapter.differ.submitList(response.data)
                     }
@@ -126,11 +127,16 @@ class HomeFragment : Fragment() {
             adapter = consultantAdapter
 
             addOnScrollListener(object: RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                     val manager = this@with.layoutManager as LinearLayoutManager
-                    val rv = this@with
-                    if (manager.findLastCompletelyVisibleItemPosition() == (rv.adapter?.itemCount?.minus(1))) {
-                        getNearestConsultantData()
+                    val max = rv.adapter?.itemCount?.minus(1)
+                    if (
+                        GlobalState.nextPageConsultant != null
+                        && manager.findLastCompletelyVisibleItemPosition() == max
+                        && !loading
+                    ) {
+                        loading = true
+                        getNearestConsultantData(GlobalState.nextPageConsultant!!, true)
                     }
                 }
             })

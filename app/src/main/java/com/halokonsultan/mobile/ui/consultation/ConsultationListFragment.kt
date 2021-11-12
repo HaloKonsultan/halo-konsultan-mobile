@@ -23,6 +23,7 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
     private lateinit var binding: FragmentConsultationListBinding
     private lateinit var consultationAdapter: ConsultationAdapter
     private val viewModel: ConsultationViewModel by viewModels()
+    private var loading = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,28 +37,27 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSwiper()
-        setupData()
+        setupData(1, false)
     }
 
     private fun setupSwiper() {
         binding.swiper.setOnRefreshListener {
-            GlobalState.nextPageConsultation = 1
-            setupData()
+            setupData(1, false)
         }
     }
 
-    private fun setupData() {
-        viewModel.getConsultationByStatusAdvance(getStatus(type), GlobalState.nextPageConsultation ?: 1)
+    private fun setupData(page: Int, shouldAppend: Boolean) {
+        viewModel.getConsultationByStatusAdvance(getStatus(type), page)
                 .observe(viewLifecycleOwner, { response ->
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
                     binding.swiper.isRefreshing = false
-                    val page = GlobalState.nextPageConsultation
-                    if ((page == null || page > 2) && response.data != null) {
+                    if (shouldAppend && response.data != null) {
                         val temp = consultationAdapter.differ.currentList.toMutableList()
                         temp.addAll(response.data)
                         consultationAdapter.differ.submitList(temp)
+                        loading = false
                     } else {
                         consultationAdapter.differ.submitList(response.data)
                     }
@@ -89,8 +89,10 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                     if (
                             GlobalState.nextPageConsultation != null
                             && (manager.findLastCompletelyVisibleItemPosition() == max)
+                            && !loading
                     ) {
-                        setupData()
+                        loading = true
+                        setupData(GlobalState.nextPageConsultation!!, true)
                     }
                 }
             })
