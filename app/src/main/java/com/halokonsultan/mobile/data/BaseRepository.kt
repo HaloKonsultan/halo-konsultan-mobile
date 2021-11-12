@@ -59,8 +59,10 @@ class BaseRepository @Inject constructor(
     fun saveToken(token: String) = preferences.saveToken(token)
     fun saveUserId(id: Int) = preferences.saveUserId(id)
     fun setLoggedIn(value: Boolean) = preferences.isLoggedIn(value)
+    fun setUserCity(value: String) = preferences.saveUserCity(value)
     fun getUserId() = preferences.userID
     fun isLoggedIn() = preferences.loggedIn
+    fun getUserCity() = preferences.userCity
     fun setExpirationTime(value: Int) = preferences.setExpirationTime(value)
     fun getExpiredTime() = preferences.expiredTime
     fun setFirstTime(value: Boolean) = preferences.isFirstTime(value)

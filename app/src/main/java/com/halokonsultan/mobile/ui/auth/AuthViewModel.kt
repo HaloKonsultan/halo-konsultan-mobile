@@ -43,6 +43,7 @@ class AuthViewModel @Inject constructor(
             repository.saveToken(response.body()!!.access_token)
             repository.setLoggedIn(true)
             repository.saveUserId(response.body()!!.data.id)
+            repository.setUserCity(response.body()!!.data.city)
             repository.setExpirationTime(response.body()!!.expires_in)
             _account.postValue(Resource.Success(response.body()!!))
         } catch (e: Exception) {

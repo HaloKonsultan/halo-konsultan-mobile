@@ -24,10 +24,7 @@ class ProfileViewModel @Inject constructor(
         _logout.postValue(Resource.Loading())
         try {
             val response = repository.logout()
-            repository.saveToken("")
-            repository.setLoggedIn(false)
-            repository.saveUserId(0)
-            repository.setExpirationTime(0)
+            resetPref()
             _logout.postValue(Resource.Success(response.body()!!))
         } catch (e: Exception) {
             _logout.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
@@ -38,6 +35,7 @@ class ProfileViewModel @Inject constructor(
         repository.saveToken("")
         repository.setLoggedIn(false)
         repository.saveUserId(0)
+        repository.setUserCity("")
         repository.setExpirationTime(0)
     }
 

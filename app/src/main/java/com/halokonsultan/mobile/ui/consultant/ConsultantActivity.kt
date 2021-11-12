@@ -13,7 +13,6 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.databinding.ActivityConsultantBinding
 import com.halokonsultan.mobile.ui.booking.BookingActivity
-import com.halokonsultan.mobile.utils.DummyData
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
 import com.squareup.picasso.Picasso
@@ -72,11 +71,6 @@ class ConsultantActivity : AppCompatActivity() {
                 }
             }
         })
-
-        documentationAdapter.differ.submitList(DummyData.getDocumentList())
-        educationAdapter.differ.submitList(DummyData.getEducationList())
-        experienceAdapter.differ.submitList(DummyData.getExperienceList())
-        skillAdapter.differ.submitList(DummyData.getSkillList())
 
         binding.btnBooking.setOnClickListener {
             val intent = Intent(this@ConsultantActivity, BookingActivity::class.java)

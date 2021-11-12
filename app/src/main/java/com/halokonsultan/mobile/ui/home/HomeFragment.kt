@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getNearestConsultantData(page: Int, shouldAppend: Boolean) {
-        viewModel.getNearestConsultantsAdvance("surabaya", page)
+        viewModel.getNearestConsultantsAdvance(viewModel.getUserCity() ?: "jakarta", page)
                 .observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {

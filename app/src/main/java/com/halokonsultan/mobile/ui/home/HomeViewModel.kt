@@ -11,6 +11,8 @@ class HomeViewModel @Inject constructor(
     private val repository: BaseRepository
 ) : ViewModel() {
 
+    fun getUserCity() = repository.getUserCity()
+
     fun getRandomCategoriesAdvance() = repository.getRandomCategoriesAdvance().asLiveData()
 
     fun getNearestConsultantsAdvance(city: String, page: Int) = repository.getNearestConsultantAdvance(city, page).asLiveData()
