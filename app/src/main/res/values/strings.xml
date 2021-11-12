@@ -134,5 +134,7 @@
     <string name="desc_chat_konsultan">Anda bisa melakukan chat dengan konsultasi dengan konsultan.</string>
     <string name="desc_booking_konsultasi">Tidak hanya chat, Anda juga bisa memesan konsultasi dan bahkan bertemu langsung dengan konsultan.</string>
     <string name="masuk">Masuk</string>
+    <string name="provinsi">Provinsi</string>
+    <string name="jawa_timur">Jawa Timur</string>
 
 </resources>

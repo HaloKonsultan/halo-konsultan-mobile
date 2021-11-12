@@ -18,7 +18,7 @@ import com.halokonsultan.mobile.data.model.City
 
 
 @AndroidEntryPoint
-class ChooseLocationActivity : AppCompatActivity() {
+class ChooseLocationActivity() : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
@@ -27,6 +27,10 @@ class ChooseLocationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChooseLocationBinding
     private val viewModel: ChooseLocationViewModel by viewModels()
+    private var id: Int = 0
+    private var name: String = ""
+    private var provinceName: String = ""
+    private var cityName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +44,28 @@ class ChooseLocationActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         if (bundle != null) {
-            val id = intent.getIntExtra(EXTRA_ID, 0)
-            val name = intent.getStringExtra(EXTRA_NAME)
+            id = intent.getIntExtra(EXTRA_ID, 0)
+            name = intent.getStringExtra(EXTRA_NAME)!!
         }
 
         binding.inputProvinsi.setOnItemClickListener { adapterView, view, position, l ->
             val adapter = binding.inputProvinsi.adapter
-            val item = adapter.getItem(position) as Province
-            setupCityChooser(item.id)
+            val itemProvince = adapter.getItem(position) as Province
+            provinceName = itemProvince.nama
+            setupCityChooser(itemProvince.id)
+        }
+
+        binding.inputKota.setOnItemClickListener { adapterView, view, position, l ->
+            val adapter = binding.inputKota.adapter
+            val itemCity = adapter.getItem(position) as City
+            cityName = itemCity.nama
+        }
+
+        binding.btnSelesai.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            viewModel.location(id, name, provinceName, cityName)
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -72,7 +90,7 @@ class ChooseLocationActivity : AppCompatActivity() {
         viewModel.provinces.observe(this, { response ->
             when(response) {
                 is Resource.Success -> {
-                    val adapter = ArrayAdapter<Province>(
+                    val adapter = ArrayAdapter(
                         this,
                         R.layout.item_location,
                         ArrayList(response.data)

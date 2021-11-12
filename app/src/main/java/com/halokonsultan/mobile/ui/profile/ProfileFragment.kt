@@ -19,6 +19,11 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private val viewModel: ProfileViewModel by viewModels()
+    private var idUser: Int = 0
+    private var name: String = ""
+    private var email: String = ""
+    private var province: String = ""
+    private var city: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +40,11 @@ class ProfileFragment : Fragment() {
             when(data) {
                 is Resource.Success -> {
                     populateData(data.data)
+                    idUser = data.data?.id!!
+                    name = data.data.name
+                    email = data.data.email
+                    province = data.data.province
+                    city = data.data.city
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, data.message, Toast.LENGTH_LONG).show()
@@ -47,6 +57,11 @@ class ProfileFragment : Fragment() {
 
         binding.btnEditProfil.setOnClickListener {
             val intent = Intent(context, EditProfileActivity::class.java)
+            intent.putExtra(EditProfileActivity.EXTRA_ID, id)
+            intent.putExtra(EditProfileActivity.EXTRA_NAME, name)
+            intent.putExtra(EditProfileActivity.EXTRA_EMAIL, email)
+            intent.putExtra(EditProfileActivity.EXTRA_PROVINCE, province)
+            intent.putExtra(EditProfileActivity.EXTRA_CITY, city)
             startActivity(intent)
         }
 
@@ -75,6 +90,7 @@ class ProfileFragment : Fragment() {
     private fun populateData(data: Profile?) {
         binding.tvNamaLengkap.text = data?.name
         binding.tvNamaEmail.text = data?.email
+        binding.tvNamaProvinsi.text = data?.province
         binding.tvNamaKota.text = data?.city
     }
 }

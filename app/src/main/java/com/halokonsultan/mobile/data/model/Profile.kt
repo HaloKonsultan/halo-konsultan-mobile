@@ -12,6 +12,6 @@ data class Profile(
         val email: String,
         val city: String,
         val province: String,
-        val photo: String,
-        val firebase_id: String
+        val photo: String?,
+        val firebase_id: String?
 )

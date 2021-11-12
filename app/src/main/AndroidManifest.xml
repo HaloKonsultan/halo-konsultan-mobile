@@ -30,7 +30,8 @@
             android:exported="true"/>
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.consultant.ConsultantActivity" />
-        <activity android:name=".ui.profile.EditProfileActivity" />
+        <activity android:name=".ui.profile.EditProfileActivity"
+            android:exported="true"/>
         <activity android:name=".ui.booking.BookingActivity" />
         <activity android:name=".ui.onboarding.OnboardingActivity"
             android:exported="true"/>

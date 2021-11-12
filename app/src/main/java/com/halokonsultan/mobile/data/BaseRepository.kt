@@ -55,6 +55,8 @@ class BaseRepository @Inject constructor(
 
     suspend fun getTransaction(id:Int) = api.getTransaction(id)
 
+    suspend fun updateProfile(id: Int, name: String, province: String, city: String) = api.updateProfile(id, name, province, city)
+
     // preference related function
     fun saveToken(token: String) = preferences.saveToken(token)
     fun saveUserId(id: Int) = preferences.saveUserId(id)

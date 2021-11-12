@@ -36,7 +36,7 @@ interface BaseApi {
     ): Response<BasicResponse<Profile>>
 
     @FormUrlEncoded
-    @PATCH("users/update/{id}")
+    @PATCH("update/{id}")
     suspend fun updateProfile(
         @Path("id") id: Int,
         @Field("name") name: String,
