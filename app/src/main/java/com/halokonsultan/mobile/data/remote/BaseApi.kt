@@ -119,12 +119,12 @@ interface BaseApi {
         @Path("id_document") documentId: Int
     ): Response<BasicResponse<DetailConsultation>>
 
-//    @PATCH("consultations/transaction/{id}")
-//    suspend fun pay(
-//        @Path("id") id:Int
-//    ): Response<BasicResponse<DetailConsultation>>
-
-    // transaction
+    @FormUrlEncoded
+    @POST("consultations/review/{id}")
+    suspend fun reviewConsultation(
+        @Path("id") id: Int,
+        @Field("is_like") like: Int
+    ): Response<BasicResponse<Consultant>>
 
     @FormUrlEncoded
     @POST("transaction/{id}/pay")

@@ -12,13 +12,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.core.view.isVisible
-import com.google.android.material.button.MaterialButton
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityDetailConsultationBinding
 import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTimeActivity
-import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
 import com.halokonsultan.mobile.ui.payment.PaymentActivity
+import com.halokonsultan.mobile.ui.reviewconsultation.ReviewConsultationActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
@@ -206,6 +205,7 @@ class DetailConsultationActivity : AppCompatActivity() {
         binding.cardMessage.setStrokeColor(ColorStateList.valueOf(resources.getColor(R.color.danger)))
         binding.tvMessageTitle.text = "Alasan Penolakan"
         binding.tvConsultantMessage.text = data?.message
+        binding.btnReview.isVisible = false
         disableChooseTimeAndDocument()
     }
 
@@ -220,6 +220,11 @@ class DetailConsultationActivity : AppCompatActivity() {
         binding.btnChooseTime.text = "${data?.date} ${data?.time}"
         binding.tvConsultantMessage.text = data?.message
         disableChooseTimeAndDocument()
+        binding.btnReview.setOnClickListener {
+            intent = Intent(this, ReviewConsultationActivity::class.java)
+            intent.putExtra(ReviewConsultationActivity.EXTRA_ID, data?.id)
+            startActivity(intent)
+        }
     }
 
     private fun disableChooseTimeAndDocument() {

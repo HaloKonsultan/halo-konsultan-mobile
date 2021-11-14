@@ -18,7 +18,7 @@
         android:theme="@style/Theme.HaloKonsultan"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.reviewconsultation.ReviewConsultation"
+            android:name=".ui.reviewconsultation.ReviewConsultationActivity"
             android:exported="true" />
         <activity
             android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity"

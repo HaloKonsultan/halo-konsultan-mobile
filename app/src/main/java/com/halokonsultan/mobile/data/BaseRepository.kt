@@ -53,6 +53,8 @@ class BaseRepository @Inject constructor(
 
     suspend fun pay(id:Int, amount: Int) = api.pay(id, amount)
 
+    suspend fun reviewConsultation(id: Int, is_like: Int) = api.reviewConsultation(id, is_like)
+
     suspend fun getTransaction(id:Int) = api.getTransaction(id)
 
     suspend fun updateProfile(id: Int, name: String, province: String, city: String) = api.updateProfile(id, name, province, city)

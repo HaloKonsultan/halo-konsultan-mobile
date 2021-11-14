@@ -124,6 +124,15 @@
                         android:lineSpacingExtra="5sp"
                         app:layout_constraintBottom_toBottomOf="@id/img_consultant"
                         app:layout_constraintStart_toEndOf="@id/img_consultant"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="16dp"
+                        android:textAllCaps="false"
+                        android:text="Review Konsultasi" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
