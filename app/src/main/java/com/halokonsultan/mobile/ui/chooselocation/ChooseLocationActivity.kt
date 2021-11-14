@@ -62,15 +62,16 @@ class ChooseLocationActivity() : AppCompatActivity() {
         }
 
         binding.btnSelesai.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
             viewModel.location(id, name, provinceName, cityName)
-            viewModel.profile.observe(this, { response ->
-                if (response is Resource.Success) {
-                    startActivity(intent)
-                    finish()
-                }
-            })
         }
+
+        viewModel.profile.observe(this, { response ->
+            if (response is Resource.Success) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
     }
 
     private fun setupCityChooser(id: Int) {

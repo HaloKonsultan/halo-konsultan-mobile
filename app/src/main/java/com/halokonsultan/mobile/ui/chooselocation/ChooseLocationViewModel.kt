@@ -38,7 +38,7 @@ class ChooseLocationViewModel @Inject constructor(
         try {
             val response = repository.updateProfile(id, name, province, city)
             if (response.body() != null) {
-                Resource.Success(response.body()!!.data)
+                _profile.postValue(Resource.Success(response.body()!!.data!!))
             }
         } catch (e: Exception) {
             _profile.postValue(Resource.Error(e.localizedMessage?: "unknown error"))

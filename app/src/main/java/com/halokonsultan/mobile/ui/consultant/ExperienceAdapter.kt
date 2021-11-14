@@ -31,7 +31,7 @@ class ExperienceAdapter: RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHo
 
         with(holder.binding) {
             val yearRange = "${experience.start_year} - ${experience.end_year}"
-            tvExperienceName.text = experience.poistion
+            tvExperienceName.text = experience.position
             tvRangeYear.text = yearRange
         }
     }
