@@ -64,8 +64,12 @@ class ChooseLocationActivity() : AppCompatActivity() {
         binding.btnSelesai.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             viewModel.location(id, name, provinceName, cityName)
-            startActivity(intent)
-            finish()
+            viewModel.profile.observe(this, { response ->
+                if (response is Resource.Success) {
+                    startActivity(intent)
+                    finish()
+                }
+            })
         }
     }
 

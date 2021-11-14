@@ -10,8 +10,8 @@ data class Profile(
         val id: Int,
         val name: String,
         val email: String,
-        val city: String,
-        val province: String,
+        val city: String?,
+        val province: String?,
         val photo: String?,
         val firebase_id: String?
 )

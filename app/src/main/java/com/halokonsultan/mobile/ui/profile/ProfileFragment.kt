@@ -43,8 +43,8 @@ class ProfileFragment : Fragment() {
                     idUser = data.data?.id!!
                     name = data.data.name
                     email = data.data.email
-                    province = data.data.province
-                    city = data.data.city
+                    province = data.data.province ?: "DKI Jakarta"
+                    city = data.data.city ?: "Kota Jakarta Pusat"
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, data.message, Toast.LENGTH_LONG).show()

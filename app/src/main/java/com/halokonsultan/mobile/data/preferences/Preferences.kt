@@ -40,7 +40,7 @@ class Preferences private constructor() {
         mEdit.apply()
     }
 
-    fun saveUserCity(value: String) {
+    fun saveUserCity(value: String?) {
         mEdit.putString(PREF_USER_CITY, value)
         mEdit.apply()
     }

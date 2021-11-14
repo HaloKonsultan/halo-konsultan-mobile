@@ -82,9 +82,13 @@ class EditProfileActivity : AppCompatActivity() {
         binding.btnSaveChange.setOnClickListener {
             val name = binding.etNama.text.toString()
             viewModel.location(viewModel.getUserID(), name, province, city)
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            viewModel.profile.observe(this, { response ->
+                if (response is Resource.Success) {
+                    intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            })
         }
     }
 
