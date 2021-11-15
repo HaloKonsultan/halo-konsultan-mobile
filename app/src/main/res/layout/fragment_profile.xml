@@ -55,7 +55,7 @@
         android:textSize="14sp"
         android:lineSpacingExtra="8sp"
         android:textColor="@color/primary_black"
-        tools:text="@string/test_nama_lengkap"
+        tools:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
 
@@ -84,7 +84,7 @@
         android:textSize="14sp"
         android:lineSpacingExtra="8sp"
         android:textColor="@color/primary_black"
-        tools:text="@string/test_mail_com"
+        tools:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
@@ -110,7 +110,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/inter_regular"
         android:lineSpacingExtra="8sp"
-        android:text="@string/jawa_timur"
+        android:text="-"
         android:textColor="@color/primary_black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/inter_regular"
         android:lineSpacingExtra="8sp"
-        tools:text="@string/surabaya"
+        tools:text="-"
         android:textColor="@color/primary_black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"

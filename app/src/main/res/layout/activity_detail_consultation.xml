@@ -53,7 +53,7 @@
                         android:layout_height="56dp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:src="@drawable/consultant_photo"/>
+                        android:src="@mipmap/person_placeholder"/>
 
                     <TextView
                         android:id="@+id/tv_consultant_name"
@@ -154,7 +154,7 @@
                 android:id="@+id/tv_fill_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/strategi_marketing_menggunakan_digitalisasi"
+                android:text="-"
                 android:fontFamily="@font/inter_regular"
                 android:textSize="14sp"
                 android:lineSpacingExtra="8sp"
@@ -190,7 +190,7 @@
                 android:id="@+id/tv_fill_problem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ya_jadi_masalah_saya_itu_gini_pak_iya_gitu_jadi_saya_itu_gini_dan_gitu_terus_ada_gitu_ada_gini_lagi_iya_begitu_jadi_begitu_dan_begini_pak"
+                android:text="-"
                 android:fontFamily="@font/inter_regular"
                 android:textSize="14sp"
                 android:lineSpacingExtra="8sp"
@@ -225,7 +225,7 @@
                 android:id="@+id/tv_fill_preferences"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ofline_dan_online"
+                android:text="-"
                 android:fontFamily="@font/inter_regular"
                 android:textSize="14sp"
                 android:lineSpacingExtra="8sp"
@@ -260,7 +260,7 @@
                 android:id="@+id/tv_fill_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/jauh_menuju_hatinya_yang_jauh_disana"
+                android:text="-"
                 android:fontFamily="@font/inter_regular"
                 android:textSize="14sp"
                 android:lineSpacingExtra="8sp"

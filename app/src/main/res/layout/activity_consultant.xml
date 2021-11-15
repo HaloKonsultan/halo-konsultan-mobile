@@ -26,7 +26,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:src="@drawable/consultant_photo"/>
+                android:src="@mipmap/person_placeholder"/>
 
             <TextView
                 android:id="@+id/tv_consultant_name"
@@ -37,7 +37,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:textSize="14sp"
                 android:lineSpacingExtra="2sp"
-                android:text="@string/sayu_ogiwara_s_h"
+                android:text="Nama Konsultan"
                 android:textColor="@color/primary_black"/>
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                android:text="@string/konsultan_hukum_perdata"
+                android:text="Kategori Konsultan"
                 android:fontFamily="@font/inter_regular"
                 android:textSize="12sp"
                 android:lineSpacingExtra="4sp"/>
@@ -144,8 +144,8 @@
                 android:fontFamily="@font/inter_regular"
                 android:textSize="14sp"
                 android:lineSpacingExtra="8sp"
-                android:text="@string/saya_adalah_konsultan_hukum_perdata_dengan_pengalaman_lebih_dari_6_tahun_di_bidang_ini_saya_telah_bekerja_sama_dengan_beberapa_perusahaan_besar_untuk_menangani_permasalahan_mereka" />
-
+                android:text="-"
+                />
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Rp 25.000"
+                        android:text="Rp -"
                         android:textSize="14sp"
                         android:fontFamily="@font/inter_regular"
                         android:textColor="@color/label"
