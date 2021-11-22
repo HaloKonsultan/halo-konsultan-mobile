@@ -97,7 +97,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun login(email: String, password: String) {
-        viewModel.login(email, password)
+        viewModel.getToken()
+        viewModel.token.observe(this, { token ->
+            if (token is Resource.Success) {
+                viewModel.login(email, password, token.data.toString())
+            }
+        })
         viewModel.account.observe(this, { data ->
             when(data) {
                 is Resource.Success -> {

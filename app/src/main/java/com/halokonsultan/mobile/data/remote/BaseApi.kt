@@ -14,7 +14,8 @@ interface BaseApi {
     @POST("login")
     suspend fun login(
             @Field(value = "email", encoded = true) email: String,
-            @Field("password") password: String
+            @Field("password") password: String,
+            @Field("device_token") token: String
     ): Response<AuthResponse>
 
     @FormUrlEncoded

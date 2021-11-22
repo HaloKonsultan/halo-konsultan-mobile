@@ -14,7 +14,6 @@ import com.afollestad.vvalidator.form
 import com.halokonsultan.mobile.databinding.ActivityLoginBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.utils.Resource
-import com.halokonsultan.mobile.utils.Utils.isValidEmail
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,7 +67,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+        viewModel.getToken()
+        viewModel.token.observe(this, { token ->
+            if (token is Resource.Success) {
+                viewModel.login(
+                    binding.etEmail.text.toString(),
+                    binding.etPassword.text.toString(),
+                    token.data.toString()
+                )
+            }
+        })
+
         viewModel.account.observe(this, { data ->
             when(data) {
                 is Resource.Success -> {

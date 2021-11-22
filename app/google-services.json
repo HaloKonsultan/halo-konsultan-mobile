@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "640875123519",
+    "project_id": "halo-konsultan",
+    "storage_bucket": "halo-konsultan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640875123519:android:52912eb155e55bac34398a",
+        "android_client_info": {
+          "package_name": "com.halokonsultan.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640875123519-knh686oek6u6v9q1akmqd8p5hlnk6jtk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2zQWElsyrfy0s7EBHJ3zY_8zDNBIYKis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640875123519-knh686oek6u6v9q1akmqd8p5hlnk6jtk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

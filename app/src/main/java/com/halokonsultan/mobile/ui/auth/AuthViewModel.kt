@@ -1,9 +1,12 @@
 package com.halokonsultan.mobile.ui.auth
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.Profile
 import com.halokonsultan.mobile.data.model.dto.AuthResponse
@@ -17,6 +20,10 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
         private val repository: BaseRepository
 ) : ViewModel() {
+
+    private val _token: MutableLiveData<Resource<String>> = MutableLiveData()
+    val token: LiveData<Resource<String>>
+        get() = _token
 
     private val _profile : MutableLiveData<Resource<Profile>> = MutableLiveData()
     val profile: LiveData<Resource<Profile>>
@@ -36,10 +43,10 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun login(email: String, password: String) = viewModelScope.launch {
+    fun login(email: String, password: String, token: String) = viewModelScope.launch {
         _account.postValue(Resource.Loading())
         try {
-            val response = repository.login(email, password)
+            val response = repository.login(email, password, token)
             repository.saveToken(response.body()!!.access_token)
             repository.setLoggedIn(true)
             repository.saveUserId(response.body()!!.data.id)
@@ -65,4 +72,15 @@ class AuthViewModel @Inject constructor(
     }
 
     fun isFirstTime() = repository.isFirstTime()
+
+    fun getToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("coba", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            _token.postValue(Resource.Success(task.result.toString()))
+        })
+    }
 }

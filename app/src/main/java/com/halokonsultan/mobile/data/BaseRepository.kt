@@ -19,7 +19,7 @@ class BaseRepository @Inject constructor(
         private val db: BaseDatabase
 ) {
 
-    suspend fun login(email: String, password: String) = api.login(email, password)
+    suspend fun login(email: String, password: String, token: String) = api.login(email, password, token)
 
     suspend fun register(name: String, email: String, password: String) = api.register(name, email, password)
 
