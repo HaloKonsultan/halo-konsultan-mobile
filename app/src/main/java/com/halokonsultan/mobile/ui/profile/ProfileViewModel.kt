@@ -36,6 +36,7 @@ class ProfileViewModel @Inject constructor(
         repository.setLoggedIn(false)
         repository.saveUserId(0)
         repository.setUserCity("")
+        repository.setUserName("")
         repository.setExpirationTime(0)
     }
 

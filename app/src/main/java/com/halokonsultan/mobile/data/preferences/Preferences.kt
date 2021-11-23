@@ -18,6 +18,9 @@ class Preferences private constructor() {
     val userID: Int
         get() = instance.mPrefs.getInt(PREF_USER_ID, 0)
 
+    val userName: String?
+        get() = instance.mPrefs.getString(PREF_USER_NAME, "")
+
     val userCity: String?
         get() = instance.mPrefs.getString(PREF_USER_CITY, "")
 
@@ -37,6 +40,11 @@ class Preferences private constructor() {
 
     fun saveUserId(value: Int) {
         mEdit.putInt(PREF_USER_ID, value)
+        mEdit.apply()
+    }
+
+    fun saveUserName(value: String?) {
+        mEdit.putString(PREF_USER_NAME, value)
         mEdit.apply()
     }
 

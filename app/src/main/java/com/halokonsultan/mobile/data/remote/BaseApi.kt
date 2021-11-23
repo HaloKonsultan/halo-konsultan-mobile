@@ -138,4 +138,12 @@ interface BaseApi {
     suspend fun getTransaction(
             @Path("id") id: Int
     ): Response<BasicResponse<Transaction>>
+
+    @FormUrlEncoded
+    @POST("notification/{id}")
+    suspend fun sendNotification(
+        @Path("id") idConsultant: Int,
+        @Field("title") title: String,
+        @Field("message") body: String
+    )
 }

@@ -42,4 +42,10 @@ class BookingViewModel @Inject constructor(
     }
 
     fun getUserId() = repository.getUserId()
+
+    fun sendNotification(id: Int, title: String, message: String) = viewModelScope.launch {
+        repository.sendNotification(id, title, message)
+    }
+
+    fun getUserName() = repository.getUserName()
 }

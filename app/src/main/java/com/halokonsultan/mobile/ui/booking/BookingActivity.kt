@@ -65,16 +65,16 @@ class BookingActivity : AppCompatActivity() {
         form{
             useRealTimeValidation(disableSubmit = true)
             input(binding.etTitle){
-                isNotEmpty()
+                isNotEmpty().description("Field judul harus diisi")
             }
 
             input(binding.etDescProblem){
-                isNotEmpty()
+                isNotEmpty().description("Field deskripsi harus diisi")
             }
 
             input(binding.etChooseLocation){
                 conditional({binding.cbOffline.isChecked}){
-                    isNotEmpty()
+                    isNotEmpty().description("Ketika memilih offline, Anda harus mengisi lokasi")
                 }
             }
 
@@ -114,6 +114,11 @@ class BookingActivity : AppCompatActivity() {
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    viewModel.sendNotification(
+                        consultantId ?: 0,
+                        "Pesanan Konsultasi Masuk",
+                        "${viewModel.getUserName()}: $title"
+                    )
                     intent = Intent(this, ConfirmationActivity::class.java)
                     intent.putExtra(ConfirmationActivity.EXTRA_TITLE, "Booking berhasil!")
                     intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Menunggu konfirmasi konsultan")

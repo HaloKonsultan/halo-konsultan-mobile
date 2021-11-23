@@ -59,14 +59,18 @@ class BaseRepository @Inject constructor(
 
     suspend fun updateProfile(id: Int, name: String, province: String, city: String) = api.updateProfile(id, name, province, city)
 
+    suspend fun sendNotification(id: Int, title: String, message: String) = api.sendNotification(id, title, message)
+
     // preference related function
     fun saveToken(token: String) = preferences.saveToken(token)
     fun saveUserId(id: Int) = preferences.saveUserId(id)
     fun setLoggedIn(value: Boolean) = preferences.isLoggedIn(value)
+    fun setUserName(value: String?) = preferences.saveUserName(value)
     fun setUserCity(value: String?) = preferences.saveUserCity(value)
     fun getUserId() = preferences.userID
     fun isLoggedIn() = preferences.loggedIn
     fun getUserCity() = preferences.userCity
+    fun getUserName() = preferences.userName
     fun setExpirationTime(value: Int) = preferences.setExpirationTime(value)
     fun getExpiredTime() = preferences.expiredTime
     fun setFirstTime(value: Boolean) = preferences.isFirstTime(value)
