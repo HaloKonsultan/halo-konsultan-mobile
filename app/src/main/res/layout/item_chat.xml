@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_photo_profile"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@mipmap/person_placeholder"/>
+
+            <TextView
+                android:id="@+id/tv_consultant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/consultant_name"
+                android:fontFamily="@font/inter_medium"
+                android:textSize="14sp"
+                android:lineSpacingExtra="2sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_black"
+                app:layout_constraintTop_toTopOf="@id/img_photo_profile"
+                app:layout_constraintStart_toEndOf="@id/img_photo_profile"/>
+
+            <TextView
+                android:id="@+id/tv_chat_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/_"
+                android:fontFamily="@font/inter_regular"
+                android:textSize="11sp"
+                android:textColor="@color/label"
+                android:lineSpacingExtra="5sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_consultant_name"
+                app:layout_constraintStart_toEndOf="@id/img_photo_profile"/>
+
+            <TextView
+                android:id="@+id/tv_chat_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/_00_00"
+                android:fontFamily="@font/inter_regular"
+                android:textSize="11sp"
+                android:textColor="@color/label"
+                android:lineSpacingExtra="5sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_consultant_name"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/primary_blue_circle"
+                app:layout_constraintStart_toEndOf="@id/tv_consultant_name"
+                app:layout_constraintTop_toTopOf="@id/tv_consultant_name"
+                app:layout_constraintBottom_toBottomOf="@id/tv_consultant_name"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

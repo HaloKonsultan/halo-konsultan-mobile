@@ -8,6 +8,7 @@ import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
+import com.halokonsultan.mobile.utils.Utils.toInt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,8 +31,8 @@ class BookingViewModel @Inject constructor(
                     consultantId,
                     userId,
                     description,
-                    Utils.booleanToInt(isOnline),
-                    Utils.booleanToInt(isOffline),
+                    isOnline.toInt(),
+                    isOffline.toInt(),
                     location).body()
             if (response?.data != null) {
                 _consultation.postValue(Resource.Success(response.data))

@@ -8,6 +8,7 @@ import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
+import com.halokonsultan.mobile.utils.Utils.toInt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -25,7 +26,7 @@ class ReviewViewModel @Inject constructor(
     fun review(id: Int, isLike: Boolean) = viewModelScope.launch {
         _consultant.postValue(Resource.Loading())
         try {
-            val response = repository.reviewConsultation(id, Utils.booleanToInt(isLike))
+            val response = repository.reviewConsultation(id, isLike.toInt())
             if (response.body() != null && response.body()?.data != null) {
                 _consultant.postValue(Resource.Success(response.body()?.data!!))
             }

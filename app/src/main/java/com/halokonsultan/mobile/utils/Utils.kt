@@ -33,7 +33,9 @@ object Utils {
         return Calendar.getInstance().time
     }
 
-    fun booleanToInt(value: Boolean) = if (value) 1 else 0
+    fun Boolean.toInt() = if (this) 1 else 0
+
+    fun Int.toBoolean() = this == 1
 
     fun String.isValidEmail() =
             !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()

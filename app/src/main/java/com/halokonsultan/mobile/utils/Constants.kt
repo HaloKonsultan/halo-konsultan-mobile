@@ -28,6 +28,8 @@ val TAB_TITLES = intArrayOf(
 
 // others
 const val SEARCH_USER_TIME_DELAY = 500L
+const val MESSAGE_TYPE_SELF = "client"
+const val MESSAGE_TYPE_CONSULTANT = "consultant"
 
 // CONTOH CALLBACK INVOICE
 // http://6675-114-79-19-29.ngrok.io/api/users/transaction/invoice_callback
