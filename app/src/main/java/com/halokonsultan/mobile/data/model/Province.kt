@@ -1,10 +1,10 @@
 package com.halokonsultan.mobile.data.model
 
 data class Province(
-    val id: Int,
-    val nama: String
+        val province_id: Int,
+        val province: String
 ){
     override fun toString(): String {
-        return nama
+        return province
     }
 }

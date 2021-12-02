@@ -55,7 +55,7 @@ class MessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (differ.currentList[position].sender === MESSAGE_TYPE_SELF) {
+        if (differ.currentList[position].sender == MESSAGE_TYPE_SELF) {
             (holder as MessageSelfViewHolder).bind(position)
         } else {
             (holder as MessageConsultantViewHolder).bind(position)

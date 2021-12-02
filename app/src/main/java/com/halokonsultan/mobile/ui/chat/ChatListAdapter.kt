@@ -30,11 +30,11 @@ class ChatListAdapter: RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>(
 
     override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
         val chat = differ.currentList[position]
-        holder.binding.tvConsultantName.text = chat.consultant_name
+        holder.binding.tvConsultantName.text = chat.name
         holder.binding.tvChatMessage.text = chat.last_message
-        holder.binding.tvChatTime.text = chat.last_message_time
-        holder.binding.icon.isVisible = !(chat.last_message_has_read.toBoolean())
-        Picasso.get().load(chat.consultant_photo).into(holder.binding.imgPhotoProfile)
+        holder.binding.tvChatTime.text = chat.last_messages_time
+        holder.binding.icon.isVisible = !(chat.last_messages_is_read!!.toBoolean())
+        Picasso.get().load(chat.photo).into(holder.binding.imgPhotoProfile)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let { it(chat) }

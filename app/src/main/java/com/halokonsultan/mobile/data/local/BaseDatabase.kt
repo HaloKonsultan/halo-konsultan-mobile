@@ -4,17 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.halokonsultan.mobile.data.model.Category
-import com.halokonsultan.mobile.data.model.Consultant
-import com.halokonsultan.mobile.data.model.Consultation
-import com.halokonsultan.mobile.data.model.Profile
+import com.halokonsultan.mobile.data.model.*
 
 @Database(
     entities = [
         Category::class,
         Consultant::class,
         Consultation::class,
-        Profile::class
+        Profile::class,
+        Chat::class,
+        Message::class
                ],
     version = 1,
     exportSchema = false

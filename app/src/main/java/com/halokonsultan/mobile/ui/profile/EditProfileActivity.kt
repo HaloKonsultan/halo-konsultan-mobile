@@ -68,15 +68,15 @@ class EditProfileActivity : AppCompatActivity() {
             val adapter = binding.inputProvinsi.adapter
             val item = adapter.getItem(position) as Province
             binding.inputKota.text.clear()
-            province = item.nama
-            setupCityChooser(item.id)
+            province = item.province
+            setupCityChooser(item.province_id)
         }
 
         binding.inputKota.setOnItemClickListener { adapterView, view, position, l ->
             val adapter = binding.inputKota.adapter
             val item = adapter.getItem(position) as City
-            city = item.nama
-            idForProvince = item.id
+            city = item.city_name
+            idForProvince = item.city_id
         }
 
         binding.btnSaveChange.setOnClickListener {

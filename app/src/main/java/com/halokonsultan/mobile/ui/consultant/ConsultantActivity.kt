@@ -13,6 +13,7 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.databinding.ActivityConsultantBinding
 import com.halokonsultan.mobile.ui.booking.BookingActivity
+import com.halokonsultan.mobile.ui.chat.ConversationActivity
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils
 import com.squareup.picasso.Picasso
@@ -53,6 +54,54 @@ class ConsultantActivity : AppCompatActivity() {
             viewModel.getConsultantDetail(id)
         }
 
+        observeProfile()
+        observeChat()
+        setupClickListener()
+    }
+
+    private fun setupClickListener() {
+        binding.btnBooking.setOnClickListener {
+            val intent = Intent(this@ConsultantActivity, BookingActivity::class.java)
+            intent.putExtra(BookingActivity.EXTRA_ID, id)
+            intent.putExtra(BookingActivity.EXTRA_NAME, profileData?.name)
+            intent.putExtra(BookingActivity.EXTRA_PHOTO, profileData?.photo)
+            intent.putExtra(BookingActivity.EXTRA_CATEGORY, profileData?.position)
+            startActivity(intent)
+        }
+
+        binding.btnChat.setOnClickListener {
+            viewModel.openConversation(id)
+        }
+    }
+
+    private fun observeChat() {
+        viewModel.chat.observe(this, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    val data = response.data
+                    val intent = Intent(this@ConsultantActivity, ConversationActivity::class.java)
+                    intent.putExtra(ConversationActivity.EXTRA_ID, data?.id)
+                    intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_NAME, data?.name)
+                    intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_PHOTO, data?.photo)
+                    intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_CATEGORY, data?.category)
+                    intent.putExtra(ConversationActivity.EXTRA_IS_ENDED, data?.is_ended)
+                    startActivity(intent)
+                }
+
+                is Resource.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
+                }
+
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+            }
+        })
+    }
+
+    private fun observeProfile() {
         viewModel.profile.observe(this, { response ->
             when(response) {
                 is Resource.Success -> {
@@ -71,15 +120,6 @@ class ConsultantActivity : AppCompatActivity() {
                 }
             }
         })
-
-        binding.btnBooking.setOnClickListener {
-            val intent = Intent(this@ConsultantActivity, BookingActivity::class.java)
-            intent.putExtra(BookingActivity.EXTRA_ID, id)
-            intent.putExtra(BookingActivity.EXTRA_NAME, profileData?.name)
-            intent.putExtra(BookingActivity.EXTRA_PHOTO, profileData?.photo)
-            intent.putExtra(BookingActivity.EXTRA_CATEGORY, profileData?.position)
-            startActivity(intent)
-        }
     }
 
     private fun populateData() {

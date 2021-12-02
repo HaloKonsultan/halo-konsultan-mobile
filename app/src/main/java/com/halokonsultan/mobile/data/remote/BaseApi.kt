@@ -139,6 +139,41 @@ interface BaseApi {
             @Path("id") id: Int
     ): Response<BasicResponse<Transaction>>
 
+    // Forum
+
+    @GET("forums/get-all-conversation/{id}")
+    suspend fun getAllConversation(
+        @Path("id") id: Int,
+        @Query("page") page: Int
+    ): Response<PaginationResponse<Chat>>
+
+    @GET("forums/get-all-messages/{id}")
+    suspend fun getAllMessage(
+        @Path("id") id: Int
+    ): Response<BasicResponse<List<Message>>>
+
+    @FormUrlEncoded
+    @POST("forums/open-conversation")
+    suspend fun openConversation(
+        @Field("user_id") userId: Int,
+        @Field("consultant_id") consultantId: Int
+    ): Response<BasicResponse<Chat>>
+
+    @FormUrlEncoded
+    @POST("forums/send/{id}")
+    suspend fun sendMessage(
+        @Path("id") id: Int,
+        @Field("user_id") userId: Int,
+        @Field("message") message: String
+    ): Response<BasicResponse<Message>>
+
+    @PATCH("forums/read/{id}")
+    suspend fun readMessage(
+        @Path("id") messageId: Int
+    ): Response<BasicResponse<Message>>
+
+    // Other
+
     @FormUrlEncoded
     @POST("notification/{id}")
     suspend fun sendNotification(

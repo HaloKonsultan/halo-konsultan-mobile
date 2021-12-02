@@ -23,7 +23,6 @@ class SearchViewModel @Inject constructor(
     fun searchConsultantByName(name: String, page: Int) = viewModelScope.launch {
         _consultants.postValue(Resource.Loading())
         try {
-            Log.d("coba", "searchConsultantByName: $name $page")
             val response = repository.searchConsultantByName(name, page)
             GlobalState.nextPageConsultant =
                     if (response.body()?.data?.next_page_url != null)

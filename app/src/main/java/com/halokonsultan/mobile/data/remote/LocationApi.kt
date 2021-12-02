@@ -1,19 +1,20 @@
 package com.halokonsultan.mobile.data.remote
 
+import com.halokonsultan.mobile.data.model.City
+import com.halokonsultan.mobile.data.model.Province
 import com.halokonsultan.mobile.data.model.dto.CityResponse
-import com.halokonsultan.mobile.data.model.dto.ProvinceResponse
+import com.halokonsultan.mobile.data.model.dto.RajaOngkirResponse
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.PATCH
 import retrofit2.http.Query
 
 interface LocationApi {
 
-    @GET("provinsi")
-    suspend fun getAllProvince(): Response<ProvinceResponse>
+    @GET("province")
+    suspend fun getAllProvince(): Response<RajaOngkirResponse<Province>>
 
-    @GET("kota")
+    @GET("city")
     suspend fun getAllCity(
-        @Query("id_provinsi") idProvince: Int
-    ): Response<CityResponse>
+        @Query("province") idProvince: Int
+    ): Response<RajaOngkirResponse<City>>
 }

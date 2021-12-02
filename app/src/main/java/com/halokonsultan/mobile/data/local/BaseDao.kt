@@ -4,10 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.halokonsultan.mobile.data.model.Category
-import com.halokonsultan.mobile.data.model.Consultant
-import com.halokonsultan.mobile.data.model.Consultation
-import com.halokonsultan.mobile.data.model.Profile
+import com.halokonsultan.mobile.data.model.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,6 +25,12 @@ interface BaseDao {
     @Query("SELECT * FROM profile WHERE id = :id")
     fun getProfile(id: Int): Flow<Profile>
 
+    @Query("SELECT * FROM chats WHERE user_id = :userId")
+    fun getChatList(userId: Int): Flow<List<Chat>>
+
+    @Query("SELECT * FROM messages WHERE forum_id = :id")
+    fun getMessages(id: Int): Flow<List<Message>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertCategories(categories: List<Category>)
 
@@ -39,6 +42,12 @@ interface BaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertProfile(profile: Profile)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertChats(chats: List<Chat>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertMessages(messages: List<Message>)
 
     @Query("DELETE FROM categories")
     suspend fun deleteAllCategories()
@@ -54,4 +63,10 @@ interface BaseDao {
 
     @Query("DELETE FROM profile WHERE id = :id")
     suspend fun deleteProfile(id: Int)
+
+    @Query("DELETE FROM chats WHERE user_id = :id")
+    suspend fun deleteChats(id: Int)
+
+    @Query("DELETE FROM messages WHERE forum_id = :id")
+    suspend fun deleteMessages(id: Int)
 }

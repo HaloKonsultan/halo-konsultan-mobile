@@ -61,6 +61,12 @@ class BaseRepository @Inject constructor(
 
     suspend fun sendNotification(id: Int, title: String, message: String) = api.sendNotification(id, title, message)
 
+    suspend fun openConversation(userId: Int, consultantId: Int) = api.openConversation(userId, consultantId)
+
+    suspend fun sendMessage(id: Int, userId: Int, message: String) = api.sendMessage(id, userId, message)
+
+    suspend fun readMessage(id: Int) = api.readMessage(id)
+
     // preference related function
     fun saveToken(token: String) = preferences.saveToken(token)
     fun saveUserId(id: Int) = preferences.saveUserId(id)
@@ -158,7 +164,7 @@ class BaseRepository @Inject constructor(
         saveFetchResult = { consultations ->
             if (consultations != null) {
                 db.withTransaction {
-                    db.getDao().deleteConsultationsByStatus(status)
+                    if (page == 1) db.getDao().deleteConsultationsByStatus(status)
                     db.getDao().upsertConsultations(consultations)
                 }
             }
@@ -178,6 +184,47 @@ class BaseRepository @Inject constructor(
                 db.withTransaction {
                     db.getDao().deleteProfile(id)
                     db.getDao().upsertProfile(profile)
+                }
+            }
+        }
+    )
+
+    fun getAllConversations(id: Int, page: Int) = networkBoundResource(
+        query = {
+            db.getDao().getChatList(id)
+        },
+        fetch = {
+            val response = api.getAllConversation(id, page)
+            GlobalState.nextPageChat =
+                if (response.body()?.data?.next_page_url != null)
+                    Utils.getPageNumberFromUrl(response.body()?.data?.next_page_url!!)
+                else
+                    null
+            response.body()?.data?.data
+        },
+        saveFetchResult = { chatList ->
+            if (chatList != null) {
+                db.withTransaction {
+                    if (page == 1) db.getDao().deleteChats(id)
+                    db.getDao().upsertChats(chatList)
+                }
+            }
+        }
+    )
+
+    fun getAllMessages(id: Int) = networkBoundResource(
+        query = {
+            db.getDao().getMessages(id)
+        },
+        fetch = {
+            val response = api.getAllMessage(id)
+            response.body()?.data
+        },
+        saveFetchResult = { messages ->
+            if (messages != null) {
+                db.withTransaction {
+                    db.getDao().deleteMessages(id)
+                    db.getDao().upsertMessages(messages)
                 }
             }
         }

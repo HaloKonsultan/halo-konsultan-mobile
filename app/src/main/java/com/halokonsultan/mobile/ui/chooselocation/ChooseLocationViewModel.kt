@@ -55,7 +55,7 @@ class ChooseLocationViewModel @Inject constructor(
         try {
             val response = repository.getAllProvince()
             if (response.body() != null) {
-                _provinces.postValue(Resource.Success(response.body()!!.provinsi))
+                _provinces.postValue(Resource.Success(response.body()!!.rajaongkir.results))
             }
         } catch (e: Exception) {
             _provinces.postValue(Resource.Error(e.localizedMessage?: "unknown error"))
@@ -67,7 +67,7 @@ class ChooseLocationViewModel @Inject constructor(
         try {
             val response = repository.getAllCity(id)
             if (response.body() != null) {
-                _cities.postValue(Resource.Success(response.body()!!.kota_kabupaten))
+                _cities.postValue(Resource.Success(response.body()!!.rajaongkir.results))
             }
         } catch (e: Exception) {
             _cities.postValue(Resource.Error(e.localizedMessage?: "unknown error"))

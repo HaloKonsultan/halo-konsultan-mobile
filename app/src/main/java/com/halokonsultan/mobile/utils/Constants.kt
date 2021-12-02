@@ -6,7 +6,8 @@ import com.halokonsultan.mobile.R
 // url related stuff
 //const val BASE_URL = "http://192.168.1.3:8000/api/users/" // punya Ridlo
 const val BASE_URL = "http://192.168.1.100:8000/api/users/" // punya Galih
-const val BASE_URL_LOCATION = "https://dev.farizdotid.com/api/daerahindonesia/"
+const val BASE_URL_LOCATION = "https://api.rajaongkir.com/starter/"
+const val RAJAONGKIR_API_KEY = "aee020347d9bcebda31efff6ec3eaade"
 
 // shared preference related stuff
 const val PREF_KEY = "com.halokonsultan.mobile.PREFERENCE_KEY"
