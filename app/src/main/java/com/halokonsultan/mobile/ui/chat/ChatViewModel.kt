@@ -29,6 +29,7 @@ class ChatViewModel @Inject constructor(
             val response = repository.sendMessage(id, repository.getUserId(), message)
             if (response.body() != null && response.body()!!.data != null) {
                 _messages.postValue(Resource.Success(response.body()!!.data!!))
+                sendNotification(id, message)
             }
         } catch (e: Exception) {
             _messages.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
@@ -42,6 +43,10 @@ class ChatViewModel @Inject constructor(
 
     private fun readMessage(id: Int) = viewModelScope.launch {
         repository.readMessage(id)
+    }
+
+    private fun sendNotification(id: Int, message: String) = viewModelScope.launch {
+        repository.sendNotification(id, repository.getUserName() ?: "User", message)
     }
 
 }

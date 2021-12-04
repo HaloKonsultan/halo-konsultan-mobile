@@ -105,6 +105,7 @@ class ConversationActivity : AppCompatActivity() {
 
         binding.btnSend.setOnClickListener {
             viewModel.sendMessage(id, binding.etMessage.text.toString())
+            binding.etMessage.setText("")
         }
     }
 

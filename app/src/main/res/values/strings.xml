@@ -142,5 +142,7 @@
     <string name="silakan_ketik_pesanmu_di_sini">Silakan ketik pesanmu di sini</string>
     <string name="lewati">Lewati</string>
     <string name="refresh">Refresh</string>
+    <string name="lanjut">Lanjut</string>
+    <string name="ayo_mulai">Ayo Mulai</string>
 
 </resources>
