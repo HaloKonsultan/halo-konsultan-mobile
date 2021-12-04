@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.halokonsultan.mobile.databinding.ActivityOnboardingBinding
 import com.halokonsultan.mobile.ui.auth.LandingActivity
-import com.halokonsultan.mobile.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
