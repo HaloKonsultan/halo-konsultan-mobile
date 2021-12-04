@@ -138,6 +138,42 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_konsultan_terdekat"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lay_no_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_konsultan_terdekat"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="56dp"
+                android:visibility="visible"
+                android:background="@color/white">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_no_result"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="56dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/no_result" />
+
+                <TextView
+                    android:id="@+id/tv_no_result"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:text="@string/tidak_ada_data"
+                    android:textColor="@color/label"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lottie_no_result" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <ProgressBar
                 android:id="@+id/consultant_progress_bar"
                 style="?android:attr/progressBarStyle"

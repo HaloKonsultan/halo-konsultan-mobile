@@ -38,6 +38,10 @@ class ChatFragment : Fragment() {
         setupSwiper()
 
         getChatList(1, false)
+
+        binding.btnRefresh.setOnClickListener {
+            getChatList(1, false)
+        }
     }
 
     private fun getChatList(page: Int, shouldAppend: Boolean) {
@@ -45,18 +49,26 @@ class ChatFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    if (shouldAppend) {
-                        val temp = chatListAdapter.differ.currentList.toMutableList()
-                        response.data?.let { temp.addAll(it) }
-                        chatListAdapter.differ.submitList(temp)
-                        loading = false
+                    binding.layNoInet.visibility = View.GONE
+
+                    if (response.data!!.isNotEmpty()) {
+                        if (shouldAppend) {
+                            val temp = chatListAdapter.differ.currentList.toMutableList()
+                            response.data?.let { temp.addAll(it) }
+                            chatListAdapter.differ.submitList(temp)
+                            loading = false
+                        } else {
+                            chatListAdapter.differ.submitList(response.data)
+                        }
                     } else {
-                        chatListAdapter.differ.submitList(response.data)
+                        binding.layNoResult.visibility = View.VISIBLE
                     }
                 }
 
                 is Resource.Error -> {
                     binding.progressBar.isVisible = false
+                    binding.layNoResult.visibility = View.GONE
+                    binding.layNoInet.visibility = View.VISIBLE
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
 

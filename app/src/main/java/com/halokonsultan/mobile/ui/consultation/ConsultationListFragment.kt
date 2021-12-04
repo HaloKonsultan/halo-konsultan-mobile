@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.ui.consultation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.data.model.Consultation
+import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
 import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Resource
@@ -53,19 +56,32 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
                     binding.swiper.isRefreshing = false
-                    if (shouldAppend && response.data != null) {
-                        val temp = consultationAdapter.differ.currentList.toMutableList()
-                        temp.addAll(response.data)
-                        consultationAdapter.differ.submitList(temp)
-                        loading = false
+
+                    Log.d("coba",response.data.toString())
+                    if (response.data != null && response.data.isNotEmpty()) {
+                        binding.layNoResult.visibility = View.GONE
+                        if (shouldAppend) {
+                            val temp = consultationAdapter.differ.currentList.toMutableList()
+                            temp.addAll(response.data)
+                            consultationAdapter.differ.submitList(temp)
+                            loading = false
+                        } else {
+                            consultationAdapter.differ.submitList(response.data)
+                        }
                     } else {
-                        consultationAdapter.differ.submitList(response.data)
+                        binding.layNoResult.visibility = View.VISIBLE
+                        consultationAdapter.differ.submitList(null)
                     }
                 }
 
                 is Resource.Error -> {
                     binding.progressBar.isVisible = false
                     binding.swiper.isRefreshing = false
+
+                    if (response.data!!.isEmpty()) {
+                        binding.layNoResult.visibility = View.VISIBLE
+                    }
+
                     Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                 }
 

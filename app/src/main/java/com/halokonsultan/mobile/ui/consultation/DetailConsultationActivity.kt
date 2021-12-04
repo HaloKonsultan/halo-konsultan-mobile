@@ -55,6 +55,11 @@ class DetailConsultationActivity : AppCompatActivity() {
 
         observeConsultationResponse()
         observePayResponse()
+
+        binding.btnRefresh.setOnClickListener {
+            finish()
+            startActivity(this.intent)
+        }
     }
 
     private fun observePayResponse() {
@@ -81,12 +86,14 @@ class DetailConsultationActivity : AppCompatActivity() {
             when(response) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    binding.layNoInet.visibility = View.GONE
                     data = response.data
                     populateData()
                     setStatus()
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
+                    binding.layNoInet.visibility = View.VISIBLE
                     Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                 }
                 is Resource.Loading -> {

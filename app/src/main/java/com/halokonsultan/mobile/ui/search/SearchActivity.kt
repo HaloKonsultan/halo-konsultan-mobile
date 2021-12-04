@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.ui.search
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.databinding.ActivitySearchBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
@@ -95,6 +97,10 @@ class SearchActivity : AppCompatActivity() {
             val intent = Intent(this@SearchActivity, CategoryActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnRefresh.setOnClickListener {
+            viewModel.searchConsultantByName(binding.etSearch.toString(), 1)
+        }
     }
 
     private fun registerObserverSearchByName() {
@@ -102,18 +108,28 @@ class SearchActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    if (response.data != null && shouldAppend) {
-                        val temp = consultantAdapter.differ.currentList.toMutableList()
-                        temp.addAll(response.data)
-                        consultantAdapter.differ.submitList(temp)
+                    binding.layNoInet.visibility = View.GONE
+
+                    if ((response.data as List<Consultant>).isNotEmpty()) {
+                        binding.layNoResult.visibility = View.GONE
+                        if (shouldAppend) {
+                            val temp = consultantAdapter.differ.currentList.toMutableList()
+                            temp.addAll(response.data)
+                            consultantAdapter.differ.submitList(temp)
+                        } else {
+                            consultantAdapter.differ.submitList(response.data)
+                        }
                     } else {
-                        consultantAdapter.differ.submitList(response.data)
+                        binding.layNoResult.visibility = View.VISIBLE
+                        consultantAdapter.differ.submitList(null)
                     }
                     loading = false
                 }
 
                 is Resource.Error -> {
                     binding.progressBar.isVisible = false
+                    binding.layNoInet.visibility = View.VISIBLE
+                    binding.layNoResult.visibility = View.GONE
                     Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                 }
 
@@ -131,18 +147,29 @@ class SearchActivity : AppCompatActivity() {
                     when (response) {
                         is Resource.Success -> {
                             binding.progressBar.isVisible = false
-                            if (response.data != null && shouldAppend) {
-                                val temp = consultantAdapter.differ.currentList.toMutableList()
-                                temp.addAll(response.data)
-                                consultantAdapter.differ.submitList(temp)
+                            binding.layNoInet.visibility = View.INVISIBLE
+
+                            if ((response.data as List<Consultant>).isNotEmpty()) {
+                                binding.lottieNoResult.visibility = View.GONE
+                                binding.tvNoResult.visibility = View.GONE
+                                if (shouldAppend) {
+                                    val temp = consultantAdapter.differ.currentList.toMutableList()
+                                    temp.addAll(response.data)
+                                    consultantAdapter.differ.submitList(temp)
+                                } else {
+                                    consultantAdapter.differ.submitList(response.data)
+                                }
                             } else {
-                                consultantAdapter.differ.submitList(response.data)
+                                binding.lottieNoResult.visibility = View.VISIBLE
+                                binding.tvNoResult.visibility = View.VISIBLE
+                                consultantAdapter.differ.submitList(null)
                             }
                             loading = false
                         }
 
                         is Resource.Error -> {
                             binding.progressBar.isVisible = false
+                            binding.layNoInet.visibility = View.VISIBLE
                             Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                         }
 

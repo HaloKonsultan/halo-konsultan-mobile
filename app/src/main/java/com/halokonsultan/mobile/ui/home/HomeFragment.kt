@@ -77,13 +77,18 @@ class HomeFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     binding.consultantProgressBar.isVisible = false
-                    if (shouldAppend) {
-                        val temp = consultantAdapter.differ.currentList.toMutableList()
-                        response.data?.let { temp.addAll(it) }
-                        consultantAdapter.differ.submitList(temp)
-                        loading = false
+                    if (response.data!!.isNotEmpty()) {
+                        binding.layNoResult.visibility = View.GONE
+                        if (shouldAppend) {
+                            val temp = consultantAdapter.differ.currentList.toMutableList()
+                            response.data?.let { temp.addAll(it) }
+                            consultantAdapter.differ.submitList(temp)
+                            loading = false
+                        } else {
+                            consultantAdapter.differ.submitList(response.data)
+                        }
                     } else {
-                        consultantAdapter.differ.submitList(response.data)
+                        binding.layNoResult.visibility = View.VISIBLE
                     }
                 }
 

@@ -144,5 +144,7 @@
     <string name="refresh">Refresh</string>
     <string name="lanjut">Lanjut</string>
     <string name="ayo_mulai">Ayo Mulai</string>
+    <string name="sepertinya_anda_terputus_coba_cek_koneksi_anda_kembali">Sepertinya Anda terputus, coba cek koneksi Anda kembali.</string>
+    <string name="tidak_ada_data">Tidak Ada Data</string>
 
 </resources>
