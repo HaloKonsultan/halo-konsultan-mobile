@@ -82,20 +82,20 @@
         android:id="@+id/lay_no_inet"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@+id/tv_result">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_no_inet"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:layout_marginTop="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="120dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/no_inet" />
@@ -111,7 +111,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lottie_no_inet"/>
+            app:layout_constraintTop_toBottomOf="@+id/lottie_no_inet" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_refresh"
@@ -130,11 +130,10 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:cornerRadius="24dp"
-            app:strokeColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/tv_no_inet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tv_no_inet"
+            app:strokeColor="@color/black" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,21 +141,21 @@
         android:id="@+id/lay_no_result"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        android:background="@color/white">
+        app:layout_constraintTop_toBottomOf="@+id/tv_result">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_no_result"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:layout_marginTop="120dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="120dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/no_result" />
@@ -172,7 +171,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lottie_no_result"/>
+            app:layout_constraintTop_toBottomOf="@+id/lottie_no_result" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
