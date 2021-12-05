@@ -13,7 +13,6 @@
         android:layout_height="56dp"
         android:contentInsetLeft="0dp"
         android:contentInsetStart="0dp"
-        android:elevation="1dp"
         android:background="@color/white">
 
         <LinearLayout

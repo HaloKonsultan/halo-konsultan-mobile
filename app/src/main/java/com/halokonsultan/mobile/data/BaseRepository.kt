@@ -27,7 +27,7 @@ class BaseRepository @Inject constructor(
 
     suspend fun getAllProvince() = locationApi.getAllProvince()
 
-    suspend fun getAllCity(id: Int) = locationApi.getAllCity(id)
+    suspend fun getAllCity(id: String) = locationApi.getAllCity(idProvince = id)
 
     suspend fun getAllCategories() = api.getAllCategories()
 

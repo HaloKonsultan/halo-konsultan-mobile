@@ -55,19 +55,19 @@ class ChooseLocationViewModel @Inject constructor(
         try {
             val response = repository.getAllProvince()
             if (response.body() != null) {
-                _provinces.postValue(Resource.Success(response.body()!!.rajaongkir.results))
+                _provinces.postValue(Resource.Success(response.body()!!.value))
             }
         } catch (e: Exception) {
             _provinces.postValue(Resource.Error(e.localizedMessage?: "unknown error"))
         }
     }
 
-    fun getAllCities(id: Int) = viewModelScope.launch {
+    fun getAllCities(id: String) = viewModelScope.launch {
         _cities.postValue(Resource.Loading())
         try {
             val response = repository.getAllCity(id)
             if (response.body() != null) {
-                _cities.postValue(Resource.Success(response.body()!!.rajaongkir.results))
+                _cities.postValue(Resource.Success(response.body()!!.value))
             }
         } catch (e: Exception) {
             _cities.postValue(Resource.Error(e.localizedMessage?: "unknown error"))

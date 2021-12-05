@@ -36,7 +36,7 @@ class EditProfileActivity : AppCompatActivity() {
     private var email: String = ""
     private var province: String = ""
     private var city: String = ""
-    private var idForProvince: Int = 0
+    private var idForProvince: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,15 +68,15 @@ class EditProfileActivity : AppCompatActivity() {
             val adapter = binding.inputProvinsi.adapter
             val item = adapter.getItem(position) as Province
             binding.inputKota.text.clear()
-            province = item.province
-            setupCityChooser(item.province_id)
+            province = item.name
+            setupCityChooser(item.id)
         }
 
         binding.inputKota.setOnItemClickListener { adapterView, view, position, l ->
             val adapter = binding.inputKota.adapter
             val item = adapter.getItem(position) as City
-            city = item.city_name
-            idForProvince = item.city_id
+            city = item.name
+            idForProvince = item.id
         }
 
         binding.btnSaveChange.setOnClickListener {
@@ -100,7 +100,7 @@ class EditProfileActivity : AppCompatActivity() {
         binding.inputKota.setText(city)
     }
 
-    private fun setupCityChooser(id: Int) {
+    private fun setupCityChooser(id: String) {
         viewModel.getAllCities(id)
         viewModel.cities.observe(this, { response ->
             when(response) {

@@ -5,10 +5,10 @@ import com.halokonsultan.mobile.R
 
 // url related stuff
 //const val BASE_URL = "http://192.168.1.3:8000/api/users/" // punya Ridlo
-//const val BASE_URL = "http://192.168.1.100:8000/api/users/" // punya Galih
-const val BASE_URL = "https://api.halokonsultan.me/api/users/" // prod
-const val BASE_URL_LOCATION = "https://api.rajaongkir.com/starter/"
-const val RAJAONGKIR_API_KEY = "aee020347d9bcebda31efff6ec3eaade"
+const val BASE_URL = "http://192.168.1.100:8000/api/users/" // punya Galih
+//const val BASE_URL = "https://api.halokonsultan.me/api/users/" // prod
+const val BASE_URL_LOCATION = "https://api.binderbyte.com/wilayah/"
+const val BINDERBYTE_API_KEY = "079fc527c1d3fdf63c64cc384bc51b9e6fff9b7552c8eb493db7b2035d70c421"
 
 // shared preference related stuff
 const val PREF_KEY = "com.halokonsultan.mobile.PREFERENCE_KEY"

@@ -31,7 +31,6 @@ class RetrofitInstance {
     fun createLocationApi(): LocationApi {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttp = OkHttpClient.Builder()
-            .addInterceptor(KeyInterceptor())
             .addInterceptor(logger)
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()

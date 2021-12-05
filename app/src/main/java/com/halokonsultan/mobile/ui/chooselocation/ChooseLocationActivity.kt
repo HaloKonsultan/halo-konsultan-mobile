@@ -51,14 +51,14 @@ class ChooseLocationActivity() : AppCompatActivity() {
         binding.inputProvinsi.setOnItemClickListener { adapterView, view, position, l ->
             val adapter = binding.inputProvinsi.adapter
             val itemProvince = adapter.getItem(position) as Province
-            provinceName = itemProvince.province
-            setupCityChooser(itemProvince.province_id)
+            provinceName = itemProvince.name
+            setupCityChooser(itemProvince.id)
         }
 
         binding.inputKota.setOnItemClickListener { adapterView, view, position, l ->
             val adapter = binding.inputKota.adapter
             val itemCity = adapter.getItem(position) as City
-            cityName = itemCity.city_name
+            cityName = itemCity.name
         }
 
         binding.btnSelesai.setOnClickListener {
@@ -74,7 +74,7 @@ class ChooseLocationActivity() : AppCompatActivity() {
         })
     }
 
-    private fun setupCityChooser(id: Int) {
+    private fun setupCityChooser(id: String) {
         viewModel.getAllCities(id)
         viewModel.cities.observe(this, { response ->
             when(response) {
@@ -115,7 +115,7 @@ class ChooseLocationActivity() : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.miNext -> {
-                viewModel.location(id, name, "DKI Jakarta", "Kota Jakarta Pusat")
+                viewModel.location(id, name, "DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
                 return true
             }
         }
