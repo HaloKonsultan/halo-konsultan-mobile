@@ -29,7 +29,8 @@
         <activity android:name=".ui.onboarding.OnboardingActivity"/>
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/splashScreenStyle">
+            android:theme="@style/splashScreenStyle"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
