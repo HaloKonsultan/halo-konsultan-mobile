@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.data.model.Chat
 import com.halokonsultan.mobile.databinding.ItemChatBinding
+import com.halokonsultan.mobile.utils.MESSAGE_TYPE_CONSULTANT
 import com.halokonsultan.mobile.utils.Utils.toBoolean
+import com.halokonsultan.mobile.utils.Utils.trim
 import com.squareup.picasso.Picasso
 
 class ChatListAdapter: RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>() {
@@ -30,11 +32,14 @@ class ChatListAdapter: RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>(
 
     override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
         val chat = differ.currentList[position]
-        holder.binding.tvConsultantName.text = chat.name
-        holder.binding.tvChatMessage.text = chat.last_message
-        holder.binding.tvChatTime.text = chat.last_messages_time
-        holder.binding.icon.isVisible = !(chat.last_messages_is_read!!.toBoolean())
-        Picasso.get().load(chat.photo).into(holder.binding.imgPhotoProfile)
+        holder.binding.apply {
+            tvConsultantName.text = chat.name
+            tvChatMessage.text = (chat.last_message?: "").trim(40)
+            tvChatTime.text = chat.last_messages_time
+            icon.isVisible = (chat.last_messages_from == MESSAGE_TYPE_CONSULTANT)
+                && !(chat.last_messages_is_read!!.toBoolean())
+            Picasso.get().load(chat.photo).into(imgPhotoProfile)
+        }
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let { it(chat) }

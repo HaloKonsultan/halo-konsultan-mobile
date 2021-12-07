@@ -37,6 +37,12 @@ object Utils {
 
     fun Int.toBoolean() = this == 1
 
+    fun String.trim(maxLength: Int) =
+        if (this.length > maxLength)
+            "${this.take(maxLength - 3)}..."
+        else
+            this
+
     fun String.isValidEmail() =
             !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
