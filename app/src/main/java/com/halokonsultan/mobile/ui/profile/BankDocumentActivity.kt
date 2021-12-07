@@ -3,9 +3,11 @@ package com.halokonsultan.mobile.ui.profile
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,6 +39,13 @@ class BankDocumentActivity : AppCompatActivity() {
         binding = ActivityBankDocumentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.title_text_view)
+        supportActionBar?.elevation = 0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        Utils.setTitleTextView(this, "Bank Dokumen")
+
         setupRecyclerView()
         setupStorageHelper()
 
@@ -52,6 +61,16 @@ class BankDocumentActivity : AppCompatActivity() {
             val files = loadFiles()
             fileAdapter.differ.submitList(files)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private suspend fun loadFiles(): List<BankDocumentFile> {

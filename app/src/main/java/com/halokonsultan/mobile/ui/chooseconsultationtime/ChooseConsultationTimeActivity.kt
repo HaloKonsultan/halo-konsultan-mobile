@@ -68,15 +68,12 @@ class ChooseConsultationTimeActivity : AppCompatActivity() {
             when (checkedId) {
                 binding.btnDateOne.id -> {
                     checkedBtnData = binding.btnDateOne.text.toString()
-                    Toast.makeText(this, checkedBtnData, Toast.LENGTH_SHORT).show()
                 }
                 binding.btnDateTwo.id -> {
                     checkedBtnData = binding.btnDateTwo.text.toString()
-                    Toast.makeText(this, checkedBtnData, Toast.LENGTH_SHORT).show()
                 }
                 binding.btnDateThree.id -> {
                     checkedBtnData = binding.btnDateThree.text.toString()
-                    Toast.makeText(this, checkedBtnData, Toast.LENGTH_SHORT).show()
                 }
             }
         }

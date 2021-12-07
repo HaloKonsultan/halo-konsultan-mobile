@@ -147,5 +147,7 @@
     <string name="sepertinya_anda_terputus_coba_cek_koneksi_anda_kembali">Sepertinya Anda terputus, coba cek koneksi Anda kembali.</string>
     <string name="tidak_ada_data">Tidak Ada Data</string>
     <string name="isi_pesan">Isi pesan</string>
+    <string name="buka_kamera">Buka kamera</string>
+    <string name="tambah_dokumen">Tambah Dokumen</string>
 
 </resources>
