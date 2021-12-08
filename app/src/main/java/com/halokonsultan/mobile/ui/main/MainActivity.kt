@@ -3,10 +3,12 @@ package com.halokonsultan.mobile.ui.main
 import android.Manifest
 import android.app.AlertDialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.florent37.runtimepermission.kotlin.askPermission
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.ui.chat.ChatFragment
 import com.halokonsultan.mobile.ui.consultation.ConsultationFragment
 import com.halokonsultan.mobile.databinding.ActivityMainBinding
@@ -16,20 +18,21 @@ import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private lateinit var binding: ActivityMainBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
+        = ActivityMainBinding::inflate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setup() {
+        askPermissions()
+        setOnNavigationListener()
+    }
 
+    private fun setOnNavigationListener() {
         val homeFragment = HomeFragment()
         val chatFragment = ChatFragment()
         val consultationFragment = ConsultationFragment()
         val profileFragment = ProfileFragment()
-        askPermissions()
 
         setCurrentFragment(homeFragment)
 

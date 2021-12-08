@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.ui.consultant
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
 import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.databinding.ActivityConsultantBinding
 import com.halokonsultan.mobile.ui.booking.BookingActivity
@@ -20,13 +22,14 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ConsultantActivity : AppCompatActivity() {
+class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
     }
 
-    private lateinit var binding: ActivityConsultantBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityConsultantBinding
+        = ActivityConsultantBinding::inflate
     private lateinit var documentationAdapter: DocumentationAdapter
     private lateinit var educationAdapter: EducationAdapter
     private lateinit var experienceAdapter: ExperienceAdapter
@@ -35,18 +38,9 @@ class ConsultantActivity : AppCompatActivity() {
     private var id = 0
     private var profileData: DetailConsultant? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityConsultantBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setup() {
+        setTitle("Profil Konsultan")
         setupRecyclerView()
-
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setCustomView(R.layout.title_text_view)
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        Utils.setTitleTextView(this, "Profil Konsultan")
 
         val bundle = intent.extras
         if (bundle != null) {

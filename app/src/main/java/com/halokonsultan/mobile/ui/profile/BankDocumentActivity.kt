@@ -22,6 +22,7 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.BankDocumentFile
 import com.halokonsultan.mobile.databinding.ActivityBankDocumentBinding
 import com.halokonsultan.mobile.utils.Utils
+import com.halokonsultan.mobile.utils.Utils.openPdf
 import kotlinx.coroutines.*
 
 
@@ -178,7 +179,8 @@ class BankDocumentActivity : AppCompatActivity() {
         }
 
         fileAdapter.setOnItemClickListener { file ->
-            Utils.openFile(applicationContext, file.file)
+//            Utils.openFile(applicationContext, file.file)
+            openPdf(file.name)
         }
 
         fileAdapter.setOnLongItemClickListener { file ->

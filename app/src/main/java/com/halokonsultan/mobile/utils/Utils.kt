@@ -12,8 +12,10 @@ import android.util.Patterns
 import android.view.View
 import android.view.Window
 import android.widget.TextView
+import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.documentfile.provider.DocumentFile
+import com.halokonsultan.mobile.BuildConfig
 import com.halokonsultan.mobile.R
 import java.io.BufferedReader
 import java.io.File
@@ -135,5 +137,25 @@ object Utils {
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    fun Activity.openPdf(filename: String?) {
+        val file =  File(filesDir, filename)
+        Log.d("coba", "openPdf: $filename")
+
+        if(file.exists()) {
+            Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(FileProvider.getUriForFile(this@openPdf, BuildConfig.APPLICATION_ID + ".provider", file), "application/pdf")
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                try {
+                    startActivity(this)
+                } catch (e: Exception) {
+                    Log.d("coba", "openPdf: ${e.message}")
+                }
+            }
+        } else {
+            Log.d("coba", "openPdf: file not exist")
+        }
     }
 }
