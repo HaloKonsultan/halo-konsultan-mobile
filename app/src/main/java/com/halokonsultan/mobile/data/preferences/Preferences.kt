@@ -4,7 +4,14 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.halokonsultan.mobile.HaloKonsultanApplication
-import com.halokonsultan.mobile.utils.*
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_EXPIRED_TIME
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_FIRST_TIME
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_KEY
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_LOGGED_IN
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_TOKEN
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_USER_CITY
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_USER_ID
+import com.halokonsultan.mobile.data.preferences.PrefConstants.PREF_USER_NAME
 import java.util.*
 
 

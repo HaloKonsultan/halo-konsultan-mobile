@@ -1,26 +1,37 @@
 package com.halokonsultan.mobile.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.Toast
+import android.view.LayoutInflater
 import androidx.activity.viewModels
+import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.databinding.ActivityLandingBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.ui.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LandingActivity : AppCompatActivity() {
+class LandingActivity : BaseActivity<ActivityLandingBinding>() {
 
-    private lateinit var binding: ActivityLandingBinding
     private val viewModel: AuthViewModel by viewModels()
+    override val bindingInflater: (LayoutInflater) -> ActivityLandingBinding
+        = ActivityLandingBinding::inflate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLandingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setup() {
+        validateRedirection()
+        setupButtonListener()
+    }
 
+    private fun setupButtonListener() {
+        binding.btnLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+
+        binding.btnRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+    }
+
+    private fun validateRedirection() {
         if (viewModel.isFirstTime()) {
             startActivity(Intent(this, OnboardingActivity::class.java))
         }
@@ -28,21 +39,12 @@ class LandingActivity : AppCompatActivity() {
         if (viewModel.isLoggedIn()) {
             if (viewModel.isExpired()) {
                 viewModel.resetPref()
-                Toast.makeText(this, "Session telah expired, Silahkan login kembali",
-                    Toast.LENGTH_LONG).show()
+                showToast("Session telah expired, Silahkan login kembali")
             } else {
                 intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-        }
-
-        binding.btnLogin.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
-
-        binding.btnRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }

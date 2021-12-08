@@ -35,24 +35,34 @@ class UploadDocumentActivity : AppCompatActivity() {
         binding = ActivityUploadDocumentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupSupportActionBar()
+        setupRecyclerView()
+        populateDataFromBundle()
+        setupUploadObserver()
+        setupButtonSubmit()
+
+        storageHelper.onFileSelected = { _, file ->
+            viewModel.uploadDocument(contentResolver, file[0], consultationId, docId)
+        }
+    }
+
+    private fun setupButtonSubmit() {
+        binding.btnSubmit.setOnClickListener {
+            intent = Intent(this, DetailConsultationActivity::class.java)
+            intent.putExtra(DetailConsultationActivity.EXTRA_ID, consultationId)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun setupSupportActionBar() {
         supportActionBar?.title = ""
         supportActionBar?.elevation = 0f
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
 
-        setupRecyclerView()
-        val bundle = intent.extras
-        if (bundle != null) {
-            consultationId = intent.getIntExtra(EXTRA_CONSULTATION_ID, 0)
-            val docs = intent.getParcelableArrayListExtra<ConsultationsDocument>(EXTRA_DOC)
-            if (docs != null) {
-                uploadAdapter.differ.submitList(docs)
-                if (docs.all { it.file != null }) {
-                    binding.btnSubmit.isEnabled = true
-                }
-            }
-        }
-
+    private fun setupUploadObserver() {
         viewModel.upload.observe(this, { response ->
             when(response) {
                 is Resource.Success -> {
@@ -72,15 +82,19 @@ class UploadDocumentActivity : AppCompatActivity() {
                 }
             }
         })
+    }
 
-        binding.btnSubmit.setOnClickListener {
-            intent = Intent(this, DetailConsultationActivity::class.java)
-            intent.putExtra(DetailConsultationActivity.EXTRA_ID, consultationId)
-            startActivity(intent)
-        }
-
-        storageHelper.onFileSelected = { _, file ->
-            viewModel.uploadDocument(contentResolver, file[0], consultationId, docId)
+    private fun populateDataFromBundle() {
+        val bundle = intent.extras
+        if (bundle != null) {
+            consultationId = intent.getIntExtra(EXTRA_CONSULTATION_ID, 0)
+            val docs = intent.getParcelableArrayListExtra<ConsultationsDocument>(EXTRA_DOC)
+            if (docs != null) {
+                uploadAdapter.differ.submitList(docs)
+                if (docs.all { it.file != null }) {
+                    binding.btnSubmit.isEnabled = true
+                }
+            }
         }
     }
 

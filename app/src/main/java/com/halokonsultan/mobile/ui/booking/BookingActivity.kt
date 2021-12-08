@@ -1,21 +1,19 @@
 package com.halokonsultan.mobile.ui.booking
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.MenuItem
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.afollestad.vvalidator.form
+import com.halokonsultan.mobile.base.ActivityWithBackButton
+import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityBookingBinding
 import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
-import com.halokonsultan.mobile.utils.Resource
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BookingActivity : AppCompatActivity() {
+class BookingActivity : ActivityWithBackButton<ActivityBookingBinding>() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
@@ -24,23 +22,46 @@ class BookingActivity : AppCompatActivity() {
         const val EXTRA_CATEGORY = "extra_category"
     }
 
-    private lateinit var binding: ActivityBookingBinding
     private val viewModel: BookingViewModel by viewModels()
+    override val bindingInflater: (LayoutInflater) -> ActivityBookingBinding
+        = ActivityBookingBinding::inflate
+    private val bookingObserver by lazy { setupObserver() }
+
     private var consultantId: Int? = null
     private var consultantName: String? = null
     private var consultantPhoto: String? = null
     private var consultantCategory: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityBookingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setup() {
+        populateDataFromBundle()
+        bookingValidation()
+        setChangeListener()
+    }
 
-        supportActionBar?.title = ""
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+    private fun setupObserver() = setObserverWithBasicResponse<DetailConsultation>(
+            onSuccess = {
+                binding.progressBar.visible()
+                viewModel.sendNotification(
+                    consultantId ?: 0,
+                    "Pesanan Konsultasi Masuk",
+                    "${viewModel.getUserName()}: $title"
+                )
+                intent = Intent(this, ConfirmationActivity::class.java)
+                intent.putExtra(ConfirmationActivity.EXTRA_TITLE, "Booking berhasil!")
+                intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Menunggu konfirmasi konsultan")
+                startActivity(intent)
+            },
+            onError = { response ->
+                binding.progressBar.gone()
+                showToast(response.message.toString())
+            },
+            onLoading = {
+                binding.progressBar.gone()
+            }
+        )
 
+
+    private fun populateDataFromBundle() {
         val bundle = intent.extras
         if (bundle != null) {
             consultantId = intent.getIntExtra(EXTRA_ID, 0)
@@ -49,12 +70,14 @@ class BookingActivity : AppCompatActivity() {
             consultantCategory = intent.getStringExtra(EXTRA_CATEGORY)
         }
 
-        binding.tvConsultantName.text = consultantName
-        binding.tvConsultantCategory.text = consultantCategory
-        Picasso.get().load(consultantPhoto).into(binding.imgConsultant)
+        with (binding) {
+            tvConsultantName.text = consultantName
+            tvConsultantCategory.text = consultantCategory
+            Picasso.get().load(consultantPhoto).into(imgConsultant)
+        }
+    }
 
-        bookingValidation()
-
+    private fun setChangeListener() {
         binding.cbOffline.setOnCheckedChangeListener { _, isChecked ->
             binding.tvLocationText.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
             binding.tfChooseLocation.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
@@ -62,7 +85,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun bookingValidation() {
-        form{
+        form {
             useRealTimeValidation(disableSubmit = true)
             input(binding.etTitle){
                 isNotEmpty().description("Field judul harus diisi")
@@ -82,7 +105,7 @@ class BookingActivity : AppCompatActivity() {
                 try {
                     booking()
                 } catch (e: Exception) {
-                    Toast.makeText(this@BookingActivity, e.message, Toast.LENGTH_LONG).show()
+                    showToast(e.message.toString())
                 }
             }
         }
@@ -102,48 +125,13 @@ class BookingActivity : AppCompatActivity() {
             throw Exception("Ketika memilih offline, Anda harus mengisi lokasi")
         }
 
-        viewModel.bookingConsultation(title.toString(),
+        viewModel.bookingConsultationV2(title.toString(),
                 consultantId ?: 0,
                 viewModel.getUserId(),
                 desc.toString(),
                 isOnlineSelected,
                 isOfflineSelected,
                 location.toString())
-
-        viewModel.consultation.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    viewModel.sendNotification(
-                        consultantId ?: 0,
-                        "Pesanan Konsultasi Masuk",
-                        "${viewModel.getUserName()}: $title"
-                    )
-                    intent = Intent(this, ConfirmationActivity::class.java)
-                    intent.putExtra(ConfirmationActivity.EXTRA_TITLE, "Booking berhasil!")
-                    intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Menunggu konfirmasi konsultan")
-                    startActivity(intent)
-                }
-
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+            .observe(this, bookingObserver)
     }
 }

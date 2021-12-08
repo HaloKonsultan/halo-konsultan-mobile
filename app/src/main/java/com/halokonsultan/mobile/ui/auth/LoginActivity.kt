@@ -1,47 +1,33 @@
 package com.halokonsultan.mobile.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.UnderlineSpan
-import android.view.MenuItem
-import android.view.View
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.afollestad.vvalidator.form
+import com.halokonsultan.mobile.base.ActivityWithBackButton
+import com.halokonsultan.mobile.data.model.dto.AuthResponse
 import com.halokonsultan.mobile.databinding.ActivityLoginBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : ActivityWithBackButton<ActivityLoginBinding>() {
 
-    private lateinit var binding: ActivityLoginBinding
     private val viewModel: AuthViewModel by viewModels()
+    override val bindingInflater: (LayoutInflater) -> ActivityLoginBinding
+        = ActivityLoginBinding::inflate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private val loginObserver by lazy { setupObserver() }
 
-        supportActionBar?.title = ""
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-
-        if (viewModel.isLoggedIn()) {
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        val spannable = SpannableStringBuilder("Belum punya akun? Registrasi")
-        spannable.setSpan(UnderlineSpan(), 18, 28, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-        binding.tvRegister.text = spannable
-
+    override fun setup() {
+        setupSupportActionBar()
+        validateIsLoggedIn()
+        setupView()
         loginValidation()
 
         binding.tvRegister.setOnClickListener {
@@ -49,8 +35,35 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupObserver() = setObserver<AuthResponse>(
+            onSuccess = {
+                binding.progressBar.gone()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            },
+            onError = { data ->
+                binding.progressBar.gone()
+                Toast.makeText(this, data.message, Toast.LENGTH_LONG).show()
+            },
+            onLoading = { binding.progressBar.visible() }
+        )
+
+    private fun setupView() {
+        val spannable = SpannableStringBuilder("Belum punya akun? Registrasi")
+        spannable.setSpan(UnderlineSpan(), 18, 28, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        binding.tvRegister.text = spannable
+    }
+
+    private fun validateIsLoggedIn() {
+        if (viewModel.isLoggedIn()) {
+            intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
     private fun loginValidation() {
-        form{
+        form {
             useRealTimeValidation()
             input(binding.etEmail, name = null){
                 isNotEmpty().description("Field ini wajib diisi")
@@ -74,38 +87,8 @@ class LoginActivity : AppCompatActivity() {
                     binding.etEmail.text.toString(),
                     binding.etPassword.text.toString(),
                     token.data.toString()
-                )
+                ).observe(this, loginObserver)
             }
         })
-
-        viewModel.account.observe(this, { data ->
-            when(data) {
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }
-
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, data.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 }

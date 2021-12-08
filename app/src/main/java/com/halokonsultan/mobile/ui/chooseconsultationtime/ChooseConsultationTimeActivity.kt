@@ -23,7 +23,6 @@ class ChooseConsultationTimeActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityChooseConsultationTimeBinding
-    private lateinit var button: MaterialButtonToggleGroup
     private val viewModel: ChooseConsultationTimeViewModel by viewModels()
     private var checkedBtnData: String = ""
     private var id = 0
@@ -33,55 +32,32 @@ class ChooseConsultationTimeActivity : AppCompatActivity() {
         binding = ActivityChooseConsultationTimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupSuppotActionBar()
+        populateDataFromBundle()
+        setupToggleButtonGroup()
+        setupDateObserver()
+        setupChooseButton()
+    }
+
+    private fun setupSuppotActionBar() {
         supportActionBar?.title = ""
         supportActionBar?.elevation = 0f
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
 
-        val bundle = intent.extras
-        if (bundle != null) {
-            id = intent.getIntExtra(EXTRA_ID, 0)
-            val prefDates = intent.getParcelableArrayListExtra<ConsultationsPrefDate>(EXTRA_PREF_DATE)
-            if (prefDates != null) {
-                binding.btnDateOne.text = "${prefDates[0].date} ${prefDates[0].time}"
-                binding.btnDateTwo.text = "${prefDates[1].date} ${prefDates[1].time}"
-                binding.btnDateThree.text = "${prefDates[2].date} ${prefDates[2].time}"
-            }
-        }
-
-        button = binding.toggleButtonGroup
-        button.isSingleSelection = true
-        button.isSelectionRequired = true
-
-        onCheckedButton()
+    private fun setupChooseButton() {
         binding.btnPilihWaktuKonsultasi.setOnClickListener {
             if (checkedBtnData.isEmpty()) {
                 Toast.makeText(this, "Silakan pilih salah satu jadwal", Toast.LENGTH_SHORT).show()
             } else {
-                sendToApi()
+                val dateArr = checkedBtnData.split(" ")
+                viewModel.getPrefDate(id, dateArr[0], dateArr[1])
             }
         }
     }
 
-    private fun onCheckedButton() {
-        button.addOnButtonCheckedListener { _, checkedId, _ ->
-            when (checkedId) {
-                binding.btnDateOne.id -> {
-                    checkedBtnData = binding.btnDateOne.text.toString()
-                }
-                binding.btnDateTwo.id -> {
-                    checkedBtnData = binding.btnDateTwo.text.toString()
-                }
-                binding.btnDateThree.id -> {
-                    checkedBtnData = binding.btnDateThree.text.toString()
-                }
-            }
-        }
-    }
-
-    private fun sendToApi() {
-        val dateArr = checkedBtnData.split(" ")
-        viewModel.getPrefDate(id, dateArr[0], dateArr[1])
+    private fun setupDateObserver() {
         viewModel.date.observe(this, { data ->
             when (data) {
                 is Resource.Success -> {
@@ -89,6 +65,7 @@ class ChooseConsultationTimeActivity : AppCompatActivity() {
                     intent = Intent(this, DetailConsultationActivity::class.java)
                     intent.putExtra(DetailConsultationActivity.EXTRA_ID, id)
                     startActivity(intent)
+                    finish()
                 }
 
                 is Resource.Error -> {
@@ -101,6 +78,39 @@ class ChooseConsultationTimeActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setupToggleButtonGroup() {
+        binding.toggleButtonGroup.apply {
+            isSingleSelection = true
+            isSelectionRequired = true
+            addOnButtonCheckedListener { _, checkedId, _ ->
+                when (checkedId) {
+                    binding.btnDateOne.id -> {
+                        checkedBtnData = binding.btnDateOne.text.toString()
+                    }
+                    binding.btnDateTwo.id -> {
+                        checkedBtnData = binding.btnDateTwo.text.toString()
+                    }
+                    binding.btnDateThree.id -> {
+                        checkedBtnData = binding.btnDateThree.text.toString()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun populateDataFromBundle() {
+        val bundle = intent.extras
+        if (bundle != null) {
+            id = intent.getIntExtra(EXTRA_ID, 0)
+            val prefDates = intent.getParcelableArrayListExtra<ConsultationsPrefDate>(EXTRA_PREF_DATE)
+            if (prefDates != null) {
+                binding.btnDateOne.text = "${prefDates[0].date} ${prefDates[0].time}"
+                binding.btnDateTwo.text = "${prefDates[1].date} ${prefDates[1].time}"
+                binding.btnDateThree.text = "${prefDates[2].date} ${prefDates[2].time}"
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
