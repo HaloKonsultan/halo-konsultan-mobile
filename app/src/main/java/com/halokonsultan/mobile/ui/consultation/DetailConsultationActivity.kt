@@ -19,7 +19,9 @@ import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTime
 import com.halokonsultan.mobile.ui.payment.PaymentActivity
 import com.halokonsultan.mobile.ui.reviewconsultation.ReviewConsultationActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
+import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
 import com.halokonsultan.mobile.utils.Utils
+import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -88,7 +90,7 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
             tvFillCost.text = Utils.formatPrice(data?.consultation_price ?: 0)
             tvConsultantName.text = data?.consultant?.name
             tvConsultantCategory.text = data?.consultant?.position
-            Picasso.get().load(data?.consultant?.photo).into(imgConsultant)
+            Picasso.get().load(addRootDomainIfNeeded(data?.consultant?.photo ?: PERSON_PLACEHOLDER)).into(imgConsultant)
 
             btnChooseTime.setOnClickListener {
                 val intent = Intent(this@DetailConsultationActivity, ChooseConsultationTimeActivity::class.java)

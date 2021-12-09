@@ -11,6 +11,8 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.data.model.Message
 import com.halokonsultan.mobile.databinding.ActivityConversationBinding
+import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
+import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.halokonsultan.mobile.utils.Utils.toBoolean
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,7 +68,7 @@ class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
             with(binding) {
                 tvConsultantName.text = name
                 tvConsultantCategory.text = category
-                Picasso.get().load(photo).into(imgConsultant)
+                Picasso.get().load(addRootDomainIfNeeded(photo ?: PERSON_PLACEHOLDER)).into(imgConsultant)
                 cardChatEnded.isVisible = isEnded
                 llSendMessage.isVisible = !isEnded
             }

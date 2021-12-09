@@ -15,7 +15,7 @@ class RetrofitInstance {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttp = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(Preferences.instance.token))
-//            .addInterceptor(logger)
+            .addInterceptor(logger)
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
 

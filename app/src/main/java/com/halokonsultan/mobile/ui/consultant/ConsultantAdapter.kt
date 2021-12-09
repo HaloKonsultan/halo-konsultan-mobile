@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.base.BaseAdapter
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.databinding.ItemConsultantBinding
+import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
+import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.squareup.picasso.Picasso
 
 class ConsultantAdapter: BaseAdapter<ConsultantAdapter.ConsultantViewHolder, Consultant>() {
@@ -27,7 +29,7 @@ class ConsultantAdapter: BaseAdapter<ConsultantAdapter.ConsultantViewHolder, Con
             tvConsultantLocation.text = consultant.city
             tvConsultantLovesStat.text = loveStat
 
-            Picasso.get().load(consultant.photo)
+            Picasso.get().load(addRootDomainIfNeeded(consultant.photo ?: PERSON_PLACEHOLDER))
                 .resize(56, 56)
                 .centerCrop()
                 .into(imgPhotoProfile)

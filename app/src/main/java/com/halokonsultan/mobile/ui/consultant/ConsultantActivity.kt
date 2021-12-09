@@ -11,6 +11,8 @@ import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.databinding.ActivityConsultantBinding
 import com.halokonsultan.mobile.ui.booking.BookingActivity
 import com.halokonsultan.mobile.ui.chat.ConversationActivity
+import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
+import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -108,7 +110,7 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
             educationAdapter.differ.submitList(profileData?.consultant_education)
             skillAdapter.differ.submitList(profileData?.consultant_skill)
 
-            Picasso.get().load(profileData?.photo)
+            Picasso.get().load(addRootDomainIfNeeded(profileData?.photo ?: PERSON_PLACEHOLDER))
                 .resize(120, 120)
                 .centerCrop()
                 .into(imgConsultant)

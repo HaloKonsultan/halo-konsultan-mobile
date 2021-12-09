@@ -13,6 +13,6 @@ data class Consultant(
         val position: String,
         val likes_total: Int?,
         val city: String?,
-        val photo: String,
+        val photo: String?,
         val category_id: Int
 ): BaseModel(id)

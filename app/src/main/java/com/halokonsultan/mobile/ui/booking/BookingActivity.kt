@@ -9,6 +9,8 @@ import com.halokonsultan.mobile.base.ActivityWithBackButton
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityBookingBinding
 import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
+import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
+import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -73,7 +75,7 @@ class BookingActivity : ActivityWithBackButton<ActivityBookingBinding>() {
         with (binding) {
             tvConsultantName.text = consultantName
             tvConsultantCategory.text = consultantCategory
-            Picasso.get().load(consultantPhoto).into(imgConsultant)
+            Picasso.get().load(addRootDomainIfNeeded(consultantPhoto ?: PERSON_PLACEHOLDER)).into(imgConsultant)
         }
     }
 

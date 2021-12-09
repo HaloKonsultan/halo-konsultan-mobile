@@ -74,6 +74,10 @@ object Utils {
         return temp[1].toInt()
     }
 
+    fun addRootDomainIfNeeded(url: String) =
+        if (url.contains("images/")) ROOT_DOMAIN + url
+        else url
+
     fun Activity.openFile(filename: String?) {
         val file =  File(filesDir, filename)
 
