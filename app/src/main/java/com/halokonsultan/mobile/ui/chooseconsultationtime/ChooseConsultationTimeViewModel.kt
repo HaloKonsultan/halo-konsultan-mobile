@@ -16,10 +16,6 @@ import javax.inject.Inject
 class ChooseConsultationTimeViewModel @Inject constructor(
     private val repository: BaseRepository): BaseViewModel() {
 
-    private val _date: MutableLiveData<Resource<DetailConsultation>> = MutableLiveData()
-    val date: LiveData<Resource<DetailConsultation>>
-        get() = _date
-
     fun getPrefDate(id: Int, date: String, time: String) = callApiReturnLiveData(
         apiCall = { repository.getPrefDate(id, date, time) }
     )
