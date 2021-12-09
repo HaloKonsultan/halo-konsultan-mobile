@@ -1,19 +1,16 @@
 package com.halokonsultan.mobile.ui.chat
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.BaseActivity
+import com.halokonsultan.mobile.data.model.Message
 import com.halokonsultan.mobile.databinding.ActivityConversationBinding
-import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils.toBoolean
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,22 +75,27 @@ class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
         }
     }
 
-    private fun getAllMessages() {
-        viewModel.getAllMessages(id).observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    viewModel.filterReadMessages(response.data ?: listOf())
-                    messageAdapter.differ.submitList(null)
-                    messageAdapter.differ.submitList(response.data)
-                }
-                is Resource.Error -> {
-                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Loading -> {
+    private fun setupAllMessageObserver() = setObserver<List<Message>>(
+        onSuccess = { response ->
+            viewModel.filterReadMessages(response.data ?: listOf())
+            messageAdapter.differ.submitList(null)
+            messageAdapter.differ.submitList(response.data)
+        },
+        onError = { response -> showToast(response.message.toString()) },
+        onLoading = { response -> messageAdapter.differ.submitList(response.data) }
+    )
 
-                }
-            }
-        })
+    private fun setupMessageObserver() = setObserverWithBasicResponse<Message>(
+        onSuccess = { response ->
+            val temp = messageAdapter.differ.currentList.toMutableList()
+            temp.add(response.data?.data)
+            messageAdapter.differ.submitList(temp)
+        },
+        onError = { response -> showToast(response.message.toString()) }
+    )
+
+    private fun getAllMessages() {
+        viewModel.getAllMessages(id).observe(this, setupAllMessageObserver())
     }
 
     private fun setupEditTextAndButton() {
@@ -105,26 +107,9 @@ class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
 
         binding.btnSend.setOnClickListener {
             viewModel.sendMessage(id, binding.etMessage.text.toString())
+                .observe(this, setupMessageObserver())
             binding.etMessage.setText("")
         }
-    }
-
-    private fun setupMessageObserver() {
-        viewModel.messages.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    val temp = messageAdapter.differ.currentList.toMutableList()
-                    temp.add(response.data)
-                    messageAdapter.differ.submitList(temp)
-                }
-                is Resource.Error -> {
-                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Loading -> {
-
-                }
-            }
-        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

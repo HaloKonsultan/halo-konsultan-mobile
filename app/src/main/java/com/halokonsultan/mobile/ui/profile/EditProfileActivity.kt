@@ -1,26 +1,19 @@
 package com.halokonsultan.mobile.ui.profile
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBar
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
 import com.halokonsultan.mobile.data.model.City
 import com.halokonsultan.mobile.data.model.Profile
 import com.halokonsultan.mobile.data.model.Province
-import com.halokonsultan.mobile.data.model.dto.BasicResponse
 import com.halokonsultan.mobile.data.model.dto.LocationResponse
 import com.halokonsultan.mobile.databinding.ActivityEditProfileBinding
 import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationViewModel
 import com.halokonsultan.mobile.ui.main.MainActivity
-import com.halokonsultan.mobile.utils.Resource
-import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -88,7 +81,7 @@ class EditProfileActivity : ActivityWithCustomToolbar<ActivityEditProfileBinding
         }
     }
 
-    private fun setupUpdateProfileObserver() = setObserver<BasicResponse<Profile>>(
+    private fun setupUpdateProfileObserver() = setObserverWithBasicResponse<Profile>(
         onSuccess = {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -131,15 +124,5 @@ class EditProfileActivity : ActivityWithCustomToolbar<ActivityEditProfileBinding
 
     private fun setupProvinceChooser() {
         viewModel.getAllProvince().observe(this, provinceObserver)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

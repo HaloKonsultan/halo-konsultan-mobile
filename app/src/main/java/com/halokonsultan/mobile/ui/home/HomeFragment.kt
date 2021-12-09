@@ -12,6 +12,7 @@ import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
+import com.halokonsultan.mobile.ui.category.CategoryAdapter
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.ui.search.SearchActivity

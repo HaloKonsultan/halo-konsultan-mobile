@@ -12,7 +12,8 @@ abstract class BaseViewModel: ViewModel() {
 
     fun <T> callApiReturnLiveData(
         apiCall: suspend () -> Response<T>,
-        handleBeforePostSuccess: (Response<T>) -> Unit = {}
+        handleBeforePostSuccess: (Response<T>) -> Unit = {},
+        handleAfterPostSuccess: (Response<T>) -> Unit = {}
     ): LiveData<Resource<T>> {
         val data: MutableLiveData<Resource<T>> = MutableLiveData()
         viewModelScope.launch {

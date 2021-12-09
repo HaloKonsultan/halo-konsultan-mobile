@@ -1,20 +1,15 @@
 package com.halokonsultan.mobile.ui.chat
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.base.BaseFragment
+import com.halokonsultan.mobile.data.model.Chat
 import com.halokonsultan.mobile.databinding.FragmentChatBinding
 import com.halokonsultan.mobile.utils.GlobalState
-import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,40 +30,38 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         }
     }
 
-    private fun getChatList(page: Int, shouldAppend: Boolean) {
-        viewModel.getChatList(page).observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    binding.progressBar.isVisible = false
-                    binding.layNoInet.visibility = View.GONE
+    private fun setupChatObserver(shouldAppend: Boolean) = setObserver<List<Chat>>(
+        onSuccess = { response ->
+            binding.progressBar.gone()
+            binding.layNoInet.gone()
 
-                    if (response.data!!.isNotEmpty()) {
-                        if (shouldAppend) {
-                            val temp = chatListAdapter.differ.currentList.toMutableList()
-                            response.data?.let { temp.addAll(it) }
-                            chatListAdapter.differ.submitList(temp)
-                            loading = false
-                        } else {
-                            chatListAdapter.differ.submitList(response.data)
-                        }
-                    } else {
-                        binding.layNoResult.visibility = View.VISIBLE
-                    }
-                }
-
-                is Resource.Error -> {
-                    binding.progressBar.isVisible = false
-                    binding.layNoResult.visibility = View.GONE
-                    binding.layNoInet.visibility = View.VISIBLE
-                    Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.progressBar.isVisible = true
+            if (response.data!!.isNotEmpty()) {
+                if (shouldAppend) {
+                    val temp = chatListAdapter.differ.currentList.toMutableList()
+                    response.data.let { temp.addAll(it) }
+                    chatListAdapter.differ.submitList(temp)
+                    loading = false
+                } else {
                     chatListAdapter.differ.submitList(response.data)
                 }
+            } else {
+                binding.layNoResult.visible()
             }
-        })
+        },
+        onError = { response ->
+            binding.progressBar.gone()
+            binding.layNoResult.gone()
+            binding.layNoInet.visible()
+            showToast(response.message.toString())
+        },
+        onLoading = { response ->
+            binding.progressBar.visible()
+            chatListAdapter.differ.submitList(response.data)
+        }
+    )
+
+    private fun getChatList(page: Int, shouldAppend: Boolean) {
+        viewModel.getChatList(page).observe(viewLifecycleOwner, setupChatObserver(shouldAppend))
     }
 
     private fun setupRecyclerView() {

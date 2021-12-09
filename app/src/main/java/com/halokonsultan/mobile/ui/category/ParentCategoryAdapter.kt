@@ -2,25 +2,17 @@ package com.halokonsultan.mobile.ui.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.halokonsultan.mobile.base.BaseAdapter
 import com.halokonsultan.mobile.data.model.Category
 import com.halokonsultan.mobile.data.model.ParentCategory
 import com.halokonsultan.mobile.databinding.ItemParentCategoryBinding
 
-class ParentCategoryAdapter : RecyclerView.Adapter<ParentCategoryAdapter.ParentCategoryViewHolder>() {
+class ParentCategoryAdapter : BaseAdapter<ParentCategoryAdapter.ParentCategoryViewHolder, ParentCategory>() {
 
     inner class ParentCategoryViewHolder(val binding: ItemParentCategoryBinding): RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<ParentCategory>() {
-        override fun areItemsTheSame(oldItem: ParentCategory, newItem: ParentCategory) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldParentCategory: ParentCategory, newParentCategory: ParentCategory)
-        =  oldParentCategory == newParentCategory
-    }
-
-    val differ = AsyncListDiffer(this, differCallback)
     private var onItemClickListener: ((Category) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentCategoryViewHolder {
@@ -44,8 +36,6 @@ class ParentCategoryAdapter : RecyclerView.Adapter<ParentCategoryAdapter.ParentC
             onItemClickListener?.let { it -> it(category) }
         }
     }
-
-    override fun getItemCount() = differ.currentList.size
 
     fun setOnItemClickListener(listener: (Category) -> Unit) {
         onItemClickListener = listener

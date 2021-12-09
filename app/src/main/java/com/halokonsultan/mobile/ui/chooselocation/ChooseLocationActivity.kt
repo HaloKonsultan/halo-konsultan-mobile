@@ -9,7 +9,6 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.Province
 import com.halokonsultan.mobile.databinding.ActivityChooseLocationBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
-import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 import android.widget.ArrayAdapter

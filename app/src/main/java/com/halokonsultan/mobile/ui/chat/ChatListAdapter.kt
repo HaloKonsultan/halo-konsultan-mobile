@@ -3,9 +3,8 @@ package com.halokonsultan.mobile.ui.chat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.halokonsultan.mobile.base.BaseAdapter
 import com.halokonsultan.mobile.data.model.Chat
 import com.halokonsultan.mobile.databinding.ItemChatBinding
 import com.halokonsultan.mobile.utils.MESSAGE_TYPE_CONSULTANT
@@ -13,17 +12,9 @@ import com.halokonsultan.mobile.utils.Utils.toBoolean
 import com.halokonsultan.mobile.utils.Utils.trim
 import com.squareup.picasso.Picasso
 
-class ChatListAdapter: RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>() {
+class ChatListAdapter: BaseAdapter<ChatListAdapter.ChatListViewHolder, Chat>() {
 
     inner class ChatListViewHolder(val binding: ItemChatBinding): RecyclerView.ViewHolder(binding.root)
-
-    private val differCallback = object : DiffUtil.ItemCallback<Chat>() {
-        override fun areItemsTheSame(oldItem: Chat, newItem: Chat) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldChat: Chat, newChat: Chat) =  oldChat == newChat
-    }
-
-    val differ = AsyncListDiffer(this, differCallback)
-    private var onItemClickListener: ((Chat) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatListViewHolder {
         val itemBinding = ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -42,13 +33,7 @@ class ChatListAdapter: RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>(
         }
 
         holder.itemView.setOnClickListener {
-            onItemClickListener?.let { it(chat) }
+            onRvItemClickListener?.let { it(chat) }
         }
-    }
-
-    override fun getItemCount() = differ.currentList.size
-
-    fun setOnItemClickListener(listener: (Chat) -> Unit) {
-        onItemClickListener = listener
     }
 }
