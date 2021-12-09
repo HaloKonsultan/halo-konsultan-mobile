@@ -43,7 +43,7 @@ class CategoryActivity : ActivityWithCustomToolbar<ActivityCategoryBinding>() {
             adapter = parentCategoryAdapter
         }
 
-        parentCategoryAdapter.setOnItemClickListener { category ->
+        parentCategoryAdapter.setOnChildItemClickListener { category ->
             val categoryName = "Konsultan ${category.name}"
             val intent = Intent(binding.root.context, SearchActivity::class.java)
             intent.putExtra(SearchActivity.EXTRA_CATEGORY_ID, category.id)

@@ -13,7 +13,7 @@ class ParentCategoryAdapter : BaseAdapter<ParentCategoryAdapter.ParentCategoryVi
 
     inner class ParentCategoryViewHolder(val binding: ItemParentCategoryBinding): RecyclerView.ViewHolder(binding.root)
 
-    private var onItemClickListener: ((Category) -> Unit)? = null
+    private var onChildItemClickListener: ((Category) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentCategoryViewHolder {
         val itemBinding = ItemParentCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,11 +33,11 @@ class ParentCategoryAdapter : BaseAdapter<ParentCategoryAdapter.ParentCategoryVi
 
         categoryAdapter.differ.submitList(parentCategory.child)
         categoryAdapter.setOnItemClickListener { category ->
-            onItemClickListener?.let { it -> it(category) }
+            onChildItemClickListener?.let { it -> it(category) }
         }
     }
 
-    fun setOnItemClickListener(listener: (Category) -> Unit) {
-        onItemClickListener = listener
+    fun setOnChildItemClickListener(listener: (Category) -> Unit) {
+        onChildItemClickListener = listener
     }
 }

@@ -1,6 +1,5 @@
 package com.halokonsultan.mobile.ui.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -22,7 +21,7 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.BankDocumentFile
 import com.halokonsultan.mobile.databinding.ActivityBankDocumentBinding
 import com.halokonsultan.mobile.utils.Utils
-import com.halokonsultan.mobile.utils.Utils.openPdf
+import com.halokonsultan.mobile.utils.Utils.openFile
 import kotlinx.coroutines.*
 
 
@@ -180,7 +179,7 @@ class BankDocumentActivity : AppCompatActivity() {
 
         fileAdapter.setOnItemClickListener { file ->
 //            Utils.openFile(applicationContext, file.file)
-            openPdf(file.name)
+            openFile(file.name)
         }
 
         fileAdapter.setOnLongItemClickListener { file ->
