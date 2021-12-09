@@ -65,9 +65,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'me.rosuh:AndroidFilePicker:0.7.4-x'
     implementation "com.airbnb.android:lottie:3.7.0"
     implementation 'com.afollestad.material-dialogs:files:3.3.0'
+    implementation 'com.afollestad.material-dialogs:input:3.3.0'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
     implementation "com.anggrayudi:storage:0.13.0"
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'

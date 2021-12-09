@@ -156,5 +156,6 @@
     <string name="sedang_menunggu_konfirmasi_dari_konsultan">Sedang menunggu konfirmasi dari konsultan</string>
     <string name="formatter_tanggal_jam">%1$s %2$s</string>
     <string name="menunggu_pembayaran">Menunggu Pembayaran</string>
-
+    <string name="simpan">Simpan</string>
+    <string name="masukkan_nama_file">Masukkan Nama File</string>
 </resources>

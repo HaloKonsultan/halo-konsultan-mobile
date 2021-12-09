@@ -1,11 +1,13 @@
 package com.halokonsultan.mobile.ui.profile
 
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
+import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.list.listItems
 import com.anggrayudi.storage.SimpleStorageHelper
 import com.anggrayudi.storage.callback.FileCallback
@@ -21,8 +24,12 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.data.model.BankDocumentFile
 import com.halokonsultan.mobile.databinding.ActivityBankDocumentBinding
 import com.halokonsultan.mobile.utils.Utils
+import com.halokonsultan.mobile.utils.Utils.getCurrentDateTime
 import com.halokonsultan.mobile.utils.Utils.openFile
+import com.halokonsultan.mobile.utils.Utils.toString
 import kotlinx.coroutines.*
+import java.io.IOException
+import java.util.*
 
 
 class BankDocumentActivity : AppCompatActivity() {
@@ -48,12 +55,40 @@ class BankDocumentActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupStorageHelper()
+        val takePhoto = setupTakePhotoContract()
 
         binding.cvAddDocument.setOnClickListener {
             storageHelper.openFilePicker(101)
         }
 
+        binding.cvOpenCamera.setOnClickListener {
+            takePhoto.launch()
+        }
+
         loadFilesFromInternalStorage()
+    }
+
+    private fun setupTakePhotoContract() = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+        if (it != null) {
+            MaterialDialog(this)
+                .cancelable(false)
+                .title(R.string.masukkan_nama_file)
+                .positiveButton(R.string.simpan)
+                .input { _, text ->
+                    savePhoto("${text}_${getCurrentDateTime().toString("yyyyMMdd_HHmmss")}", it)
+                }
+                .show()
+        }
+    }
+
+    private fun savePhoto(name: String, bitmap: Bitmap) {
+        val isSavedSuccessfully = savePhotoToInternalStorage(name, bitmap)
+        if(isSavedSuccessfully) {
+            loadFilesFromInternalStorage()
+            Toast.makeText(this, "Foto berhasil disimpan", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Gagal menyimpan foto", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadFilesFromInternalStorage() {
@@ -76,7 +111,9 @@ class BankDocumentActivity : AppCompatActivity() {
     private suspend fun loadFiles(): List<BankDocumentFile> {
         return withContext(Dispatchers.IO) {
             val files = filesDir.listFiles()
-            files?.filter { it.canRead() && it.isFile }?.map {
+            files?.filter { it.canRead() && it.isFile &&
+                !it.name.contains(Regex("generatefid?|PersistedInstallation?"))
+            }?.map {
                 val name = it.name
                 val type = it.mimeType ?: "other file"
                 BankDocumentFile(name, type, DocumentFile.fromFile(it))
@@ -150,6 +187,20 @@ class BankDocumentActivity : AppCompatActivity() {
         }
     }
 
+    private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap): Boolean {
+        return try {
+            openFileOutput("$filename.jpg", MODE_PRIVATE).use { stream ->
+                if(!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)) {
+                    throw IOException("Tidak bisa menyimpan Bitmap.")
+                }
+            }
+            true
+        } catch(e: IOException) {
+            e.printStackTrace()
+            false
+        }
+    }
+
     private fun setupStorageHelper() {
         storageHelper.onFileSelected = { _, file ->
             val selectedFile = file[0]
@@ -178,7 +229,6 @@ class BankDocumentActivity : AppCompatActivity() {
         }
 
         fileAdapter.setOnItemClickListener { file ->
-//            Utils.openFile(applicationContext, file.file)
             openFile(file.name)
         }
 
@@ -195,7 +245,6 @@ class BankDocumentActivity : AppCompatActivity() {
                     it.dismiss()
                 }
                 .show()
-            Log.d("coba", "setupRecyclerView: $file")
         }
     }
 }
