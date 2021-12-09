@@ -2,24 +2,15 @@ package com.halokonsultan.mobile.ui.consultant
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.halokonsultan.mobile.base.BaseAdapter
 import com.halokonsultan.mobile.data.model.ConsultantDoc
 import com.halokonsultan.mobile.databinding.ItemConsultantDocumentationBinding
 import com.squareup.picasso.Picasso
 
-class DocumentationAdapter: RecyclerView.Adapter<DocumentationAdapter.DocumentationViewHolder>() {
+class DocumentationAdapter: BaseAdapter<DocumentationAdapter.DocumentationViewHolder, ConsultantDoc>() {
 
     inner class DocumentationViewHolder(val binding: ItemConsultantDocumentationBinding): RecyclerView.ViewHolder(binding.root)
-
-    private val differCallback = object : DiffUtil.ItemCallback<ConsultantDoc>() {
-        override fun areItemsTheSame(oldItem: ConsultantDoc, newItem: ConsultantDoc) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldConsultantDoc: ConsultantDoc, newConsultantDoc: ConsultantDoc) =
-                                        oldConsultantDoc == newConsultantDoc
-    }
-
-    val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentationViewHolder {
         val itemBinding = ItemConsultantDocumentationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,6 +24,4 @@ class DocumentationAdapter: RecyclerView.Adapter<DocumentationAdapter.Documentat
             .centerCrop()
             .into(holder.binding.imgConsultantDocumentation)
     }
-
-    override fun getItemCount() = differ.currentList.size
 }

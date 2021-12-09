@@ -1,26 +1,22 @@
 package com.halokonsultan.mobile.ui.onboarding
 
 import android.content.Intent
-import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.databinding.ActivityOnboardingBinding
 import com.halokonsultan.mobile.ui.auth.LandingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OnboardingActivity : AppCompatActivity(), OnBoardingView.OnBoardingChangeListener {
+class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(), OnBoardingView.OnBoardingChangeListener {
 
-    private lateinit var binding: ActivityOnboardingBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityOnboardingBinding
+        = ActivityOnboardingBinding::inflate
     private val viewModel: OnBoardingViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOnboardingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun setup() {
         supportActionBar?.hide()
-
         binding.container.addListener(this)
     }
 

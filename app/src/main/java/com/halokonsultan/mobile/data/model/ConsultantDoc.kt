@@ -1,6 +1,8 @@
 package com.halokonsultan.mobile.data.model
 
+import com.halokonsultan.mobile.base.BaseModel
+
 data class ConsultantDoc(
-        val id: Int,
+        override val id: Int,
         val photo: String
-)
+): BaseModel(id)

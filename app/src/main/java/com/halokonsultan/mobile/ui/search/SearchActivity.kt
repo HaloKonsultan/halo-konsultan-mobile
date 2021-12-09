@@ -1,28 +1,20 @@
 package com.halokonsultan.mobile.ui.search
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.databinding.ActivitySearchBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.utils.GlobalState
-import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.SEARCH_USER_TIME_DELAY
-import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -30,34 +22,36 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : ActivityWithCustomToolbar<ActivitySearchBinding>() {
 
     companion object {
         const val EXTRA_CATEGORY_ID = "extra_category_id"
         const val EXTRA_CATEGORY_NAME = "extra_category_name"
     }
 
-    private lateinit var binding: ActivitySearchBinding
+    override val bindingInflater: (LayoutInflater) -> ActivitySearchBinding
+        = ActivitySearchBinding::inflate
     private lateinit var consultantAdapter: ConsultantAdapter
     private val viewModel: SearchViewModel by viewModels()
     private var showCategory = false
     private var categoryId = 0
     private var loading = false
-    private var shouldAppend = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setup() {
+        setupSupportActionBar()
+        setTitle("Cari Konsultan")
         setupRecyclerView()
 
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setCustomView(R.layout.title_text_view)
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        Utils.setTitleTextView(this, "Cari Konsultan")
+        populateDataFromBundle()
 
+        if (!showCategory) {
+           handleSearchByName()
+        }
+
+        setupClickListener()
+    }
+
+    private fun populateDataFromBundle() {
         val bundle = intent.extras
         if (bundle != null) {
             categoryId = intent.getIntExtra(EXTRA_CATEGORY_ID, 0)
@@ -68,31 +62,35 @@ class SearchActivity : AppCompatActivity() {
             binding.tvResult.text = searchResultText
             binding.tvResult.visibility = View.VISIBLE
             binding.tfSearch.visibility = View.GONE
-            searchByCategory(1,false)
-        }
+            viewModel.searchConsultantByCategoryAdvance(categoryId, 1)
+                .observe(this@SearchActivity, setupObserver(false))
 
-        if (!showCategory) {
-            var job: Job? = null
-            binding.etSearch.addTextChangedListener { editable ->
-                job?.cancel()
-                if (editable.toString().isNotEmpty()) {
-                    job = MainScope().launch {
-                        delay(SEARCH_USER_TIME_DELAY)
-                        editable?.let {
-                            val searchResultText = "Hasil Pencarian \"${editable}\""
-                            viewModel.searchConsultantByName(editable.toString(), 1)
-                            registerObserverSearchByName()
-                            binding.tvResult.text = searchResultText
-                            binding.tvResult.visibility = View.VISIBLE
-                        }
+        }
+    }
+
+    private fun handleSearchByName() {
+        var job: Job? = null
+        binding.etSearch.addTextChangedListener { editable ->
+            job?.cancel()
+            if (editable.toString().isNotEmpty()) {
+                job = MainScope().launch {
+                    delay(SEARCH_USER_TIME_DELAY)
+                    editable?.let {
+                        val searchResultText = "Hasil Pencarian \"${editable}\""
+                        viewModel.searchConsultantByName(editable.toString(), 1)
+                            .observe(this@SearchActivity, setObserverWithPaginate(false))
+                        binding.tvResult.text = searchResultText
+                        binding.tvResult.visibility = View.VISIBLE
                     }
-                } else {
-                    consultantAdapter.differ.submitList(null)
-                    binding.tvResult.visibility = View.INVISIBLE
                 }
+            } else {
+                consultantAdapter.differ.submitList(null)
+                binding.tvResult.visibility = View.INVISIBLE
             }
         }
+    }
 
+    private fun setupClickListener() {
         binding.tvShowCategory.setOnClickListener {
             val intent = Intent(this@SearchActivity, CategoryActivity::class.java)
             startActivity(intent)
@@ -103,84 +101,69 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerObserverSearchByName() {
-        viewModel.consultants.observe(this, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    binding.progressBar.isVisible = false
-                    binding.layNoInet.visibility = View.GONE
+    private fun setupObserver(shouldAppend: Boolean) = setObserver<List<Consultant>>(
+        onSuccess = { response ->
+            binding.progressBar.gone()
+            binding.layNoInet.gone()
 
-                    if ((response.data as List<Consultant>).isNotEmpty()) {
-                        binding.layNoResult.visibility = View.GONE
-                        if (shouldAppend) {
-                            val temp = consultantAdapter.differ.currentList.toMutableList()
-                            temp.addAll(response.data)
-                            consultantAdapter.differ.submitList(temp)
-                        } else {
-                            consultantAdapter.differ.submitList(response.data)
-                        }
-                    } else {
-                        binding.layNoResult.visibility = View.VISIBLE
-                        consultantAdapter.differ.submitList(null)
-                    }
-                    loading = false
+            if ((response.data as List<Consultant>).isNotEmpty()) {
+                binding.lottieNoResult.gone()
+                binding.tvNoResult.gone()
+                if (shouldAppend) {
+                    val temp = consultantAdapter.differ.currentList.toMutableList()
+                    temp.addAll(response.data)
+                    consultantAdapter.differ.submitList(temp)
+                } else {
+                    consultantAdapter.differ.submitList(response.data)
                 }
-
-                is Resource.Error -> {
-                    binding.progressBar.isVisible = false
-                    binding.layNoInet.visibility = View.VISIBLE
-                    binding.layNoResult.visibility = View.GONE
-                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.progressBar.isVisible = true
-                }
+            } else {
+                binding.lottieNoResult.visible()
+                binding.tvNoResult.visible()
+                consultantAdapter.differ.submitList(null)
             }
+            loading = false
+        },
+        onError = { response ->
+            binding.progressBar.gone()
+            binding.layNoInet.visible()
+            showToast(response.message.toString())
+        },
+        onLoading = { response ->
+            binding.progressBar.visible()
+            consultantAdapter.differ.submitList(response.data)
+        }
+    )
 
-        })
-    }
+    private fun setObserverWithPaginate(shouldAppend: Boolean) = setObserverWithPaginationResponse<Consultant>(
+        onSuccess = { response ->
+            val data = response.data?.data?.data
 
-    private fun searchByCategory(page: Int, shouldAppend: Boolean) {
-        viewModel.searchConsultantByCategoryAdvance(categoryId, page)
-                .observe(this, { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            binding.progressBar.isVisible = false
-                            binding.layNoInet.visibility = View.INVISIBLE
+            binding.progressBar.gone()
+            binding.layNoInet.gone()
 
-                            if ((response.data as List<Consultant>).isNotEmpty()) {
-                                binding.lottieNoResult.visibility = View.GONE
-                                binding.tvNoResult.visibility = View.GONE
-                                if (shouldAppend) {
-                                    val temp = consultantAdapter.differ.currentList.toMutableList()
-                                    temp.addAll(response.data)
-                                    consultantAdapter.differ.submitList(temp)
-                                } else {
-                                    consultantAdapter.differ.submitList(response.data)
-                                }
-                            } else {
-                                binding.lottieNoResult.visibility = View.VISIBLE
-                                binding.tvNoResult.visibility = View.VISIBLE
-                                consultantAdapter.differ.submitList(null)
-                            }
-                            loading = false
-                        }
-
-                        is Resource.Error -> {
-                            binding.progressBar.isVisible = false
-                            binding.layNoInet.visibility = View.VISIBLE
-                            Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
-                        }
-
-                        is Resource.Loading -> {
-                            binding.progressBar.isVisible = true
-                            consultantAdapter.differ.submitList(response.data)
-                        }
-                    }
-
-                })
-    }
+            if ((data as List<Consultant>).isNotEmpty()) {
+                binding.layNoResult.gone()
+                if (shouldAppend) {
+                    val temp = consultantAdapter.differ.currentList.toMutableList()
+                    temp.addAll(data)
+                    consultantAdapter.differ.submitList(temp)
+                } else {
+                    consultantAdapter.differ.submitList(data)
+                }
+            } else {
+                binding.layNoResult.visible()
+                consultantAdapter.differ.submitList(null)
+            }
+            loading = false
+        },
+        onError = { response ->
+            binding.progressBar.gone()
+            binding.layNoInet.visible()
+            binding.layNoResult.gone()
+            showToast(response.message.toString())
+        },
+        onLoading = { binding.progressBar.visible() }
+    )
 
     private fun setupRecyclerView() {
         consultantAdapter = ConsultantAdapter()
@@ -198,11 +181,12 @@ class SearchActivity : AppCompatActivity() {
                             && !loading
                     ) {
                         loading = true
-                        shouldAppend = true
                         if (showCategory) {
-                            searchByCategory(GlobalState.nextPageConsultant!!, true)
+                            viewModel.searchConsultantByCategoryAdvance(categoryId, GlobalState.nextPageConsultant!!)
+                                .observe(this@SearchActivity, setupObserver(true))
                         } else {
                             viewModel.searchConsultantByName(binding.etSearch.text.toString(), GlobalState.nextPageConsultant!!)
+                                .observe(this@SearchActivity, setObserverWithPaginate(true))
                         }
                     }
                 }
@@ -214,15 +198,5 @@ class SearchActivity : AppCompatActivity() {
             intent.putExtra(ConsultantActivity.EXTRA_ID, it.id)
             startActivity(intent)
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

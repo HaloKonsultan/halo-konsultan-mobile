@@ -1,23 +1,16 @@
 package com.halokonsultan.mobile.ui.consultant
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
+import com.halokonsultan.mobile.data.model.Chat
 import com.halokonsultan.mobile.data.model.DetailConsultant
 import com.halokonsultan.mobile.databinding.ActivityConsultantBinding
 import com.halokonsultan.mobile.ui.booking.BookingActivity
 import com.halokonsultan.mobile.ui.chat.ConversationActivity
-import com.halokonsultan.mobile.utils.Resource
-import com.halokonsultan.mobile.utils.Utils
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,19 +30,19 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
     private val viewModel: ConsultantViewModel by viewModels()
     private var id = 0
     private var profileData: DetailConsultant? = null
+    private val consultantObserver by lazy { setupConsultantObserver() }
+    private val chatObserver by lazy { setupChatObserver() }
 
     override fun setup() {
+        setupSupportActionBar()
         setTitle("Profil Konsultan")
         setupRecyclerView()
 
         val bundle = intent.extras
         if (bundle != null) {
             id = intent.getIntExtra(EXTRA_ID, 0)
-            viewModel.getConsultantDetail(id)
+            viewModel.getConsultantDetail(id).observe(this, consultantObserver)
         }
-
-        observeProfile()
-        observeChat()
         setupClickListener()
     }
 
@@ -64,57 +57,41 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
         }
 
         binding.btnChat.setOnClickListener {
-            viewModel.openConversation(id)
+            viewModel.openConversation(id).observe(this, chatObserver)
         }
     }
 
-    private fun observeChat() {
-        viewModel.chat.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    val data = response.data
-                    val intent = Intent(this@ConsultantActivity, ConversationActivity::class.java)
-                    intent.putExtra(ConversationActivity.EXTRA_ID, data?.id)
-                    intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_NAME, data?.name)
-                    intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_PHOTO, data?.photo)
-                    intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_CATEGORY, data?.category)
-                    intent.putExtra(ConversationActivity.EXTRA_IS_ENDED, data?.is_ended)
-                    startActivity(intent)
-                }
+    private fun setupChatObserver() = setObserverWithBasicResponse<Chat>(
+        onSuccess = { response ->
+            binding.progressBar.gone()
+            val data = response.data?.data
+            val intent = Intent(this@ConsultantActivity, ConversationActivity::class.java)
+            intent.putExtra(ConversationActivity.EXTRA_ID, data?.id)
+            intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_NAME, data?.name)
+            intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_PHOTO, data?.photo)
+            intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_CATEGORY, data?.category)
+            intent.putExtra(ConversationActivity.EXTRA_IS_ENDED, data?.is_ended)
+            startActivity(intent)
+        },
+        onError = { response ->
+            binding.progressBar.gone()
+            Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
+        },
+        onLoading = { binding.progressBar.visible() }
+    )
 
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
-    }
-
-    private fun observeProfile() {
-        viewModel.profile.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    profileData = response.data
-                    populateData()
-                }
-
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
-    }
+    private fun setupConsultantObserver() = setObserverWithBasicResponse<DetailConsultant>(
+        onSuccess = { response ->
+            binding.progressBar.gone()
+            profileData = response.data?.data
+            populateData()
+        },
+        onError = { response ->
+            binding.progressBar.gone()
+            Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
+        },
+        onLoading = { binding.progressBar.visible()}
+    )
 
     private fun populateData() {
         val btnDiscussText = "Rp ${profileData?.chat_price}"
@@ -163,15 +140,5 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
             layoutManager = LinearLayoutManager(context)
             adapter = skillAdapter
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

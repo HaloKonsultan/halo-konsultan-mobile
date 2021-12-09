@@ -2,9 +2,7 @@ package com.halokonsultan.mobile.ui.main
 
 import android.Manifest
 import android.app.AlertDialog
-import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.florent37.runtimepermission.kotlin.askPermission
 import com.halokonsultan.mobile.R
@@ -57,10 +55,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun setStatusBarColor(fragment: Fragment) {
         if (fragment is HomeFragment) {
-            window.statusBarColor = resources.getColor(R.color.primary_blue)
+            window.statusBarColor = getColorResource(R.color.primary_blue)
             Utils.setStatusBarLightText(window, true)
         } else {
-            window.statusBarColor = resources.getColor(R.color.white)
+            window.statusBarColor = getColorResource(R.color.white)
             Utils.setStatusBarLightText(window, false)
         }
     }

@@ -123,6 +123,7 @@
     <string name="kembali_ke_beranda">Kembali ke Beranda</string>
     <string name="pesan_konsultan">Pesan Konsultan</string>
     <string name="selesai">Selesai</string>
+    <string name="ditolak">Ditolak</string>
     <string name="provinsi_anda">Provinsi Anda</string>
 
     <!--Onboarding-->
@@ -149,5 +150,11 @@
     <string name="isi_pesan">Isi pesan</string>
     <string name="buka_kamera">Buka kamera</string>
     <string name="tambah_dokumen">Tambah Dokumen</string>
+    <string name="permintaan_konsultasi_anda_ditolak">Permintaan konsultasi Anda ditolak</string>
+    <string name="alasan_penolakan">Alasan Penolakan</string>
+    <string name="konsultasi_telah_berakhir">Konsultasi telah berakhir</string>
+    <string name="sedang_menunggu_konfirmasi_dari_konsultan">Sedang menunggu konfirmasi dari konsultan</string>
+    <string name="formatter_tanggal_jam">%1$s %2$s</string>
+    <string name="menunggu_pembayaran">Menunggu Pembayaran</string>
 
 </resources>

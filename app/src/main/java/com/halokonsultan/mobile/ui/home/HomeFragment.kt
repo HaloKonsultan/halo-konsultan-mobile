@@ -1,45 +1,34 @@
 package com.halokonsultan.mobile.ui.home
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.halokonsultan.mobile.base.BaseFragment
+import com.halokonsultan.mobile.data.model.Category
+import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.databinding.FragmentHomeBinding
 import com.halokonsultan.mobile.ui.category.CategoryActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantActivity
 import com.halokonsultan.mobile.ui.consultant.ConsultantAdapter
 import com.halokonsultan.mobile.ui.search.SearchActivity
 import com.halokonsultan.mobile.utils.GlobalState
-import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    private lateinit var binding: FragmentHomeBinding
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
+        = FragmentHomeBinding::inflate
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var consultantAdapter: ConsultantAdapter
     private val viewModel: HomeViewModel by viewModels()
     private var loading = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setup() {
         setupRecyclerView()
         getNearestConsultantData(1, false)
         getRandomCategories()
@@ -50,59 +39,55 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getRandomCategories() {
-        viewModel.getRandomCategoriesAdvance().observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    binding.categoryProgressBar.isVisible = false
-                    categoryAdapter.differ.submitList(viewModel.categoriesWithOther(response.data))
-                }
+    private fun setupCategoriesObserver() = setObserver<List<Category>>(
+        onSuccess = { response ->
+            binding.categoryProgressBar.gone()
+            categoryAdapter.differ.submitList(viewModel.categoriesWithOther(response.data))
+        },
+        onError = { response ->
+            binding.categoryProgressBar.gone()
+            showToast(response.message.toString())
+        },
+        onLoading = { response ->
+            binding.categoryProgressBar.visible()
+            categoryAdapter.differ.submitList(viewModel.categoriesWithOther(response.data))
+        }
+    )
 
-                is Resource.Error -> {
-                    binding.categoryProgressBar.isVisible = false
-                    Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
+    private fun setupConsultantObserver(shouldAppend: Boolean) = setObserver<List<Consultant>>(
+        onSuccess = { response ->
+            binding.consultantProgressBar.gone()
+            if (response.data!!.isNotEmpty()) {
+                binding.layNoResult.gone()
+                if (shouldAppend) {
+                    val temp = consultantAdapter.differ.currentList.toMutableList()
+                    temp.addAll(response.data)
+                    consultantAdapter.differ.submitList(temp)
+                    loading = false
+                } else {
+                    consultantAdapter.differ.submitList(response.data)
                 }
-
-                is Resource.Loading -> {
-                    binding.categoryProgressBar.isVisible = true
-                    categoryAdapter.differ.submitList(viewModel.categoriesWithOther(response.data))
-                }
+            } else {
+                binding.layNoResult.visible()
             }
-        })
+        },
+        onError = { response ->
+            binding.consultantProgressBar.gone()
+            showToast(response.message.toString())
+        },
+        onLoading = { response ->
+            binding.consultantProgressBar.visible()
+            consultantAdapter.differ.submitList(response.data)
+        }
+    )
+
+    private fun getRandomCategories() {
+        viewModel.getRandomCategoriesAdvance().observe(viewLifecycleOwner, setupCategoriesObserver())
     }
 
     private fun getNearestConsultantData(page: Int, shouldAppend: Boolean) {
         viewModel.getNearestConsultantsAdvance(viewModel.getUserCity() ?: "jakarta", page)
-                .observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    binding.consultantProgressBar.isVisible = false
-                    if (response.data!!.isNotEmpty()) {
-                        binding.layNoResult.visibility = View.GONE
-                        if (shouldAppend) {
-                            val temp = consultantAdapter.differ.currentList.toMutableList()
-                            response.data?.let { temp.addAll(it) }
-                            consultantAdapter.differ.submitList(temp)
-                            loading = false
-                        } else {
-                            consultantAdapter.differ.submitList(response.data)
-                        }
-                    } else {
-                        binding.layNoResult.visibility = View.VISIBLE
-                    }
-                }
-
-                is Resource.Error -> {
-                    binding.consultantProgressBar.isVisible = false
-                    Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    binding.consultantProgressBar.isVisible = true
-                    consultantAdapter.differ.submitList(response.data)
-                }
-            }
-        })
+                .observe(viewLifecycleOwner, setupConsultantObserver(shouldAppend))
     }
 
     private fun setupRecyclerView() {

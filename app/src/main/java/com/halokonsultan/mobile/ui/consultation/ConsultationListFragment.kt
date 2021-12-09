@@ -1,43 +1,29 @@
 package com.halokonsultan.mobile.ui.consultation
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.BaseFragment
 import com.halokonsultan.mobile.data.model.Consultation
-import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
 import com.halokonsultan.mobile.utils.GlobalState
-import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ConsultationListFragment(private val type: Int) : Fragment() {
+class ConsultationListFragment(private val type: Int) : BaseFragment<FragmentConsultationListBinding>() {
 
-    private lateinit var binding: FragmentConsultationListBinding
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentConsultationListBinding
+        = FragmentConsultationListBinding::inflate
     private lateinit var consultationAdapter: ConsultationAdapter
     private val viewModel: ConsultationViewModel by viewModels()
     private var loading = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentConsultationListBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setup() {
         setupRecyclerView()
         setupSwiper()
         setupData(1, false)
@@ -51,47 +37,44 @@ class ConsultationListFragment(private val type: Int) : Fragment() {
 
     private fun setupData(page: Int, shouldAppend: Boolean) {
         viewModel.getConsultationByStatusAdvance(getStatus(type), page)
-                .observe(viewLifecycleOwner, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    binding.progressBar.isVisible = false
-                    binding.swiper.isRefreshing = false
-
-                    Log.d("coba",response.data.toString())
-                    if (response.data != null && response.data.isNotEmpty()) {
-                        binding.layNoResult.visibility = View.GONE
-                        if (shouldAppend) {
-                            val temp = consultationAdapter.differ.currentList.toMutableList()
-                            temp.addAll(response.data)
-                            consultationAdapter.differ.submitList(temp)
-                            loading = false
-                        } else {
-                            consultationAdapter.differ.submitList(response.data)
-                        }
-                    } else {
-                        binding.layNoResult.visibility = View.VISIBLE
-                        consultationAdapter.differ.submitList(null)
-                    }
-                }
-
-                is Resource.Error -> {
-                    binding.progressBar.isVisible = false
-                    binding.swiper.isRefreshing = false
-
-                    if (response.data!!.isEmpty()) {
-                        binding.layNoResult.visibility = View.VISIBLE
-                    }
-
-                    Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
-                }
-
-                is Resource.Loading -> {
-                    consultationAdapter.differ.submitList(response.data)
-                    binding.progressBar.isVisible = true
-                }
-            }
-        })
+                .observe(viewLifecycleOwner, setupConsultationObserver(shouldAppend))
     }
+
+    private fun setupConsultationObserver(shouldAppend: Boolean) = setObserver<List<Consultation>>(
+        onSuccess = { response ->
+            binding.progressBar.gone()
+            binding.swiper.isRefreshing = false
+
+            if (response.data != null && response.data.isNotEmpty()) {
+                binding.layNoResult.gone()
+                if (shouldAppend) {
+                    val temp = consultationAdapter.differ.currentList.toMutableList()
+                    temp.addAll(response.data)
+                    consultationAdapter.differ.submitList(temp)
+                    loading = false
+                } else {
+                    consultationAdapter.differ.submitList(response.data)
+                }
+            } else {
+                binding.layNoResult.visible()
+                consultationAdapter.differ.submitList(null)
+            }
+        },
+        onError = { response ->
+            binding.progressBar.gone()
+            binding.swiper.isRefreshing = false
+
+            if (response.data!!.isEmpty()) {
+                binding.layNoResult.visible()
+            }
+
+            Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
+        },
+        onLoading = { response ->
+            consultationAdapter.differ.submitList(response.data)
+            binding.progressBar.visible()
+        }
+    )
 
     private fun setupRecyclerView() {
         consultationAdapter = ConsultationAdapter(type)

@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.halokonsultan.mobile.databinding.ViewOnboardingBinding
 import dagger.hilt.android.AndroidEntryPoint
-import setParallaxTransformation
+import com.halokonsultan.mobile.utils.setParallaxTransformation
 
 @AndroidEntryPoint
 class OnBoardingView @JvmOverloads

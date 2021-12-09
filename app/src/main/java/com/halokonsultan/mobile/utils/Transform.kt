@@ -1,3 +1,5 @@
+package com.halokonsultan.mobile.utils
+
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import com.halokonsultan.mobile.R
