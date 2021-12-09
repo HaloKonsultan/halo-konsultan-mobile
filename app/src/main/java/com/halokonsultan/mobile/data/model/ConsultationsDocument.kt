@@ -1,12 +1,13 @@
 package com.halokonsultan.mobile.data.model
 
 import android.os.Parcelable
+import com.halokonsultan.mobile.base.BaseModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ConsultationsDocument(
-        val id: Int,
+        override val id: Int,
         val description: String,
         val `file`: String?,
         val name: String
-): Parcelable
+): BaseModel(id), Parcelable

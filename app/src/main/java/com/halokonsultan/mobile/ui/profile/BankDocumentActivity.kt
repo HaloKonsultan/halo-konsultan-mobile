@@ -138,7 +138,7 @@ class BankDocumentActivity : AppCompatActivity() {
                     .positiveButton(android.R.string.cancel) { workerThread.interrupt() }
                     .customView(R.layout.dialog_copy_progress).apply {
                         tvStatus = getCustomView().findViewById<TextView>(R.id.tvProgressStatus).apply {
-                            text = "Copying file: 0%"
+                            text = "Menyimpan file: 0%"
                         }
 
                         progressBar = getCustomView().findViewById<ProgressBar>(R.id.progressCopy).apply {
@@ -170,19 +170,19 @@ class BankDocumentActivity : AppCompatActivity() {
         }
 
         override fun onReport(report: Report) {
-            tvStatus?.text = "Copying file: ${report.progress.toInt()}%"
+            tvStatus?.text = "Menyimpan file: ${report.progress.toInt()}%"
             progressBar?.isIndeterminate = false
             progressBar?.progress = report.progress.toInt()
         }
 
         override fun onFailed(errorCode: ErrorCode) {
             dialog?.dismiss()
-            Toast.makeText(baseContext, "Failed copying file: $errorCode", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, "Gagal menyimpan file: $errorCode", Toast.LENGTH_SHORT).show()
         }
 
         override fun onCompleted(result: Any) {
             dialog?.dismiss()
-            Toast.makeText(baseContext, "File copied successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, "File berhasil disimpan", Toast.LENGTH_SHORT).show()
             loadFilesFromInternalStorage()
         }
     }
