@@ -6,8 +6,8 @@ import com.halokonsultan.mobile.R
 // url related stuff
 //const val BASE_URL = "http://192.168.1.4:8000/api/users/" // punya Ridlo
 //const val BASE_URL = "http://192.168.1.100:8000/api/users/" // punya Galih
-const val BASE_URL = "http://192.168.138.98:8000/api/users/" // punya Galih 2
-//const val BASE_URL = "https://api.halokonsultan.me/api/users/" // prod
+//const val BASE_URL = "http://192.168.138.98:8000/api/users/" // punya Galih 2
+const val BASE_URL = "https://api.halokonsultan.me/api/users/" // prod
 const val BASE_URL_LOCATION = "https://api.binderbyte.com/wilayah/"
 const val BINDERBYTE_API_KEY = "079fc527c1d3fdf63c64cc384bc51b9e6fff9b7552c8eb493db7b2035d70c421"
 
