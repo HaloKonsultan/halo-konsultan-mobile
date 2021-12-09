@@ -3,14 +3,19 @@ package com.halokonsultan.mobile.ui.profile
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
 import com.halokonsultan.mobile.data.model.City
+import com.halokonsultan.mobile.data.model.Profile
 import com.halokonsultan.mobile.data.model.Province
+import com.halokonsultan.mobile.data.model.dto.BasicResponse
+import com.halokonsultan.mobile.data.model.dto.LocationResponse
 import com.halokonsultan.mobile.databinding.ActivityEditProfileBinding
 import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationViewModel
 import com.halokonsultan.mobile.ui.main.MainActivity
@@ -19,7 +24,7 @@ import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity : ActivityWithCustomToolbar<ActivityEditProfileBinding>() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
@@ -29,7 +34,6 @@ class EditProfileActivity : AppCompatActivity() {
         const val EXTRA_CITY = "extra_city"
     }
 
-    private lateinit var binding: ActivityEditProfileBinding
     private val viewModel: ChooseLocationViewModel by viewModels()
     private var id: Int = 0
     private var name: String = ""
@@ -38,17 +42,16 @@ class EditProfileActivity : AppCompatActivity() {
     private var city: String = ""
     private var idForProvince: String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityEditProfileBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override val bindingInflater: (LayoutInflater) -> ActivityEditProfileBinding
+        = ActivityEditProfileBinding::inflate
 
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setCustomView(R.layout.title_text_view)
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        Utils.setTitleTextView(this, "Edit Profil")
+    private val cityObserver by lazy { setupCityObserver() }
+    private val provinceObserver by lazy { setupProvinceObserver() }
+    private val updateProfileObserver by lazy { setupUpdateProfileObserver() }
+
+    override fun setup() {
+        setupSupportActionBar()
+        setTitle("Edit Profil")
 
         val bundle = intent.extras
         if (bundle != null) {
@@ -81,17 +84,17 @@ class EditProfileActivity : AppCompatActivity() {
 
         binding.btnSaveChange.setOnClickListener {
             val name = binding.etNama.text.toString()
-            viewModel.location(viewModel.getUserID(), name, province, city)
+            viewModel.location(viewModel.getUserID(), name, province, city).observe(this, updateProfileObserver)
         }
-
-        viewModel.profile.observe(this, { response ->
-            if (response is Resource.Success) {
-                intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        })
     }
+
+    private fun setupUpdateProfileObserver() = setObserver<BasicResponse<Profile>>(
+        onSuccess = {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    )
 
     private fun showProfile() {
         binding.etNama.setText(name, TextView.BufferType.EDITABLE)
@@ -100,36 +103,34 @@ class EditProfileActivity : AppCompatActivity() {
         binding.inputKota.setText(city)
     }
 
+    private fun setupCityObserver() = setObserver<LocationResponse<City>>(
+        onSuccess = { data ->
+            val adapter = ArrayAdapter(
+                this,
+                R.layout.item_location,
+                ArrayList(data.data?.value)
+            )
+            binding.inputKota.setAdapter(adapter)
+        }
+    )
+
+    private fun setupProvinceObserver() = setObserver<LocationResponse<Province>>(
+        onSuccess = { data ->
+            val adapter = ArrayAdapter(
+                this,
+                R.layout.item_location,
+                ArrayList(data.data?.value)
+            )
+            binding.inputProvinsi.setAdapter(adapter)
+        }
+    )
+
     private fun setupCityChooser(id: String) {
-        viewModel.getAllCities(id)
-        viewModel.cities.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    val adapter = ArrayAdapter(
-                        this,
-                        R.layout.item_location,
-                        ArrayList(response.data)
-                    )
-                    binding.inputKota.setAdapter(adapter)
-                }
-            }
-        })
+        viewModel.getAllCities(id).observe(this, cityObserver)
     }
 
     private fun setupProvinceChooser() {
-        viewModel.getAllProvince()
-        viewModel.provinces.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    val adapter = ArrayAdapter(
-                        this,
-                        R.layout.item_location,
-                        ArrayList(response.data)
-                    )
-                    binding.inputProvinsi.setAdapter(adapter)
-                }
-            }
-        })
+        viewModel.getAllProvince().observe(this, provinceObserver)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

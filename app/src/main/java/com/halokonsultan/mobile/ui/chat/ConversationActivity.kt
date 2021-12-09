@@ -2,6 +2,7 @@ package com.halokonsultan.mobile.ui.chat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.databinding.ActivityConversationBinding
 import com.halokonsultan.mobile.utils.Resource
 import com.halokonsultan.mobile.utils.Utils.toBoolean
@@ -17,7 +19,7 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ConversationActivity : AppCompatActivity() {
+class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
@@ -27,17 +29,15 @@ class ConversationActivity : AppCompatActivity() {
         const val EXTRA_IS_ENDED = "is_ended"
     }
 
-    private lateinit var binding: ActivityConversationBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityConversationBinding
+            = ActivityConversationBinding::inflate
+
     private lateinit var messageAdapter: MessageAdapter
     private val viewModel: ChatViewModel by viewModels()
     private var id: Int = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityConversationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun setup() {
         setSupportActionBar(binding.toolbar)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 

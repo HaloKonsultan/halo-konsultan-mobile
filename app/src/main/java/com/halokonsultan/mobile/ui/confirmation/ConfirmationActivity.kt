@@ -3,24 +3,23 @@ package com.halokonsultan.mobile.ui.confirmation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.databinding.ActivityConfirmationBinding
 import com.halokonsultan.mobile.databinding.ActivityConsultantBinding
 import com.halokonsultan.mobile.ui.main.MainActivity
 
-class ConfirmationActivity : AppCompatActivity() {
+class ConfirmationActivity : BaseActivity<ActivityConfirmationBinding>() {
 
     companion object {
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_MESSAGE = "extra_message"
     }
 
-    private lateinit var binding: ActivityConfirmationBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityConfirmationBinding
+        = ActivityConfirmationBinding::inflate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityConfirmationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun setup() {
         val bundle = intent.extras
         if (bundle != null) {
             val title = intent.getStringExtra(EXTRA_TITLE)

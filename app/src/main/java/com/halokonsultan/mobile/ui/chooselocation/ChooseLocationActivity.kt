@@ -1,8 +1,7 @@
 package com.halokonsultan.mobile.ui.chooselocation
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -14,29 +13,35 @@ import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 import android.widget.ArrayAdapter
+import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.data.model.City
+import com.halokonsultan.mobile.data.model.Profile
+import com.halokonsultan.mobile.data.model.dto.BasicResponse
+import com.halokonsultan.mobile.data.model.dto.LocationResponse
 
 
 @AndroidEntryPoint
-class ChooseLocationActivity() : AppCompatActivity() {
+class ChooseLocationActivity() : BaseActivity<ActivityChooseLocationBinding>() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
         const val EXTRA_NAME = "extra_name"
     }
 
-    private lateinit var binding: ActivityChooseLocationBinding
     private val viewModel: ChooseLocationViewModel by viewModels()
     private var id: Int = 0
     private var name: String = ""
     private var provinceName: String = ""
     private var cityName: String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityChooseLocationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override val bindingInflater: (LayoutInflater) -> ActivityChooseLocationBinding
+        = ActivityChooseLocationBinding::inflate
 
+    private val cityObserver by lazy { setupCityObserver() }
+    private val provinceObserver by lazy { setupProvinceObserver() }
+    private val profileObserver by lazy { setupProfileObserver() }
+
+    override fun setup() {
         supportActionBar?.title = ""
         supportActionBar?.elevation = 0f
 
@@ -62,48 +67,46 @@ class ChooseLocationActivity() : AppCompatActivity() {
         }
 
         binding.btnSelesai.setOnClickListener {
-            viewModel.location(id, name, provinceName, cityName)
+            viewModel.location(id, name, provinceName, cityName).observe(this, profileObserver)
         }
-
-        viewModel.profile.observe(this, { response ->
-            if (response is Resource.Success) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        })
     }
 
+    private fun setupProfileObserver() = setObserver<BasicResponse<Profile>>(
+        onSuccess = {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    )
+
+    private fun setupCityObserver() = setObserver<LocationResponse<City>>(
+        onSuccess = { data ->
+            val adapter = ArrayAdapter(
+                this,
+                R.layout.item_location,
+                ArrayList(data.data?.value)
+            )
+            binding.inputKota.setAdapter(adapter)
+        }
+    )
+
+    private fun setupProvinceObserver() = setObserver<LocationResponse<Province>>(
+        onSuccess = { data ->
+            val adapter = ArrayAdapter(
+                this,
+                R.layout.item_location,
+                ArrayList(data.data?.value)
+            )
+            binding.inputProvinsi.setAdapter(adapter)
+        }
+    )
+
     private fun setupCityChooser(id: String) {
-        viewModel.getAllCities(id)
-        viewModel.cities.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    val adapter = ArrayAdapter(
-                        this,
-                        R.layout.item_location,
-                        ArrayList(response.data)
-                    )
-                    binding.inputKota.setAdapter(adapter)
-                }
-            }
-        })
+        viewModel.getAllCities(id).observe(this, cityObserver)
     }
 
     private fun setupProvinceChooser() {
-        viewModel.getAllProvince()
-        viewModel.provinces.observe(this, { response ->
-            when(response) {
-                is Resource.Success -> {
-                    val adapter = ArrayAdapter(
-                        this,
-                        R.layout.item_location,
-                        ArrayList(response.data)
-                    )
-                    binding.inputProvinsi.setAdapter(adapter)
-                }
-            }
-        })
+        viewModel.getAllProvince().observe(this, provinceObserver)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

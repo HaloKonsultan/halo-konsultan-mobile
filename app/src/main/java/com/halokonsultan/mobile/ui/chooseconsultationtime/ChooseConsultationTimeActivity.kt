@@ -3,47 +3,44 @@ package com.halokonsultan.mobile.ui.chooseconsultationtime
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.button.MaterialButtonToggleGroup
+import com.halokonsultan.mobile.base.ActivityWithBackButton
 import com.halokonsultan.mobile.data.model.ConsultationsPrefDate
+import com.halokonsultan.mobile.data.model.DetailConsultation
+import com.halokonsultan.mobile.data.model.dto.BasicResponse
 import com.halokonsultan.mobile.databinding.ActivityChooseConsultationTimeBinding
 import com.halokonsultan.mobile.ui.consultation.DetailConsultationActivity
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChooseConsultationTimeActivity : AppCompatActivity() {
+class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseConsultationTimeBinding>() {
 
     companion object {
         const val EXTRA_PREF_DATE = "extra_pref_date"
         const val EXTRA_ID = "extra_id"
     }
 
-    private lateinit var binding: ActivityChooseConsultationTimeBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityChooseConsultationTimeBinding
+        = ActivityChooseConsultationTimeBinding::inflate
+
     private val viewModel: ChooseConsultationTimeViewModel by viewModels()
     private var checkedBtnData: String = ""
     private var id = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityChooseConsultationTimeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private val setupDateObserver by lazy { setupDateObserver() }
 
-        setupSuppotActionBar()
+    override fun setup() {
+        setupSupportActionBar()
         populateDataFromBundle()
         setupToggleButtonGroup()
-        setupDateObserver()
+        setupDate()
         setupChooseButton()
-    }
-
-    private fun setupSuppotActionBar() {
-        supportActionBar?.title = ""
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun setupChooseButton() {
@@ -57,27 +54,26 @@ class ChooseConsultationTimeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDateObserver() {
-        viewModel.date.observe(this, { data ->
-            when (data) {
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    intent = Intent(this, DetailConsultationActivity::class.java)
-                    intent.putExtra(DetailConsultationActivity.EXTRA_ID, id)
-                    startActivity(intent)
-                    finish()
-                }
+    private fun setupDateObserver() = setObserver<DetailConsultation>(
+        onSuccess = {
+            binding.progressBar.gone()
+            intent = Intent(this, DetailConsultationActivity::class.java)
+            intent.putExtra(DetailConsultationActivity.EXTRA_ID, id)
+            startActivity(intent)
+            finish()
+        },
 
-                is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, data.message, Toast.LENGTH_LONG).show()
-                }
+        onError = {
+            binding.progressBar.gone()
+        },
 
-                is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
+        onLoading = {
+            binding.progressBar.visible()
+        }
+    )
+
+    private fun setupDate() {
+        viewModel.date.observe(this, setupDateObserver)
     }
 
     private fun setupToggleButtonGroup() {
