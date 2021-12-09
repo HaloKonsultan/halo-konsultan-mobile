@@ -1,5 +1,6 @@
 package com.halokonsultan.mobile.base
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
+import com.github.florent37.runtimepermission.PermissionResult
+import com.github.florent37.runtimepermission.kotlin.askPermission
 import com.halokonsultan.mobile.data.model.dto.BasicResponse
 import com.halokonsultan.mobile.data.model.dto.PaginationResponse
 import com.halokonsultan.mobile.utils.Resource
@@ -76,6 +79,38 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
             }
         }
     }
+
+    protected fun askPermissions(vararg permissions: String, onAccepted: (PermissionResult) -> Unit) {
+        askPermission(*permissions) {
+            if (it.isAccepted) {
+                onAccepted.invoke(it)
+            }
+        }.onDeclined { e ->
+            if (e.hasDenied()){
+                e.denied.forEach { _ ->
+                    AlertDialog.Builder(this)
+                        .setMessage("Mohon menyetujui permintaan kami")
+                        .setPositiveButton("Yes"){ _, _ ->
+                            e.askAgain()
+                        }
+                        .setNegativeButton("No"){ dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                }
+            }
+
+            if (e.hasForeverDenied()){
+                e.foreverDenied.forEach { _ ->
+                    e.goToSettings()
+                }
+            }
+        }
+    }
+
+//    Manifest.permission.READ_EXTERNAL_STORAGE,
+//    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//    Manifest.permission.CAMERA
 
     protected fun showToast(message: String) =
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

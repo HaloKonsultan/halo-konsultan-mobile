@@ -1,70 +1,71 @@
 package com.halokonsultan.mobile.ui.profile
 
+import android.Manifest
 import android.graphics.Bitmap
-import android.os.Bundle
-import android.view.MenuItem
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.GridLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.input.input
-import com.afollestad.materialdialogs.list.listItems
 import com.anggrayudi.storage.SimpleStorageHelper
-import com.anggrayudi.storage.callback.FileCallback
-import com.anggrayudi.storage.file.*
+import com.anggrayudi.storage.file.DocumentFileCompat
+import com.anggrayudi.storage.file.copyFileTo
+import com.anggrayudi.storage.file.mimeType
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
 import com.halokonsultan.mobile.data.model.BankDocumentFile
 import com.halokonsultan.mobile.databinding.ActivityBankDocumentBinding
-import com.halokonsultan.mobile.utils.Utils
 import com.halokonsultan.mobile.utils.Utils.getCurrentDateTime
 import com.halokonsultan.mobile.utils.Utils.openFile
 import com.halokonsultan.mobile.utils.Utils.toString
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
-import java.util.*
 
 
-class BankDocumentActivity : AppCompatActivity() {
+class BankDocumentActivity : ActivityWithCustomToolbar<ActivityBankDocumentBinding>(),
+    CopyFileCallback.OnCompleteListener {
 
-    private lateinit var binding: ActivityBankDocumentBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityBankDocumentBinding
+        = ActivityBankDocumentBinding::inflate
     private lateinit var fileAdapter: BankDocumentAdapter
     private val storageHelper = SimpleStorageHelper(this)
     private val job = Job()
     private val ioScope = CoroutineScope(Dispatchers.IO + job)
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityBankDocumentBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setCustomView(R.layout.title_text_view)
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        Utils.setTitleTextView(this, "Bank Dokumen")
-
+    override fun setup() {
+        setupSupportActionBar()
+        setTitle("Bank Dokumen")
         setupRecyclerView()
         setupStorageHelper()
         val takePhoto = setupTakePhotoContract()
 
         binding.cvAddDocument.setOnClickListener {
-            storageHelper.openFilePicker(101)
+            askPermissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                onAccepted = {  storageHelper.openFilePicker(101) }
+            )
         }
 
         binding.cvOpenCamera.setOnClickListener {
-            takePhoto.launch()
+            askPermissions(
+                Manifest.permission.CAMERA,
+                onAccepted = { takePhoto.launch() }
+            )
         }
 
+        loadFilesFromInternalStorage()
+    }
+
+    override fun onComplete() {
         loadFilesFromInternalStorage()
     }
 
@@ -98,16 +99,6 @@ class BankDocumentActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private suspend fun loadFiles(): List<BankDocumentFile> {
         return withContext(Dispatchers.IO) {
             val files = filesDir.listFiles()
@@ -118,72 +109,6 @@ class BankDocumentActivity : AppCompatActivity() {
                 val type = it.mimeType ?: "other file"
                 BankDocumentFile(name, type, DocumentFile.fromFile(it))
             } ?: listOf()
-        }
-    }
-
-    private val copyFileCallback = object : FileCallback(uiScope) {
-
-        var dialog: MaterialDialog? = null
-        var tvStatus: TextView? = null
-        var progressBar: ProgressBar? = null
-
-        override fun onConflict(destinationFile: DocumentFile, action: FileConflictAction) {
-            handleFileConflict(action)
-        }
-
-        override fun onStart(file: Any, workerThread: Thread): Long {
-            if ((file as DocumentFile).length() > 10 * FileSize.MB) {
-                dialog = MaterialDialog(this@BankDocumentActivity)
-                    .cancelable(false)
-                    .positiveButton(android.R.string.cancel) { workerThread.interrupt() }
-                    .customView(R.layout.dialog_copy_progress).apply {
-                        tvStatus = getCustomView().findViewById<TextView>(R.id.tvProgressStatus).apply {
-                            text = "Menyimpan file: 0%"
-                        }
-
-                        progressBar = getCustomView().findViewById<ProgressBar>(R.id.progressCopy).apply {
-                            isIndeterminate = true
-                        }
-                        show()
-                    }
-            }
-            return 500
-        }
-
-        private fun handleFileConflict(action: FileConflictAction) {
-            MaterialDialog(binding.root.context)
-                .cancelable(false)
-                .title(text = "Terjadi Konflik!")
-                .message(text = "File sudah ada, Apa yang ingin Anda lakukan?")
-                .listItems(items = listOf("Ganti", "Buat Baru", "Lewati file duplikat")) { _, index, _ ->
-                    val resolution = ConflictResolution.values()[index]
-                    action.confirmResolution(resolution)
-                    if (resolution == ConflictResolution.SKIP) {
-                        Toast.makeText(
-                            binding.root.context,
-                            "Melewatkan file duplikat",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-                .show()
-        }
-
-        override fun onReport(report: Report) {
-            tvStatus?.text = "Menyimpan file: ${report.progress.toInt()}%"
-            progressBar?.isIndeterminate = false
-            progressBar?.progress = report.progress.toInt()
-        }
-
-        override fun onFailed(errorCode: ErrorCode) {
-            dialog?.dismiss()
-            Toast.makeText(baseContext, "Gagal menyimpan file: $errorCode", Toast.LENGTH_SHORT).show()
-        }
-
-        override fun onCompleted(result: Any) {
-            dialog?.dismiss()
-            Toast.makeText(baseContext, "File berhasil disimpan", Toast.LENGTH_SHORT).show()
-            loadFilesFromInternalStorage()
         }
     }
 
@@ -214,7 +139,7 @@ class BankDocumentActivity : AppCompatActivity() {
                         applicationContext,
                         targetFolder,
                         null,
-                        copyFileCallback
+                        CopyFileCallback(binding, uiScope, this@BankDocumentActivity)
                     )
                 }
             }

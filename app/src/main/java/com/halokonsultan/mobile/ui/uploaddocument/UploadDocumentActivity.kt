@@ -1,5 +1,6 @@
 package com.halokonsultan.mobile.ui.uploaddocument
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -100,19 +101,29 @@ class UploadDocumentActivity : ActivityWithBackButton<ActivityUploadDocumentBind
         uploadAdapter.setOnItemClickListener { data ->
             docId = data.id
 
-            val items = listOf(
-                BasicGridItem(R.drawable.document, "Bank Dokumen"),
-                BasicGridItem(R.drawable.upload, "File Explorer"),
+            askPermissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                onAccepted = {
+                    handleUploadDocument()
+                }
             )
-
-            MaterialDialog(this, BottomSheet(LayoutMode.WRAP_CONTENT))
-                .title(R.string.pilih_sumber_file)
-                .gridItems(items, customGridWidth = R.integer.custom_grid_width, selection = { _, index, _ ->
-                    if (index == 0) openBankDocumentFilePicker()
-                    else storageHelper.openFilePicker()
-                })
-                .show()
         }
+    }
+
+    private fun handleUploadDocument() {
+        val items = listOf(
+            BasicGridItem(R.drawable.document, "Bank Dokumen"),
+            BasicGridItem(R.drawable.upload, "File Explorer"),
+        )
+
+        MaterialDialog(this, BottomSheet(LayoutMode.WRAP_CONTENT))
+            .title(R.string.pilih_sumber_file)
+            .gridItems(items, customGridWidth = R.integer.custom_grid_width, selection = { _, index, _ ->
+                if (index == 0) openBankDocumentFilePicker()
+                else storageHelper.openFilePicker()
+            })
+            .show()
     }
 
     private fun openBankDocumentFilePicker() {
