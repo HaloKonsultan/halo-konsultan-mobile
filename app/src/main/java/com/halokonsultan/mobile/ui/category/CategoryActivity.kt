@@ -3,11 +3,16 @@ package com.halokonsultan.mobile.ui.category
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.halokonsultan.mobile.R
+import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
+import com.halokonsultan.mobile.base.BaseActivity
+import com.halokonsultan.mobile.data.model.ParentCategory
+import com.halokonsultan.mobile.data.model.dto.BasicResponse
 import com.halokonsultan.mobile.databinding.ActivityCategoryBinding
 import com.halokonsultan.mobile.ui.search.SearchActivity
 import com.halokonsultan.mobile.utils.Resource
@@ -15,33 +20,31 @@ import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoryActivity : AppCompatActivity() {
+class CategoryActivity : ActivityWithCustomToolbar<ActivityCategoryBinding>() {
 
-    private lateinit var binding: ActivityCategoryBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityCategoryBinding
+        = ActivityCategoryBinding::inflate
     private lateinit var parentCategoryAdapter: ParentCategoryAdapter
     private val viewModel: CategoryViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCategoryBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private val categoryObserver by lazy { setupCategoryObserver() }
 
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setCustomView(R.layout.title_text_view)
-        supportActionBar?.elevation = 0f
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        Utils.setTitleTextView(this, "Kategori Konsultan")
-
+    override fun setup() {
+        setupSupportActionBar()
+        setTitle("Kategori Konsultan")
         setupRecyclerView()
-        viewModel.getAllCategories()
-        viewModel.categories.observe(this, { response ->
-            if (response is Resource.Success) {
-                parentCategoryAdapter.differ.submitList(response.data)
-            }
-        })
-//        parentCategoryAdapter.differ.submitList(DummyData.getParentCategoryList())
+        setupCategories()
     }
+
+    private fun setupCategories() {
+        viewModel.getAllCategories().observe(this, categoryObserver)
+    }
+
+    private fun setupCategoryObserver() = setObserver<BasicResponse<List<ParentCategory>>>(
+        onSuccess = { data ->
+            parentCategoryAdapter.differ.submitList(data.data?.data)
+        }
+    )
 
     private fun setupRecyclerView() {
         parentCategoryAdapter = ParentCategoryAdapter()

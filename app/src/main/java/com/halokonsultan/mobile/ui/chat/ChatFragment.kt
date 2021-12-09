@@ -11,34 +11,25 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.halokonsultan.mobile.base.BaseFragment
 import com.halokonsultan.mobile.databinding.FragmentChatBinding
 import com.halokonsultan.mobile.utils.GlobalState
 import com.halokonsultan.mobile.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChatFragment : Fragment() {
+class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
-    private lateinit var binding: FragmentChatBinding
     private lateinit var chatListAdapter: ChatListAdapter
     private val viewModel: ChatViewModel by viewModels()
     private var loading: Boolean = false
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentChatBinding
+            = FragmentChatBinding::inflate
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentChatBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setup() {
         setupRecyclerView()
         setupSwiper()
-
         getChatList(1, false)
-
         binding.btnRefresh.setOnClickListener {
             getChatList(1, false)
         }
