@@ -89,6 +89,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         chatListAdapter.setOnItemClickListener {
             val intent = Intent(binding.root.context, ConversationActivity::class.java)
             intent.putExtra(ConversationActivity.EXTRA_ID, it.id)
+            intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_ID, it.consultant_id)
             intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_NAME, it.name)
             intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_PHOTO, it.photo)
             intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_CATEGORY, it.category)

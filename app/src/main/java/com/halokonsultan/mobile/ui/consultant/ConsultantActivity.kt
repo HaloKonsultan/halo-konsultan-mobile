@@ -69,6 +69,7 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
             val data = response.data?.data
             val intent = Intent(this@ConsultantActivity, ConversationActivity::class.java)
             intent.putExtra(ConversationActivity.EXTRA_ID, data?.id)
+            intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_ID, data?.consultant_id)
             intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_NAME, data?.name)
             intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_PHOTO, data?.photo)
             intent.putExtra(ConversationActivity.EXTRA_CONSULTANT_CATEGORY, data?.category)

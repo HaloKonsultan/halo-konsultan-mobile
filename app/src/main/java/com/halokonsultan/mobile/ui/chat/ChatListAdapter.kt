@@ -8,6 +8,7 @@ import com.halokonsultan.mobile.base.BaseAdapter
 import com.halokonsultan.mobile.data.model.Chat
 import com.halokonsultan.mobile.databinding.ItemChatBinding
 import com.halokonsultan.mobile.utils.MESSAGE_TYPE_CONSULTANT
+import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.halokonsultan.mobile.utils.Utils.toBoolean
 import com.halokonsultan.mobile.utils.Utils.trim
 import com.squareup.picasso.Picasso
@@ -29,7 +30,7 @@ class ChatListAdapter: BaseAdapter<ChatListAdapter.ChatListViewHolder, Chat>() {
             tvChatTime.text = chat.last_messages_time
             icon.isVisible = (chat.last_messages_from == MESSAGE_TYPE_CONSULTANT)
                 && !(chat.last_messages_is_read!!.toBoolean())
-            Picasso.get().load(chat.photo).into(imgPhotoProfile)
+            Picasso.get().load(addRootDomainIfNeeded(chat.photo)).into(imgPhotoProfile)
         }
 
         holder.itemView.setOnClickListener {

@@ -117,7 +117,7 @@ class ChooseLocationActivity() : BaseActivity<ActivityChooseLocationBinding>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.miNext -> {
-                viewModel.location(id, name, "DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
+                viewModel.location(id, name, "DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT").observe(this, profileObserver)
                 return true
             }
         }

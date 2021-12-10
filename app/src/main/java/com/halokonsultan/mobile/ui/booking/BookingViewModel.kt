@@ -17,30 +17,6 @@ class BookingViewModel @Inject constructor(
     private val repository: BaseRepository
 ) : BaseViewModel() {
 
-    private val _consultation: MutableLiveData<Resource<DetailConsultation>> = MutableLiveData()
-    val consultation: LiveData<Resource<DetailConsultation>>
-        get() = _consultation
-
-    fun bookingConsultation(title: String, consultantId: Int, userId: Int, description: String,
-                            isOnline: Boolean, isOffline: Boolean, location: String)
-    = viewModelScope.launch {
-        _consultation.postValue(Resource.Loading())
-        try {
-            val response = repository.bookingConsultation(title,
-                    consultantId,
-                    userId,
-                    description,
-                    isOnline.toInt(),
-                    isOffline.toInt(),
-                    location).body()
-            if (response?.data != null) {
-                _consultation.postValue(Resource.Success(response.data))
-            }
-        } catch (e: Exception) {
-            _consultation.postValue(Resource.Error(e.localizedMessage ?: "unknown error"))
-        }
-    }
-
     fun bookingConsultationV2(title: String, consultantId: Int, userId: Int, description: String,
                               isOnline: Boolean, isOffline: Boolean, location: String)
         = callApiReturnLiveData(

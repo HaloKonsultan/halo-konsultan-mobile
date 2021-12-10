@@ -22,6 +22,7 @@ class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
+        const val EXTRA_CONSULTANT_ID = "extra_consultant_id"
         const val EXTRA_CONSULTANT_NAME = "consultant_name"
         const val EXTRA_CONSULTANT_PHOTO = "consultant_photo"
         const val EXTRA_CONSULTANT_CATEGORY = "consultant_category"
@@ -34,6 +35,7 @@ class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
     private lateinit var messageAdapter: MessageAdapter
     private val viewModel: ChatViewModel by viewModels()
     private var id: Int = 0
+    private var consultantId: Int = 0
 
     override fun setup() {
         setSupportActionBar(binding.toolbar)
@@ -60,6 +62,7 @@ class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
         val bundle = intent.extras
         if (bundle != null) {
             id = intent.getIntExtra(EXTRA_ID, 0)
+            consultantId = intent.getIntExtra(EXTRA_CONSULTANT_ID, 0)
             val name = intent.getStringExtra(EXTRA_CONSULTANT_NAME)
             val photo = intent.getStringExtra(EXTRA_CONSULTANT_PHOTO)
             val category = intent.getStringExtra(EXTRA_CONSULTANT_CATEGORY)
@@ -108,7 +111,7 @@ class ConversationActivity : BaseActivity<ActivityConversationBinding>() {
         }
 
         binding.btnSend.setOnClickListener {
-            viewModel.sendMessage(id, binding.etMessage.text.toString())
+            viewModel.sendMessage(id, binding.etMessage.text.toString(), consultantId)
                 .observe(this, setupMessageObserver())
             binding.etMessage.setText("")
         }

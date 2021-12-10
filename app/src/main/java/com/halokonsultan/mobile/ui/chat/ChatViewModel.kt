@@ -19,9 +19,9 @@ class ChatViewModel @Inject constructor(
 
     fun getAllMessages(id: Int) = repository.getAllMessages(id).asLiveData()
 
-    fun sendMessage(id: Int, message: String) = callApiReturnLiveData(
+    fun sendMessage(id: Int, message: String, consultantId: Int) = callApiReturnLiveData(
         apiCall = { repository.sendMessage(id, repository.getUserId(), message) },
-        handleAfterPostSuccess = { sendNotification(id, message) }
+        handleBeforePostSuccess = { sendNotification(consultantId, message) }
     )
 
     fun filterReadMessages(messages: List<Message>) =
