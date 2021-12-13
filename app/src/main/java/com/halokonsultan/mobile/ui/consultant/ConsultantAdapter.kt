@@ -23,7 +23,7 @@ class ConsultantAdapter: BaseAdapter<ConsultantAdapter.ConsultantViewHolder, Con
         val consultant = differ.currentList[position]
 
         with(holder.binding) {
-            val loveStat = "${consultant.likes_total} orang menyukai konsultan ini."
+            val loveStat = "${consultant.likes_total ?: 0} orang menyukai konsultan ini."
             tvConsultantName.text = consultant.name
             tvConsultantCategory.text = consultant.position
             tvConsultantLocation.text = consultant.city
