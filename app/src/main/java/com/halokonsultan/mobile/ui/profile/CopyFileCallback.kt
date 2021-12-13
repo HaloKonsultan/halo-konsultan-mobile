@@ -4,6 +4,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.documentfile.provider.DocumentFile
+import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
@@ -14,7 +15,7 @@ import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.databinding.ActivityBankDocumentBinding
 import kotlinx.coroutines.CoroutineScope
 
-class CopyFileCallback(val binding: ActivityBankDocumentBinding, uiScope: CoroutineScope, defaultListener: OnCompleteListener) : FileCallback(uiScope) {
+class CopyFileCallback(val binding: ViewBinding, uiScope: CoroutineScope, defaultListener: OnCompleteListener) : FileCallback(uiScope) {
     var dialog: MaterialDialog? = null
     var tvStatus: TextView? = null
     var progressBar: ProgressBar? = null

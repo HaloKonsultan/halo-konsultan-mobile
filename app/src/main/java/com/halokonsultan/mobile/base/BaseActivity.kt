@@ -108,10 +108,6 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
         }
     }
 
-//    Manifest.permission.READ_EXTERNAL_STORAGE,
-//    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//    Manifest.permission.CAMERA
-
     protected fun showToast(message: String) =
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
