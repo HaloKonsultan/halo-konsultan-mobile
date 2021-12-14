@@ -81,6 +81,19 @@ object Utils {
             else -> url
         }
 
+    fun addHttpIfNeeded(url: String?) =
+        when {
+            url == null -> {
+                "https://meet.google.com"
+            }
+            !url.contains(Regex("http://?|https://?")) -> {
+                HTTPS + url
+            }
+            else -> {
+                url
+            }
+        }
+
     fun Activity.openFile(filename: String?) {
         val file =  File(filesDir, filename)
 

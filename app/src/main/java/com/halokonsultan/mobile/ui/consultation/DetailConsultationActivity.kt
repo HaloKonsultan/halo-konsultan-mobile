@@ -21,6 +21,7 @@ import com.halokonsultan.mobile.ui.reviewconsultation.ReviewConsultationActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
 import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
 import com.halokonsultan.mobile.utils.Utils
+import com.halokonsultan.mobile.utils.Utils.addHttpIfNeeded
 import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -176,7 +177,7 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
                 btnOpenConference.backgroundTintList = ColorStateList.valueOf(getColorResource(R.color.primary_blue))
                 btnOpenConference.setTextColor(getColorResource(R.color.white))
                 btnOpenConference.setOnClickListener {
-                    val intent = Intent(ACTION_VIEW, Uri.parse(data?.conference_link))
+                    val intent = Intent(ACTION_VIEW, Uri.parse(addHttpIfNeeded(data?.conference_link)))
                     startActivity(intent)
                 }
             }
