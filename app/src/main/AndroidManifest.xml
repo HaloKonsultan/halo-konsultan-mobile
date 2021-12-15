@@ -14,8 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HaloKonsultan"
-        android:usesCleartextTraffic="true">
+        android:theme="@style/Theme.HaloKonsultan">
         <activity android:name=".ui.reviewconsultation.ReviewConsultationActivity" />
         <activity android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity" />
         <activity android:name=".ui.category.CategoryActivity" />

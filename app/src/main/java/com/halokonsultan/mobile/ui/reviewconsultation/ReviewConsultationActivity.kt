@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.ui.reviewconsultation
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.activity.viewModels
+import com.halokonsultan.mobile.base.ActivityWithBackButton
 import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.data.model.Consultant
 import com.halokonsultan.mobile.databinding.ActivityReviewConsultationBinding
@@ -10,21 +11,24 @@ import com.halokonsultan.mobile.ui.confirmation.ConfirmationActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReviewConsultationActivity : BaseActivity<ActivityReviewConsultationBinding>() {
+class ReviewConsultationActivity : ActivityWithBackButton<ActivityReviewConsultationBinding>() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
+        const val EXTRA_REVIEW_ID = "extra_review"
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityReviewConsultationBinding
         = ActivityReviewConsultationBinding::inflate
     private val viewModel: ReviewViewModel by viewModels()
     private var id = 0
+    private var reviewId = 0
 
     override fun setup() {
         val bundle = intent.extras
         if (bundle != null) {
             id = intent.getIntExtra(EXTRA_ID, 0)
+            reviewId = intent.getIntExtra(EXTRA_REVIEW_ID, 0)
         }
 
         binding.btnLike.setOnClickListener {
@@ -39,6 +43,7 @@ class ReviewConsultationActivity : BaseActivity<ActivityReviewConsultationBindin
     private fun setupResponseObserver() = setObserverWithBasicResponse<Consultant>(
         onSuccess = {
             binding.progressBar.gone()
+            viewModel.updateReview(reviewId)
             intent = Intent(this, ConfirmationActivity::class.java)
             intent.putExtra(ConfirmationActivity.EXTRA_TITLE, "Terima kasih Atas Reviewnya!")
             intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Review Anda sangat berguna bagi Konsultan untuk berkembang")

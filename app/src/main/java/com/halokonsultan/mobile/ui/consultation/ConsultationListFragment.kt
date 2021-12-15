@@ -12,6 +12,7 @@ import com.halokonsultan.mobile.base.BaseFragment
 import com.halokonsultan.mobile.data.model.Consultation
 import com.halokonsultan.mobile.databinding.FragmentConsultationListBinding
 import com.halokonsultan.mobile.utils.GlobalState
+import com.halokonsultan.mobile.utils.TAB_TITLES
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,6 +56,9 @@ class ConsultationListFragment(private val type: Int) : BaseFragment<FragmentCon
                 } else {
                     consultationAdapter.differ.submitList(response.data)
                 }
+                if (type == TAB_TITLES[2]) {
+                    handleDoneConsultation()
+                }
             } else {
                 binding.layNoResult.visible()
                 consultationAdapter.differ.submitList(null)
@@ -75,6 +79,15 @@ class ConsultationListFragment(private val type: Int) : BaseFragment<FragmentCon
             binding.progressBar.visible()
         }
     )
+
+    private fun handleDoneConsultation() {
+        val lists = consultationAdapter.differ.currentList
+        lists.forEach { consultation ->
+            viewModel.isReviewExist(consultation.id).observe(viewLifecycleOwner, { isExist ->
+                if (!isExist) viewModel.upsertReview(consultation)
+            })
+        }
+    }
 
     private fun setupRecyclerView() {
         consultationAdapter = ConsultationAdapter(type)

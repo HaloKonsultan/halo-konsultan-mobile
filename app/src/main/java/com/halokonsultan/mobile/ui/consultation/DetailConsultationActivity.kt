@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.res.ColorStateList
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import androidx.core.view.isVisible
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
 import com.halokonsultan.mobile.data.model.DetailConsultation
+import com.halokonsultan.mobile.data.model.Review
 import com.halokonsultan.mobile.data.model.Transaction
 import com.halokonsultan.mobile.databinding.ActivityDetailConsultationBinding
 import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTimeActivity
@@ -37,6 +39,7 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
         = ActivityDetailConsultationBinding::inflate
     private val viewModel: ConsultationViewModel by viewModels()
     private var data: DetailConsultation? = null
+    private var reviewData: Review? = null
     private val consultationObserver by lazy { setupConsultationObserver() }
     private val paymentObserver by lazy { setupPaymentObserver() }
 
@@ -207,6 +210,7 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
     }
 
     private fun handleDone() {
+        getReview()
         binding.apply {
             tvMessage.text = getString(R.string.konsultasi_telah_berakhir)
             tvMessage.setBackgroundColor(getColorResource(R.color.green))
@@ -218,12 +222,23 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
             btnChooseTime.text = getString(R.string.formatter_tanggal_jam, data?.date, data?.time)
             tvConsultantMessage.text = data?.message
             disableChooseTimeAndDocument()
-            btnReview.setOnClickListener {
-                intent = Intent(this@DetailConsultationActivity, ReviewConsultationActivity::class.java)
-                intent.putExtra(ReviewConsultationActivity.EXTRA_ID, data?.id)
-                startActivity(intent)
-            }
         }
+    }
+
+    private fun getReview() {
+        viewModel.getReview(data?.id ?: 0).observe(this, {
+            reviewData = it
+            if (!reviewData!!.hasReviewed) {
+                binding.btnReview.setOnClickListener {
+                    intent = Intent(this@DetailConsultationActivity, ReviewConsultationActivity::class.java)
+                    intent.putExtra(ReviewConsultationActivity.EXTRA_ID, data?.id)
+                    intent.putExtra(ReviewConsultationActivity.EXTRA_REVIEW_ID, reviewData!!.id)
+                    startActivity(intent)
+                }
+            } else {
+                binding.btnReview.isVisible = false
+            }
+        })
     }
 
     private fun disableChooseTimeAndDocument() {

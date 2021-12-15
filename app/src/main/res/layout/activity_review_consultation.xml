@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_like"
+            android:id="@+id/btn_dislike"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -44,7 +44,7 @@
             app:icon="@drawable/ic_thumb_down_24"
             app:iconTint="@color/inactive"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_dislike"
+            app:layout_constraintStart_toEndOf="@+id/btn_like"
             app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="@color/inactive" />
 
@@ -57,14 +57,14 @@
             android:text="Tidak"
             android:textColor="@color/secondary_black"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/btn_like"
+            app:layout_constraintEnd_toEndOf="@+id/btn_dislike"
             app:layout_constraintHorizontal_bias="0.523"
-            app:layout_constraintStart_toStartOf="@+id/btn_like"
-            app:layout_constraintTop_toBottomOf="@+id/btn_like" />
+            app:layout_constraintStart_toStartOf="@+id/btn_dislike"
+            app:layout_constraintTop_toBottomOf="@+id/btn_dislike" />
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_dislike"
+            android:id="@+id/btn_like"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:insetTop="0dp"
@@ -83,9 +83,9 @@
             android:text="Ya"
             android:textColor="@color/secondary_black"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/btn_dislike"
-            app:layout_constraintStart_toStartOf="@+id/btn_dislike"
-            app:layout_constraintTop_toBottomOf="@+id/btn_dislike" />
+            app:layout_constraintEnd_toEndOf="@+id/btn_like"
+            app:layout_constraintStart_toStartOf="@+id/btn_like"
+            app:layout_constraintTop_toBottomOf="@+id/btn_like" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar

@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.data
 import android.util.Log
 import androidx.room.withTransaction
 import com.halokonsultan.mobile.data.local.BaseDatabase
+import com.halokonsultan.mobile.data.model.Review
 import com.halokonsultan.mobile.data.preferences.Preferences
 import com.halokonsultan.mobile.data.remote.BaseApi
 import com.halokonsultan.mobile.data.remote.LocationApi
@@ -66,6 +67,16 @@ class BaseRepository @Inject constructor(
     suspend fun sendMessage(id: Int, userId: Int, message: String) = api.sendMessage(id, userId, message)
 
     suspend fun readMessage(id: Int) = api.readMessage(id)
+
+    fun getAllReviws(userId: Int) = db.getDao().getReviews(userId)
+
+    fun isReviewExists(userId: Int, consultantId: Int) = db.getDao().isReviewExist(userId, consultantId)
+
+    fun getReview(consultantId: Int) = db.getDao().getReview(consultantId)
+
+    suspend fun setHasReview(id: Int) = db.getDao().setHasReview(id)
+
+    suspend fun upsertReview(review: Review) = db.getDao().upsertReview(review)
 
     // preference related function
     fun saveToken(token: String) = preferences.saveToken(token)
