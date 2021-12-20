@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.res.ColorStateList
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -25,6 +24,8 @@ import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
 import com.halokonsultan.mobile.utils.Utils
 import com.halokonsultan.mobile.utils.Utils.addHttpIfNeeded
 import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
+import com.halokonsultan.mobile.utils.Utils.strDate
+import com.halokonsultan.mobile.utils.Utils.toString
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -150,7 +151,8 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
             cardPayment.visibility = View.VISIBLE
             cardMessage.isVisible = false
             if (data?.date != null) {
-                btnChooseTime.text = getString(R.string.formatter_tanggal_jam, data?.date, data?.time)
+                val formattedDate = strDate(data?.date ?: "01-01-2000")?.toString("EEE, dd MMM yyyy")
+                btnChooseTime.text = getString(R.string.formatter_tanggal_jam, formattedDate, data?.time)
                 btnChooseTime.icon = AppCompatResources
                     .getDrawable(this@DetailConsultationActivity, R.drawable.ic_check_circle)
             }
@@ -186,8 +188,8 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
             }
 
             cardMessage.isVisible = false
-
-            btnChooseTime.text = getString(R.string.formatter_tanggal_jam, data?.date, data?.time)
+            val formattedDate = strDate(data?.date ?: "01-01-2000")?.toString("EEE, dd MMM yyyy")
+            btnChooseTime.text = getString(R.string.formatter_tanggal_jam, formattedDate, data?.time)
         }
         disableChooseTimeAndDocument()
     }

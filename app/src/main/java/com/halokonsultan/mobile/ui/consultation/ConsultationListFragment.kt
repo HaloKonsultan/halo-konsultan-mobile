@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.R
@@ -21,7 +21,7 @@ class ConsultationListFragment(private val type: Int) : BaseFragment<FragmentCon
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentConsultationListBinding
         = FragmentConsultationListBinding::inflate
     private lateinit var consultationAdapter: ConsultationAdapter
-    private val viewModel: ConsultationViewModel by viewModels()
+    private val viewModel: ConsultationViewModel by activityViewModels()
     private var loading = false
 
     override fun setup() {

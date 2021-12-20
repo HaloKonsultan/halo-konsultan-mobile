@@ -1,6 +1,7 @@
 package com.halokonsultan.mobile.ui.chooseconsultationtime
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.R
@@ -9,6 +10,9 @@ import com.halokonsultan.mobile.data.model.ConsultationsPrefDate
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityChooseConsultationTimeBinding
 import com.halokonsultan.mobile.ui.consultation.DetailConsultationActivity
+import com.halokonsultan.mobile.utils.Utils
+import com.halokonsultan.mobile.utils.Utils.strDate
+import com.halokonsultan.mobile.utils.Utils.toString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,8 +42,11 @@ class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseCons
             if (checkedBtnData.isEmpty()) {
                 showToast("Silakan pilih salah satu jadwal")
             } else {
-                val dateArr = checkedBtnData.split(" ")
-                viewModel.getPrefDate(id, dateArr[0], dateArr[1])
+                val formatted = strDate(checkedBtnData, "EEE, dd MMM yyyy HH:mm")?.
+                    toString("dd-MM-yyyy HH:mm")
+                val dateArr = formatted?.split(" ")
+                Log.d("coba", "setupChooseButton: $dateArr")
+                viewModel.getPrefDate(id, dateArr?.get(0) ?: "01-01-1970", dateArr?.get(1) ?: "00:00")
                     .observe(this, setupDateObserver())
             }
         }
@@ -89,10 +96,12 @@ class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseCons
             id = intent.getIntExtra(EXTRA_ID, 0)
             val prefDates = intent.getParcelableArrayListExtra<ConsultationsPrefDate>(EXTRA_PREF_DATE)
             if (prefDates != null) {
-                binding.btnDateOne.text = getString(R.string.formatter_tanggal_jam, prefDates[0].date, prefDates[0].time)
-                binding.btnDateTwo.text = getString(R.string.formatter_tanggal_jam, prefDates[1].date, prefDates[1].time)
-                binding.btnDateThree.text = getString(R.string.formatter_tanggal_jam, prefDates[2].date, prefDates[2].time)
+                binding.btnDateOne.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[0].date), prefDates[0].time)
+                binding.btnDateTwo.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[1].date), prefDates[1].time)
+                binding.btnDateThree.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[2].date), prefDates[2].time)
             }
         }
     }
+
+    private fun formatDate(date: String) = strDate(date)?.toString("EEE, dd MMM yyyy")
 }

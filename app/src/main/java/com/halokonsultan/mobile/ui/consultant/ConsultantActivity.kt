@@ -97,14 +97,14 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
     )
 
     private fun populateData() {
-        val btnDiscussText = "Rp ${profileData?.chat_price}"
+        val btnDiscussText = "Rp ${profileData?.consultation_price}"
         with(binding) {
             tvConsultantName.text = profileData?.name
             tvConsultantCategory.text = profileData?.position
             tvConsultantTotalLikes.text = profileData?.likes_total.toString()
             tvConsultantLocation.text = profileData?.city
             tvConsultantDesc.text = profileData?.description
-            tvChatPrice.text = btnDiscussText
+            tvFillCost.text = btnDiscussText
 
             experienceAdapter.differ.submitList(profileData?.consultant_experience)
             documentationAdapter.differ.submitList(profileData?.consultant_documentation)

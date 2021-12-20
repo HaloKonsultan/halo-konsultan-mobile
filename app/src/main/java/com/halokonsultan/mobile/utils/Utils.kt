@@ -17,9 +17,13 @@ import java.util.*
 
 object Utils {
 
-    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+    fun Date.toString(format: String, locale: Locale = Locale("ID", "id")): String {
         val formatter = SimpleDateFormat(format, locale)
         return formatter.format(this)
+    }
+
+    fun strDate(str: String, pattern: String = "dd-MM-yyyy"): Date? {
+        return SimpleDateFormat(pattern, Locale("ID", "id")).parse(str)
     }
 
     fun getCurrentDateTime(): Date {

@@ -3,7 +3,7 @@ package com.halokonsultan.mobile.ui.chat
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.halokonsultan.mobile.base.BaseFragment
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
     private lateinit var chatListAdapter: ChatListAdapter
-    private val viewModel: ChatViewModel by viewModels()
+    private val viewModel: ChatViewModel by activityViewModels()
     private var loading: Boolean = false
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentChatBinding
             = FragmentChatBinding::inflate

@@ -3,7 +3,7 @@ package com.halokonsultan.mobile.ui.profile
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.halokonsultan.mobile.base.BaseFragment
 import com.halokonsultan.mobile.data.model.Profile
 import com.halokonsultan.mobile.data.model.dto.LogoutResponse
@@ -16,7 +16,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProfileBinding
         = FragmentProfileBinding::inflate
-    private val viewModel: ProfileViewModel by viewModels()
+    private val viewModel: ProfileViewModel by activityViewModels()
     private var idUser: Int = 0
     private var name: String = ""
     private var email: String = ""

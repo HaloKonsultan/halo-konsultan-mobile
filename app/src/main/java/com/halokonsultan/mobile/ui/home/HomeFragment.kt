@@ -3,7 +3,7 @@ package com.halokonsultan.mobile.ui.home
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +26,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         = FragmentHomeBinding::inflate
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var consultantAdapter: ConsultantAdapter
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private var loading = false
 
     override fun setup() {
