@@ -106,7 +106,8 @@ class SearchActivity : ActivityWithCustomToolbar<ActivitySearchBinding>() {
             binding.progressBar.gone()
             binding.layNoInet.gone()
 
-            if ((response.data as List<Consultant>).isNotEmpty()) {
+            if (response.data != null && response.data.isNotEmpty()) {
+                binding.layNoResult.gone()
                 binding.lottieNoResult.gone()
                 binding.tvNoResult.gone()
                 if (shouldAppend) {
@@ -117,6 +118,7 @@ class SearchActivity : ActivityWithCustomToolbar<ActivitySearchBinding>() {
                     consultantAdapter.differ.submitList(response.data)
                 }
             } else {
+                binding.layNoResult.visible()
                 binding.lottieNoResult.visible()
                 binding.tvNoResult.visible()
                 consultantAdapter.differ.submitList(null)

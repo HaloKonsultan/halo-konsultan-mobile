@@ -25,6 +25,7 @@ class ReviewConsultationActivity : ActivityWithBackButton<ActivityReviewConsulta
     private var reviewId = 0
 
     override fun setup() {
+        setupSupportActionBar()
         val bundle = intent.extras
         if (bundle != null) {
             id = intent.getIntExtra(EXTRA_ID, 0)

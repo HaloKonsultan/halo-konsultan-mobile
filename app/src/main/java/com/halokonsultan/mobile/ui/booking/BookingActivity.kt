@@ -35,6 +35,7 @@ class BookingActivity : ActivityWithBackButton<ActivityBookingBinding>() {
     private var consultantCategory: String? = null
 
     override fun setup() {
+        setupSupportActionBar()
         populateDataFromBundle()
         bookingValidation()
         setChangeListener()

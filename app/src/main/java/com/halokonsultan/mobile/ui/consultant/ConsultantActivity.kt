@@ -106,15 +106,38 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
             tvConsultantDesc.text = profileData?.description
             tvFillCost.text = btnDiscussText
 
-            experienceAdapter.differ.submitList(profileData?.consultant_experience)
-            documentationAdapter.differ.submitList(profileData?.consultant_documentation)
-            educationAdapter.differ.submitList(profileData?.consultant_education)
             skillAdapter.differ.submitList(profileData?.consultant_skill)
 
             Picasso.get().load(addRootDomainIfNeeded(profileData?.photo ?: PERSON_PLACEHOLDER))
                 .resize(120, 120)
                 .centerCrop()
                 .into(imgConsultant)
+        }
+
+        with(profileData) {
+            if (this?.consultant_experience?.isNotEmpty() == true) {
+                experienceAdapter.differ.submitList(profileData?.consultant_experience)
+            } else {
+                binding.tvNoPengalaman.visible()
+            }
+
+            if (this?.consultant_documentation?.isNotEmpty() == true) {
+                documentationAdapter.differ.submitList(profileData?.consultant_documentation)
+            } else {
+                binding.tvNoDokumentasi.visible()
+            }
+
+            if (this?.consultant_education?.isNotEmpty() == true) {
+                educationAdapter.differ.submitList(profileData?.consultant_education)
+            } else {
+                binding.tvNoPendidikan.visible()
+            }
+
+            if (this?.consultant_skill?.isNotEmpty() == true) {
+                skillAdapter.differ.submitList(profileData?.consultant_skill)
+            } else {
+                binding.tvNoKeahlian.visible()
+            }
         }
     }
 

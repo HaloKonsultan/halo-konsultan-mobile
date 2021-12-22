@@ -15,7 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloKonsultan">
-        <activity android:name=".ui.reviewconsultation.ReviewConsultationActivity" />
         <activity android:name=".ui.chooseconsultationtime.ChooseConsultationTimeActivity" />
         <activity android:name=".ui.category.CategoryActivity" />
         <activity android:name=".ui.consultation.DetailConsultationActivity"/>
@@ -25,6 +24,7 @@
         <activity android:name=".ui.profile.EditProfileActivity"/>
         <activity android:name=".ui.booking.BookingActivity" />
         <activity android:name=".ui.onboarding.OnboardingActivity"/>
+        <activity android:name=".ui.payment.PaymentActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/splashScreenStyle"
@@ -47,9 +47,6 @@
             android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
         <activity
             android:name=".ui.confirmation.ConfirmationActivity"
-            android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
-        <activity
-            android:name=".ui.payment.PaymentActivity"
             android:theme="@style/Theme.HaloKonsultan.NoActionBar" />
         <activity
             android:name=".ui.chat.ConversationActivity"

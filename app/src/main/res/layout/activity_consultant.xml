@@ -219,6 +219,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
+            <TextView
+                android:id="@+id/tv_no_pengalaman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                android:text="Tidak ada data"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -241,6 +251,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_no_dokumentasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                android:text="Tidak ada data"/>
 
             <View
                 android:layout_width="match_parent"
@@ -265,6 +285,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
+            <TextView
+                android:id="@+id/tv_no_pendidikan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                android:text="Tidak ada data"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -287,6 +317,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_no_keahlian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                android:text="Tidak ada data"/>
         </LinearLayout>
     </ScrollView>
 

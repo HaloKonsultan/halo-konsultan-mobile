@@ -19,7 +19,7 @@ class LargeCategoryAdapter: BaseAdapter<LargeCategoryAdapter.CategoryViewHolder,
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = differ.currentList[position]
-        val categoryName = "Konsultan ${category.name}"
+        val categoryName = category.name
         holder.binding.tvCategoryName.text = categoryName
 
         Picasso.get().load(category.logo).into(holder.binding.imgCategoryIcon)

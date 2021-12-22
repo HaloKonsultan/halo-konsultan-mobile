@@ -24,7 +24,7 @@
 
     <!--Upload Document-->
     <string name="unggah_dokumen">Unggah Dokumen</string>
-    <string name="command_unggah_dokumen">Silakan unggah dokumen-dokumen berikut,</string>
+    <string name="command_unggah_dokumen">Silakan unggah dokumen-dokumen berikut, (max 1MB)</string>
     <string name="simpan_dokumen">Simpan Dokumen</string>
     <string name="unggah">Unggah</string>
 

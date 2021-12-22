@@ -22,7 +22,7 @@ class ParentCategoryAdapter : BaseAdapter<ParentCategoryAdapter.ParentCategoryVi
 
     override fun onBindViewHolder(holder: ParentCategoryViewHolder, position: Int) {
         val parentCategory = differ.currentList[position]
-        val categoryName = "Konsultan ${parentCategory.name}"
+        val categoryName = parentCategory.name
         val categoryAdapter = LargeCategoryAdapter()
 
         with(holder.binding) {

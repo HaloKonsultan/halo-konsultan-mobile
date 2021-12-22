@@ -1,6 +1,5 @@
 package com.halokonsultan.mobile.data
 
-import android.util.Log
 import androidx.room.withTransaction
 import com.halokonsultan.mobile.data.local.BaseDatabase
 import com.halokonsultan.mobile.data.model.Review
@@ -146,7 +145,6 @@ class BaseRepository @Inject constructor(
                             Utils.getPageNumberFromUrl(response.body()?.data?.next_page_url!!)
                         else
                             null
-                Log.d("coba", "getConsultantByCategoryAdvance: ${GlobalState.nextPageConsultant}")
                 response.body()?.data?.data
             },
             saveFetchResult = { consultants ->

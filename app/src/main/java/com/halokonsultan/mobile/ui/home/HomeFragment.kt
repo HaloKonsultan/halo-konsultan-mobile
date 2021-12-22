@@ -87,7 +87,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun getNearestConsultantData(page: Int, shouldAppend: Boolean) {
-        viewModel.getNearestConsultantsAdvance(viewModel.getUserCity() ?: "jakarta", page)
+        viewModel.getNearestConsultantsAdvance(viewModel.getUserCity() ?: "KOTA ADM. JAKARTA PUSAT", page)
                 .observe(viewLifecycleOwner, setupConsultantObserver(shouldAppend))
     }
 
@@ -103,7 +103,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 val intent = Intent(binding.root.context, CategoryActivity::class.java)
                 startActivity(intent)
             } else {
-                val categoryName = "Konsultan ${category.name}"
+                val categoryName = category.name
                 val intent = Intent(binding.root.context, SearchActivity::class.java)
                 intent.putExtra(SearchActivity.EXTRA_CATEGORY_ID, category.id)
                 intent.putExtra(SearchActivity.EXTRA_CATEGORY_NAME, categoryName)

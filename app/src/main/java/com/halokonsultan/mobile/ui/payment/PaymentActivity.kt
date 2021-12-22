@@ -3,9 +3,12 @@ package com.halokonsultan.mobile.ui.payment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
+import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.data.model.Transaction
 import com.halokonsultan.mobile.databinding.ActivityPaymentBinding
@@ -26,6 +29,7 @@ class PaymentActivity : BaseActivity<ActivityPaymentBinding>() {
     private var id = 0
 
     override fun setup() {
+        supportActionBar?.title = "Pembayaran"
         val bundle = intent.extras
         if (bundle != null) {
             val invoiceUrl = intent.getStringExtra(EXTRA_URL).toString()
@@ -70,5 +74,21 @@ class PaymentActivity : BaseActivity<ActivityPaymentBinding>() {
             binding.wvInvoice.reload()
             viewModel.getDetailTransaction(id).observe(this, setupTransactionObserver())
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.miRefresh -> {
+                binding.wvInvoice.reload()
+                viewModel.getDetailTransaction(id).observe(this, setupTransactionObserver())
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.refresh_menu, menu)
+        return true
     }
 }
