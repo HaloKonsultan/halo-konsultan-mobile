@@ -86,7 +86,8 @@
             app:cornerRadius="8dp"
             android:textAllCaps="false"
             android:fontFamily="@font/inter_regular"
-            android:text="@string/selasa_22_juni_2021_12_00" />
+            android:text="@string/selasa_22_juni_2021_12_00"
+            android:visibility="gone"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddtwo"
@@ -111,7 +112,8 @@
             android:insetBottom="0dp"
             android:textAllCaps="false"
             android:fontFamily="@font/inter_regular"
-            android:text="@string/rabu_23_juni_2021_14_00" />
+            android:text="@string/rabu_23_juni_2021_14_00"
+            android:visibility="gone"/>
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

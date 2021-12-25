@@ -3,6 +3,7 @@ package com.halokonsultan.mobile.ui.chooseconsultationtime
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.ActivityWithBackButton
@@ -29,6 +30,7 @@ class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseCons
     private val viewModel: ChooseConsultationTimeViewModel by viewModels()
     private var checkedBtnData: String = ""
     private var id = 0
+    private var inc = 1
 
     override fun setup() {
         setupSupportActionBar()
@@ -97,8 +99,21 @@ class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseCons
             val prefDates = intent.getParcelableArrayListExtra<ConsultationsPrefDate>(EXTRA_PREF_DATE)
             if (prefDates != null) {
                 binding.btnDateOne.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[0].date), prefDates[0].time)
-                binding.btnDateTwo.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[1].date), prefDates[1].time)
-                binding.btnDateThree.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[2].date), prefDates[2].time)
+
+                if (prefDates.size > 1) {
+                    while (inc < prefDates.size) {
+                        if (inc == 1) {
+                            binding.btnDateTwo.visible()
+                            binding.btnDateTwo.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[inc].date), prefDates[inc].time)
+                        }
+
+                        if (inc == 2) {
+                            binding.btnDateThree.visible()
+                            binding.btnDateThree.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[inc].date), prefDates[inc].time)
+                        }
+                        inc++
+                    }
+                }
             }
         }
     }
