@@ -30,7 +30,7 @@ class ChatListAdapter: BaseAdapter<ChatListAdapter.ChatListViewHolder, Chat>() {
             tvChatTime.text = chat.last_messages_time
             icon.isVisible = (chat.last_messages_from == MESSAGE_TYPE_CONSULTANT)
                 && !(chat.last_messages_is_read!!.toBoolean())
-            Picasso.get().load(addRootDomainIfNeeded(chat.photo)).into(imgPhotoProfile)
+            Picasso.get().load(addRootDomainIfNeeded(chat.photo ?: "")).into(imgPhotoProfile)
         }
 
         holder.itemView.setOnClickListener {
