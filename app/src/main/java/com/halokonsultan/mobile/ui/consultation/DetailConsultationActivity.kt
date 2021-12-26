@@ -21,9 +21,9 @@ import com.halokonsultan.mobile.ui.payment.PaymentActivity
 import com.halokonsultan.mobile.ui.reviewconsultation.ReviewConsultationActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
 import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
-import com.halokonsultan.mobile.utils.Utils
 import com.halokonsultan.mobile.utils.Utils.addHttpIfNeeded
 import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
+import com.halokonsultan.mobile.utils.Utils.formatPrice
 import com.halokonsultan.mobile.utils.Utils.strDate
 import com.halokonsultan.mobile.utils.Utils.toString
 import com.squareup.picasso.Picasso
@@ -92,7 +92,7 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
             tvFillProblem.text = data?.description
             tvFillPreferences.text = data?.preference
             tvFillLocation.text = data?.location
-            tvFillCost.text = Utils.formatPrice(data?.consultation_price ?: 0)
+            tvFillCost.text = formatPrice(data?.consultation_price ?: 0)
             tvConsultantName.text = data?.consultant?.name
             tvConsultantCategory.text = data?.consultant?.position
             Picasso.get().load(addRootDomainIfNeeded(data?.consultant?.photo ?: PERSON_PLACEHOLDER)).into(imgConsultant)

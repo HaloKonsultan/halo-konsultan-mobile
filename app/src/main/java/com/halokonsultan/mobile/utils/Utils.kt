@@ -41,9 +41,8 @@ object Utils {
             this
 
     fun formatPrice(data: Int): String {
-        val numberFormat = NumberFormat.getCurrencyInstance()
+        val numberFormat = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
         numberFormat.maximumFractionDigits = 0
-        numberFormat.currency = Currency.getInstance("IDR")
         return numberFormat.format(data)
     }
 

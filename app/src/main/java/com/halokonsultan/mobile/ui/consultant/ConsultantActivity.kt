@@ -13,6 +13,7 @@ import com.halokonsultan.mobile.ui.booking.BookingActivity
 import com.halokonsultan.mobile.ui.chat.ConversationActivity
 import com.halokonsultan.mobile.utils.PERSON_PLACEHOLDER
 import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
+import com.halokonsultan.mobile.utils.Utils.formatPrice
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -97,7 +98,7 @@ class ConsultantActivity : ActivityWithCustomToolbar<ActivityConsultantBinding>(
     )
 
     private fun populateData() {
-        val btnDiscussText = "Rp ${profileData?.consultation_price}"
+        val btnDiscussText = formatPrice(profileData?.consultation_price ?: 0)
         with(binding) {
             tvConsultantName.text = profileData?.name
             tvConsultantCategory.text = profileData?.position
