@@ -1,9 +1,7 @@
 package com.halokonsultan.mobile.ui.chooseconsultationtime
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.ActivityWithBackButton
@@ -11,7 +9,6 @@ import com.halokonsultan.mobile.data.model.ConsultationsPrefDate
 import com.halokonsultan.mobile.data.model.DetailConsultation
 import com.halokonsultan.mobile.databinding.ActivityChooseConsultationTimeBinding
 import com.halokonsultan.mobile.ui.consultation.DetailConsultationActivity
-import com.halokonsultan.mobile.utils.Utils
 import com.halokonsultan.mobile.utils.Utils.strDate
 import com.halokonsultan.mobile.utils.Utils.toString
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +44,6 @@ class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseCons
                 val formatted = strDate(checkedBtnData, "EEE, dd MMM yyyy HH:mm")?.
                     toString("dd-MM-yyyy HH:mm")
                 val dateArr = formatted?.split(" ")
-                Log.d("coba", "setupChooseButton: $dateArr")
                 viewModel.getPrefDate(id, dateArr?.get(0) ?: "01-01-1970", dateArr?.get(1) ?: "00:00")
                     .observe(this, setupDateObserver())
             }
