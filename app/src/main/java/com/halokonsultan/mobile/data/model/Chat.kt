@@ -12,7 +12,7 @@ data class Chat(
     val consultant_id: Int,
     val user_id: Int,
     val is_ended: Int,
-    val photo: String,
+    val photo: String? = null,
     val name: String,
     val category: String,
     val last_message: String?,
