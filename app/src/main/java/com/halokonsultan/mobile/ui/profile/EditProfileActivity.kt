@@ -12,7 +12,6 @@ import com.halokonsultan.mobile.data.model.Profile
 import com.halokonsultan.mobile.data.model.Province
 import com.halokonsultan.mobile.data.model.dto.LocationResponse
 import com.halokonsultan.mobile.databinding.ActivityEditProfileBinding
-import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationViewModel
 import com.halokonsultan.mobile.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +26,7 @@ class EditProfileActivity : ActivityWithCustomToolbar<ActivityEditProfileBinding
         const val EXTRA_CITY = "extra_city"
     }
 
-    private val viewModel: ChooseLocationViewModel by viewModels()
+    private val viewModel: ProfileViewModel by viewModels()
     private var id: Int = 0
     private var name: String = ""
     private var email: String = ""
@@ -77,7 +76,7 @@ class EditProfileActivity : ActivityWithCustomToolbar<ActivityEditProfileBinding
 
         binding.btnSaveChange.setOnClickListener {
             val name = binding.etNama.text.toString()
-            viewModel.location(viewModel.getUserID(), name, province, city).observe(this, updateProfileObserver)
+            viewModel.updateProfile(viewModel.getUserID(), name, province, city).observe(this, updateProfileObserver)
         }
     }
 
@@ -101,7 +100,7 @@ class EditProfileActivity : ActivityWithCustomToolbar<ActivityEditProfileBinding
             val adapter = ArrayAdapter(
                 this,
                 R.layout.item_location,
-                ArrayList(data.data?.value)
+                ArrayList(data.data?.value?.sortedBy { it.name })
             )
             binding.inputKota.setAdapter(adapter)
         }
@@ -112,7 +111,7 @@ class EditProfileActivity : ActivityWithCustomToolbar<ActivityEditProfileBinding
             val adapter = ArrayAdapter(
                 this,
                 R.layout.item_location,
-                ArrayList(data.data?.value)
+                ArrayList(data.data?.value?.sortedBy { it.name })
             )
             binding.inputProvinsi.setAdapter(adapter)
         }

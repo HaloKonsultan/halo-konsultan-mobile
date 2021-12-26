@@ -17,6 +17,7 @@ import com.halokonsultan.mobile.data.model.City
 import com.halokonsultan.mobile.data.model.Profile
 import com.halokonsultan.mobile.data.model.dto.BasicResponse
 import com.halokonsultan.mobile.data.model.dto.LocationResponse
+import com.halokonsultan.mobile.ui.profile.ProfileViewModel
 
 
 @AndroidEntryPoint
@@ -27,7 +28,7 @@ class ChooseLocationActivity() : BaseActivity<ActivityChooseLocationBinding>() {
         const val EXTRA_NAME = "extra_name"
     }
 
-    private val viewModel: ChooseLocationViewModel by viewModels()
+    private val viewModel: ProfileViewModel by viewModels()
     private var id: Int = 0
     private var name: String = ""
     private var provinceName: String = ""
@@ -66,7 +67,7 @@ class ChooseLocationActivity() : BaseActivity<ActivityChooseLocationBinding>() {
         }
 
         binding.btnSelesai.setOnClickListener {
-            viewModel.location(id, name, provinceName, cityName).observe(this, profileObserver)
+            viewModel.updateProfile(id, name, provinceName, cityName).observe(this, profileObserver)
         }
     }
 
@@ -83,7 +84,7 @@ class ChooseLocationActivity() : BaseActivity<ActivityChooseLocationBinding>() {
             val adapter = ArrayAdapter(
                 this,
                 R.layout.item_location,
-                ArrayList(data.data?.value)
+                ArrayList(data.data?.value?.sortedBy { it.name })
             )
             binding.inputKota.setAdapter(adapter)
         }
@@ -94,7 +95,7 @@ class ChooseLocationActivity() : BaseActivity<ActivityChooseLocationBinding>() {
             val adapter = ArrayAdapter(
                 this,
                 R.layout.item_location,
-                ArrayList(data.data?.value)
+                ArrayList(data.data?.value?.sortedBy { it.name })
             )
             binding.inputProvinsi.setAdapter(adapter)
         }
@@ -117,7 +118,7 @@ class ChooseLocationActivity() : BaseActivity<ActivityChooseLocationBinding>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.miNext -> {
-                viewModel.location(id, name, "DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT").observe(this, profileObserver)
+                viewModel.updateProfile(id, name, "DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT").observe(this, profileObserver)
                 return true
             }
         }
