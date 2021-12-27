@@ -97,8 +97,10 @@ class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseCons
             if (prefDates != null) {
                 binding.btnDateOne.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[0].date), prefDates[0].time)
 
-                if (binding.btnDateOne.isFocused) {
-                    Log.d("Button", "Apakah button sudah di select")
+                if (prefDates.size == 1) {
+                    viewModel.getPrefDate(0,
+                        formatDate(prefDates[0].date).toString(), prefDates[0].time)
+                        .observe(this, setupDateObserver())
                 }
 
                 if (prefDates.size > 1) {
