@@ -83,8 +83,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>() {
     private fun setupLatestConsultationObserver(shouldAppend: Boolean) = setObserver<List<Consultation>>(
         onSuccess = { response ->
             if (response.data != null && response.data.isNotEmpty()) {
-                binding.layKonsultasiTerbaru.visible()
                 binding.swiper.isRefreshing = false
+                binding.layKonsultasiTerbaru.visible()
 
                 if (shouldAppend) {
                     val temp = latestConsultationAdapter.differ.currentList.toMutableList()
@@ -95,6 +95,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>() {
                     latestConsultationAdapter.differ.submitList(response.data)
                 }
             } else {
+                binding.swiper.isRefreshing = false
                 binding.layKonsultasiTerbaru.gone()
                 latestConsultationAdapter.differ.submitList(null)
             }
