@@ -23,8 +23,8 @@ interface BaseDao {
     @Query("SELECT * FROM consultations WHERE user_id = :id AND status = :status")
     fun getConsultationsByStatus(id:Int, status: String): Flow<List<Consultation>>
 
-    @Query("SELECT * FROM consultations WHERE user_id = :id")
-    fun getLatestConsultations(id: Int): Flow<List<Consultation>>
+    @Query("SELECT * FROM consultations WHERE user_id = :userId")
+    fun getLatestConsultations(userId: Int): Flow<List<Consultation>>
 
     @Query("SELECT * FROM profile WHERE id = :id")
     fun getProfile(id: Int): Flow<Profile>
@@ -57,6 +57,9 @@ interface BaseDao {
     suspend fun upsertConsultations(consultations: List<Consultation>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertLatestConsultations(consultations: List<Consultation>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertProfile(profile: Profile)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -79,6 +82,9 @@ interface BaseDao {
 
     @Query("DELETE FROM consultations WHERE status = :status")
     suspend fun deleteConsultationsByStatus(status: String)
+
+    @Query("DELETE FROM consultations WHERE user_id = :id")
+    suspend fun deleteLatestConsultation(id: Int)
 
     @Query("DELETE FROM profile WHERE id = :id")
     suspend fun deleteProfile(id: Int)
