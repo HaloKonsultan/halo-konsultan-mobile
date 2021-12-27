@@ -1,6 +1,7 @@
 package com.halokonsultan.mobile.ui.auth
 
 import android.content.Intent
+import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.UnderlineSpan
@@ -14,6 +15,7 @@ import com.halokonsultan.mobile.databinding.ActivityRegisterBinding
 import com.halokonsultan.mobile.ui.chooselocation.ChooseLocationActivity
 import com.halokonsultan.mobile.ui.main.MainActivity
 import com.halokonsultan.mobile.utils.Resource
+import com.halokonsultan.mobile.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +33,11 @@ class RegisterActivity : ActivityWithBackButton<ActivityRegisterBinding>() {
         validateIsLoggedIn()
         setupView()
         registerValidation()
+
+        binding.tvInformation.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Utils.addHttpIfNeeded("https://docs.google.com/document/d/19ftRqpsf9lC_nS76akrQol-_vKhiMcnqcW8JA8DnqHk/edit?usp=sharing")))
+            startActivity(intent)
+        }
     }
 
     private fun setupRegisterObserver() = setObserver<AuthResponse>(

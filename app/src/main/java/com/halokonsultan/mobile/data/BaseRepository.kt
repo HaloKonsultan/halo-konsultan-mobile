@@ -180,6 +180,23 @@ class BaseRepository @Inject constructor(
         }
     )
 
+    fun getLatestConsultation(id: Int) = networkBoundResource(
+        query = {
+            db.getDao().getLatestConsultations(id)
+        },
+        fetch = {
+            val response = api.getLatestConsultation(id)
+            response.body()?.data
+        },
+        saveFetchResult = { consultations ->
+            if (consultations != null) {
+                db.withTransaction {
+                    db.getDao().getLatestConsultations(id)
+                }
+            }
+        }
+    )
+
     fun getProfileAdvance(id: Int) = networkBoundResource(
         query = {
             db.getDao().getProfile(id)

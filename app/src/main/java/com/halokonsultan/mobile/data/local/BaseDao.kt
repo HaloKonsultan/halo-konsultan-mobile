@@ -23,6 +23,9 @@ interface BaseDao {
     @Query("SELECT * FROM consultations WHERE user_id = :id AND status = :status")
     fun getConsultationsByStatus(id:Int, status: String): Flow<List<Consultation>>
 
+    @Query("SELECT * FROM consultations WHERE user_id = :id")
+    fun getLatestConsultations(id: Int): Flow<List<Consultation>>
+
     @Query("SELECT * FROM profile WHERE id = :id")
     fun getProfile(id: Int): Flow<Profile>
 

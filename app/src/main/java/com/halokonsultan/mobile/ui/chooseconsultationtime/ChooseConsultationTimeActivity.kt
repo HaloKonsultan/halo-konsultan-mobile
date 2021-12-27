@@ -1,6 +1,7 @@
 package com.halokonsultan.mobile.ui.chooseconsultationtime
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.halokonsultan.mobile.R
@@ -95,6 +96,10 @@ class ChooseConsultationTimeActivity : ActivityWithBackButton<ActivityChooseCons
             val prefDates = intent.getParcelableArrayListExtra<ConsultationsPrefDate>(EXTRA_PREF_DATE)
             if (prefDates != null) {
                 binding.btnDateOne.text = getString(R.string.formatter_tanggal_jam, formatDate(prefDates[0].date), prefDates[0].time)
+
+                if (binding.btnDateOne.isFocused) {
+                    Log.d("Button", "Apakah button sudah di select")
+                }
 
                 if (prefDates.size > 1) {
                     while (inc < prefDates.size) {

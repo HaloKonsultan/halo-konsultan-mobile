@@ -3,7 +3,10 @@ package com.halokonsultan.mobile.ui.home
 import androidx.lifecycle.*
 import com.halokonsultan.mobile.data.BaseRepository
 import com.halokonsultan.mobile.data.model.Category
+import com.halokonsultan.mobile.data.model.Consultation
+import com.halokonsultan.mobile.data.model.Review
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,4 +29,6 @@ class HomeViewModel @Inject constructor(
         ))
         return temp
     }
+
+    fun getLatestConsultation() = repository.getLatestConsultation(repository.getUserId()).asLiveData()
 }

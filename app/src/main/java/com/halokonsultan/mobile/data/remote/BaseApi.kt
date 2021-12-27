@@ -139,6 +139,11 @@ interface BaseApi {
             @Path("id") id: Int
     ): Response<BasicResponse<Transaction>>
 
+    @GET("/users/consultations/user/{id}/latest")
+    suspend fun getLatestConsultation(
+        @Path("id") id: Int
+    ): Response<BasicResponse<Consultation>>
+
     // Forum
 
     @GET("forums/get-all-conversation/{id}")
