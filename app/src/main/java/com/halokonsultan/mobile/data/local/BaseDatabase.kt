@@ -3,8 +3,10 @@ package com.halokonsultan.mobile.data.local
 import android.content.Context
 import androidx.room.AutoMigration
 import androidx.room.Database
+import androidx.room.DeleteTable
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.AutoMigrationSpec
 import com.halokonsultan.mobile.data.model.*
 
 @Database(
@@ -14,15 +16,23 @@ import com.halokonsultan.mobile.data.model.*
         Consultation::class,
         Profile::class,
         Chat::class,
-        Message::class,
-        Review::class
+        Message::class
                ],
-    version = 3,
+    version = 4,
     exportSchema = true,
-    autoMigrations = [AutoMigration(from = 2, to = 3)]
+    autoMigrations = [
+        AutoMigration(
+            from = 3,
+            to = 4,
+            spec = BaseDatabase.BaseAutoMigration::class
+        )
+    ]
 )
 abstract class BaseDatabase : RoomDatabase() {
     abstract fun getDao(): BaseDao
+
+    @DeleteTable.Entries(DeleteTable(tableName = "reviews"))
+    class BaseAutoMigration: AutoMigrationSpec
 
     companion object {
         @Volatile

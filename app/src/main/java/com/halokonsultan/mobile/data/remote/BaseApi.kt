@@ -106,7 +106,7 @@ interface BaseApi {
 
     @FormUrlEncoded
     @PATCH("consultations/{id}")
-    suspend fun getPrefDate(
+    suspend fun setPrefDate(
         @Path("id") id: Int,
         @Field("date") date: String,
         @Field("time") time: String

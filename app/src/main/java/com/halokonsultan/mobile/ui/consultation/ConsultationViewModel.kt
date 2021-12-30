@@ -3,10 +3,7 @@ package com.halokonsultan.mobile.ui.consultation
 import androidx.lifecycle.*
 import com.halokonsultan.mobile.base.BaseViewModel
 import com.halokonsultan.mobile.data.BaseRepository
-import com.halokonsultan.mobile.data.model.Consultation
-import com.halokonsultan.mobile.data.model.Review
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,11 +22,7 @@ class ConsultationViewModel @Inject constructor(
         apiCall = { repository.pay(id, amount) }
     )
 
-    fun isReviewExist(consultationId:Int) = repository.isReviewExists(repository.getUserId(), consultationId)
-
-    fun upsertReview(consultation: Consultation) = viewModelScope.launch {
-            repository.upsertReview(Review(0, consultation.id, consultation.user_id, false))
-        }
-
-    fun getReview(consultationId: Int) = repository.getReview(consultationId)
+    fun setPrefDate(id: Int, date: String, time: String) = callApiReturnLiveData(
+        apiCall = { repository.setPrefDate(id, date, time) }
+    )
 }

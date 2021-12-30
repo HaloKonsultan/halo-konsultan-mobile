@@ -13,12 +13,15 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         app:cardBackgroundColor="@color/primary_blue"
-        app:cardCornerRadius="25dp">
+        app:cardCornerRadius="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <TextView
                 android:id="@+id/tv_message"
@@ -36,10 +39,11 @@
                 android:src="@drawable/ic_done_all"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/white"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_message"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintTop_toTopOf="@id/message_time"
+                app:layout_constraintBottom_toBottomOf="@id/message_time"
+                app:layout_constraintEnd_toStartOf="@id/message_time"/>
 
             <TextView
                 android:id="@+id/message_time"
@@ -49,7 +53,7 @@
                 android:textSize="12sp"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/tv_message"
-                app:layout_constraintStart_toEndOf="@id/img_has_read"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

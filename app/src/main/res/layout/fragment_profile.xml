@@ -30,187 +30,198 @@
         </LinearLayout>
     </Toolbar>
 
-    <TextView
-        android:id="@+id/tv_nama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/nama_lengkap"
-        android:fontFamily="@font/inter_regular"
-        android:textSize="12sp"
-        android:lineSpacingExtra="4sp"
-        android:textColor="@color/label"
-        app:layout_goneMarginStart="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <TextView
-        android:id="@+id/tv_nama_lengkap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/inter_regular"
-        android:textSize="14sp"
-        android:lineSpacingExtra="8sp"
-        android:textColor="@color/primary_black"
-        tools:text="-"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
-
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/email"
-        android:fontFamily="@font/inter_regular"
-        android:textSize="12sp"
-        android:lineSpacingExtra="4sp"
-        android:textColor="@color/label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_lengkap"
-        app:layout_goneMarginStart="16dp" />
-
-    <TextView
-        android:id="@+id/tv_nama_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/inter_regular"
-        android:textSize="14sp"
-        android:lineSpacingExtra="8sp"
-        android:textColor="@color/primary_black"
-        tools:text="-"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
-
-    <TextView
-        android:id="@+id/tv_provinsi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/inter_regular"
-        android:lineSpacingExtra="8sp"
-        android:text="@string/provinsi"
-        android:textColor="@color/label"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_email"/>
-
-    <TextView
-        android:id="@+id/tv_nama_provinsi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/inter_regular"
-        android:lineSpacingExtra="8sp"
-        android:text="-"
-        android:textColor="@color/primary_black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_provinsi"/>
-
-    <TextView
-        android:id="@+id/tv_kota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/inter_regular"
-        android:lineSpacingExtra="4sp"
-        android:text="@string/kota"
-        android:textColor="@color/label"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_provinsi"
-        app:layout_goneMarginStart="16dp" />
-
-    <TextView
-        android:id="@+id/tv_nama_kota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/inter_regular"
-        android:lineSpacingExtra="8sp"
-        tools:text="-"
-        android:textColor="@color/primary_black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_editProfil"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        android:backgroundTint="@color/primary_blue"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:fontFamily="@font/inter_medium"
-        android:textSize="14sp"
-        android:text="@string/edit_profil"
-        android:textAllCaps="false"
-        app:cornerRadius="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama_kota" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_bankDokumen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/white"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        android:text="@string/bank_dokumen"
-        android:textAllCaps="false"
-        android:textColor="@color/secondary_black"
-        app:strokeColor="@color/secondary_black"
-        android:fontFamily="@font/inter_medium"
-        android:textSize="14sp"
-        android:lineSpacingExtra="8sp"
-        app:cornerRadius="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_editProfil" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/white"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        android:text="Logout"
-        android:textAllCaps="false"
-        android:textColor="@color/danger"
-        app:strokeColor="@color/danger"
-        android:textSize="14sp"
-        app:cornerRadius="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_bankDokumen" />
+            <TextView
+                android:id="@+id/tv_nama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/nama_lengkap"
+                android:fontFamily="@font/inter_regular"
+                android:textSize="12sp"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/label"
+                app:layout_goneMarginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_nama_lengkap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter_regular"
+                android:textSize="14sp"
+                android:lineSpacingExtra="8sp"
+                android:textColor="@color/primary_black"
+                tools:text="-"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/email"
+                android:fontFamily="@font/inter_regular"
+                android:textSize="12sp"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_lengkap"
+                app:layout_goneMarginStart="16dp" />
+
+            <TextView
+                android:id="@+id/tv_nama_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter_regular"
+                android:textSize="14sp"
+                android:lineSpacingExtra="8sp"
+                android:textColor="@color/primary_black"
+                tools:text="-"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+            <TextView
+                android:id="@+id/tv_provinsi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/inter_regular"
+                android:lineSpacingExtra="8sp"
+                android:text="@string/provinsi"
+                android:textColor="@color/label"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_email"/>
+
+            <TextView
+                android:id="@+id/tv_nama_provinsi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter_regular"
+                android:lineSpacingExtra="8sp"
+                android:text="-"
+                android:textColor="@color/primary_black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_provinsi"/>
+
+            <TextView
+                android:id="@+id/tv_kota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/inter_regular"
+                android:lineSpacingExtra="4sp"
+                android:text="@string/kota"
+                android:textColor="@color/label"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_provinsi"
+                app:layout_goneMarginStart="16dp" />
+
+            <TextView
+                android:id="@+id/tv_nama_kota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/inter_regular"
+                android:lineSpacingExtra="8sp"
+                tools:text="-"
+                android:textColor="@color/primary_black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_editProfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:backgroundTint="@color/primary_blue"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:fontFamily="@font/inter_medium"
+                android:textSize="14sp"
+                android:text="@string/edit_profil"
+                android:textAllCaps="false"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_kota" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_bankDokumen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/white"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/bank_dokumen"
+                android:textAllCaps="false"
+                android:textColor="@color/secondary_black"
+                app:strokeColor="@color/secondary_black"
+                android:fontFamily="@font/inter_medium"
+                android:textSize="14sp"
+                android:lineSpacingExtra="8sp"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_editProfil" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/white"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:textColor="@color/danger"
+                app:strokeColor="@color/danger"
+                android:textSize="14sp"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_bankDokumen" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

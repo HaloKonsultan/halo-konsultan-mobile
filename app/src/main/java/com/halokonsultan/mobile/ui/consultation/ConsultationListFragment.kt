@@ -56,9 +56,6 @@ class ConsultationListFragment(private val type: Int) : BaseFragment<FragmentCon
                 } else {
                     consultationAdapter.differ.submitList(response.data)
                 }
-                if (type == TAB_TITLES[2]) {
-                    handleDoneConsultation()
-                }
             } else {
                 binding.layNoResult.visible()
                 consultationAdapter.differ.submitList(null)
@@ -79,15 +76,6 @@ class ConsultationListFragment(private val type: Int) : BaseFragment<FragmentCon
             binding.progressBar.visible()
         }
     )
-
-    private fun handleDoneConsultation() {
-        val lists = consultationAdapter.differ.currentList
-        lists.forEach { consultation ->
-            viewModel.isReviewExist(consultation.id).observe(viewLifecycleOwner, { isExist ->
-                if (!isExist) viewModel.upsertReview(consultation)
-            })
-        }
-    }
 
     private fun setupRecyclerView() {
         consultationAdapter = ConsultationAdapter(type)

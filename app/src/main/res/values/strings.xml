@@ -24,7 +24,7 @@
 
     <!--Upload Document-->
     <string name="unggah_dokumen">Unggah Dokumen</string>
-    <string name="command_unggah_dokumen">Silakan unggah dokumen-dokumen berikut, (max 1MB)</string>
+    <string name="command_unggah_dokumen">Silakan unggah dokumen-dokumen berikut</string>
     <string name="simpan_dokumen">Simpan Dokumen</string>
     <string name="unggah">Unggah</string>
 
@@ -162,4 +162,7 @@
     <string name="saat_ini_fitur_chat_bersifat_gratis">*Saat ini fitur chat bersifat gratis</string>
     <string name="konsultasi_mulai_dari">Konsultasi mulai dari</string>
     <string name="konsultasi_terbaru">Konsultasi Terbaru</string>
+    <string name="masuk_dengan_akun_demo">Masuk dengan Akun Demo</string>
+    <string name="atau">Atau</string>
+    <string name="apakah_anda_menyukai_konsultan_ini">Apakah Anda menyukai konsultan ini ?</string>
 </resources>

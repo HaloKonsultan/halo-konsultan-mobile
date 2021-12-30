@@ -74,18 +74,18 @@ class LoginActivity : ActivityWithBackButton<ActivityLoginBinding>() {
                 isNotEmpty().description("Field ini wajib diisi")
             }
             submitWith(binding.btnLogin){
-                login()
+                login(binding.etEmail.text.toString(), binding.etPassword.text.toString())
             }
         }
     }
 
-    private fun login() {
+    private fun login(email: String, password: String) {
         viewModel.getToken()
         viewModel.token.observe(this, { token ->
             if (token is Resource.Success) {
                 viewModel.login(
-                    binding.etEmail.text.toString(),
-                    binding.etPassword.text.toString(),
+                    email,
+                    password,
                     token.data.toString()
                 ).observe(this, loginObserver)
             }

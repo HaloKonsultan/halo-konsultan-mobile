@@ -32,6 +32,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
     private fun setupChatObserver(shouldAppend: Boolean) = setObserver<List<Chat>>(
         onSuccess = { response ->
+            binding.swiper.isRefreshing = false
             binding.progressBar.gone()
             binding.layNoInet.gone()
 

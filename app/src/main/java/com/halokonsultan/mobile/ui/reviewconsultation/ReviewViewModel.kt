@@ -17,8 +17,4 @@ class ReviewViewModel @Inject constructor(
     fun review(id: Int, isLike: Boolean) = callApiReturnLiveData(
         apiCall = { repository.reviewConsultation(id, isLike.toInt()) }
     )
-
-    fun updateReview(id: Int) = viewModelScope.launch {
-        repository.setHasReview(id)
-    }
 }

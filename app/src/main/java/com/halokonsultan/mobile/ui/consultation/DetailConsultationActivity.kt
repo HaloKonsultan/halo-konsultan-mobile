@@ -13,10 +13,8 @@ import androidx.core.view.isVisible
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.ActivityWithCustomToolbar
 import com.halokonsultan.mobile.data.model.DetailConsultation
-import com.halokonsultan.mobile.data.model.Review
 import com.halokonsultan.mobile.data.model.Transaction
 import com.halokonsultan.mobile.databinding.ActivityDetailConsultationBinding
-import com.halokonsultan.mobile.ui.chooseconsultationtime.ChooseConsultationTimeActivity
 import com.halokonsultan.mobile.ui.payment.PaymentActivity
 import com.halokonsultan.mobile.ui.reviewconsultation.ReviewConsultationActivity
 import com.halokonsultan.mobile.ui.uploaddocument.UploadDocumentActivity
@@ -25,6 +23,7 @@ import com.halokonsultan.mobile.utils.Utils.addHttpIfNeeded
 import com.halokonsultan.mobile.utils.Utils.addRootDomainIfNeeded
 import com.halokonsultan.mobile.utils.Utils.formatPrice
 import com.halokonsultan.mobile.utils.Utils.strDate
+import com.halokonsultan.mobile.utils.Utils.toBoolean
 import com.halokonsultan.mobile.utils.Utils.toString
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +39,6 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
         = ActivityDetailConsultationBinding::inflate
     private val viewModel: ConsultationViewModel by viewModels()
     private var data: DetailConsultation? = null
-    private var reviewData: Review? = null
     private val consultationObserver by lazy { setupConsultationObserver() }
     private val paymentObserver by lazy { setupPaymentObserver() }
 
@@ -62,12 +60,18 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
 
     private fun setupPaymentObserver() = setObserverWithBasicResponse<Transaction>(
         onSuccess = { response ->
+            binding.paymentProgressBar.gone()
             val paymentData = response.data?.data
             val intent = Intent(baseContext, PaymentActivity::class.java)
             intent.putExtra(PaymentActivity.EXTRA_URL, paymentData?.invoice_url)
             intent.putExtra(PaymentActivity.EXTRA_ID, paymentData?.id)
             startActivity(intent)
-        }
+        },
+        onError = { response ->
+            binding.paymentProgressBar.gone()
+            showToast(response.message.toString())
+        },
+        onLoading = { binding.paymentProgressBar.visible() }
     )
 
     private fun setupConsultationObserver() = setObserverWithBasicResponse<DetailConsultation>(
@@ -99,7 +103,8 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
 
             btnChooseTime.setOnClickListener {
                 val intent = Intent(this@DetailConsultationActivity, ChooseConsultationTimeActivity::class.java)
-                intent.putParcelableArrayListExtra(ChooseConsultationTimeActivity.EXTRA_PREF_DATE,
+                intent.putParcelableArrayListExtra(
+                    ChooseConsultationTimeActivity.EXTRA_PREF_DATE,
                         ArrayList(data?.consultation_preference_date?.toMutableList() ?: mutableListOf()))
                 intent.putExtra(ChooseConsultationTimeActivity.EXTRA_ID, data?.id)
                 startActivity(intent)
@@ -228,19 +233,15 @@ class DetailConsultationActivity : ActivityWithCustomToolbar<ActivityDetailConsu
     }
 
     private fun getReview() {
-        viewModel.getReview(data?.id ?: 0).observe(this, {
-            reviewData = it
-            if (!reviewData!!.hasReviewed) {
-                binding.btnReview.setOnClickListener {
-                    intent = Intent(this@DetailConsultationActivity, ReviewConsultationActivity::class.java)
-                    intent.putExtra(ReviewConsultationActivity.EXTRA_ID, data?.id)
-                    intent.putExtra(ReviewConsultationActivity.EXTRA_REVIEW_ID, reviewData!!.id)
-                    startActivity(intent)
-                }
-            } else {
-                binding.btnReview.isVisible = false
+        if (data?.review?.toBoolean() == false) {
+            binding.btnReview.setOnClickListener {
+                intent = Intent(this@DetailConsultationActivity, ReviewConsultationActivity::class.java)
+                intent.putExtra(ReviewConsultationActivity.EXTRA_ID, data?.id)
+                startActivity(intent)
             }
-        })
+        } else {
+            binding.btnReview.isVisible = false
+        }
     }
 
     private fun disableChooseTimeAndDocument() {

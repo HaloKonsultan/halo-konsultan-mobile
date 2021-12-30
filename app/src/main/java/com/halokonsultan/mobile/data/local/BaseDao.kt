@@ -35,18 +35,6 @@ interface BaseDao {
     @Query("SELECT * FROM messages WHERE forum_id = :id")
     fun getMessages(id: Int): Flow<List<Message>>
 
-    @Query("SELECT * FROM reviews WHERE userId = :userId")
-    fun getReviews(userId: Int): LiveData<List<Review>>
-
-    @Query("SELECT * FROM reviews WHERE consultationId = :consultationId")
-    fun getReview(consultationId: Int): LiveData<Review>
-
-    @Query("SELECT EXISTS(SELECT * FROM reviews WHERE userId = :userId AND consultationId = :consultationId)")
-    fun isReviewExist(userId: Int, consultationId: Int): LiveData<Boolean>
-
-    @Query("UPDATE reviews SET hasReviewed = 1 WHERE id = :id")
-    suspend fun setHasReview(id: Int)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertCategories(categories: List<Category>)
 
@@ -67,9 +55,6 @@ interface BaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertMessages(messages: List<Message>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertReview(review: Review)
 
     @Query("DELETE FROM categories")
     suspend fun deleteAllCategories()

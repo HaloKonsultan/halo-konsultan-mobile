@@ -10,6 +10,7 @@ data class DetailConsultation(
         val date: String?,
         val time: String?,
         val is_confirmed: Int,
+        val review: Int,
         val location: String,
         val preference: String,
         val status: String,

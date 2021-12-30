@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
+import com.halokonsultan.mobile.BuildConfig
 import com.halokonsultan.mobile.R
 import com.halokonsultan.mobile.base.BaseActivity
 import com.halokonsultan.mobile.data.model.Transaction
@@ -30,6 +31,7 @@ class PaymentActivity : BaseActivity<ActivityPaymentBinding>() {
 
     override fun setup() {
         supportActionBar?.title = "Pembayaran"
+        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
         val bundle = intent.extras
         if (bundle != null) {
             val invoiceUrl = intent.getStringExtra(EXTRA_URL).toString()
@@ -55,6 +57,9 @@ class PaymentActivity : BaseActivity<ActivityPaymentBinding>() {
     @SuppressLint("SetJavaScriptEnabled")
     private fun loadPage(invoiceUrl: String) {
         with(binding.wvInvoice) {
+            settings.domStorageEnabled = true
+            settings.allowContentAccess = true
+            settings.javaScriptCanOpenWindowsAutomatically = true
             settings.javaScriptEnabled = true
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
